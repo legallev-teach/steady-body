@@ -1,0 +1,2252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>The Steady Body</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: one reading column of "stations"; each simulator is a lab-bench panel that splits controls | diagram on wide screens and stacks on phones */
+:root{
+  --bg:#EDF2F1; --surface:#FFFFFF; --surface-2:#F5F8F7; --ink:#14201F; --muted:#56686A; --line:#D2DCDA;
+  --accent:#0D716D; --accent-soft:#D9EFEC;
+  --heat:#C4461B; --heat-soft:#FBE5DB; --cold:#2B6CA3; --cold-soft:#DCEAF6;
+  --sugar:#A87400; --sugar-soft:#FAEFD1; --water:#1D65A4; --water-soft:#DAE9F6;
+  --blood:#BC2A3B; --blood-soft:#F7DADE; --vein:#7E2440;
+  --good:#22804E; --good-soft:#DAF0E2; --warn:#A86300; --warn-soft:#FBEBD2; --bad:#B42318; --bad-soft:#FBE0DC;
+  --skin-epi:#E7C0A0; --skin-derm:#F3DCC8; --fat:#F5E6B6; --air:#E2EDF4; --filtrate:#E7F2FA; --tubule:#D9A577;
+  --protein:#7650B0; --salt:#6A8689; --urea:#557F2A; --muscle:#B5546A;
+  --tone:var(--accent); --tone-soft:var(--accent-soft);
+  --font-display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --font-body:"Atkinson Hyperlegible","Segoe UI",system-ui,-apple-system,sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D1718; --surface:#152223; --surface-2:#1B2A2C; --ink:#E3EDEC; --muted:#97AAAB; --line:#2C3D3F;
+    --accent:#45B8B1; --accent-soft:#163533;
+    --heat:#FF7F52; --heat-soft:#3A2219; --cold:#6BAEE6; --cold-soft:#172C3D;
+    --sugar:#EFC04E; --sugar-soft:#33290F; --water:#64AFEA; --water-soft:#14293A;
+    --blood:#F0647A; --blood-soft:#3A1B21; --vein:#C25C7A;
+    --good:#4CC384; --good-soft:#15321F; --warn:#F0A63C; --warn-soft:#382811; --bad:#FF7B6F; --bad-soft:#3B1A17;
+    --skin-epi:#8B6349; --skin-derm:#5F4434; --fat:#6E6038; --air:#182934; --filtrate:#16303F; --tubule:#9C6B45;
+    --protein:#B790F2; --salt:#A8C2C5; --urea:#9BCB62; --muscle:#D9788E;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+    --bg:#0D1718; --surface:#152223; --surface-2:#1B2A2C; --ink:#E3EDEC; --muted:#97AAAB; --line:#2C3D3F;
+    --accent:#45B8B1; --accent-soft:#163533;
+    --heat:#FF7F52; --heat-soft:#3A2219; --cold:#6BAEE6; --cold-soft:#172C3D;
+    --sugar:#EFC04E; --sugar-soft:#33290F; --water:#64AFEA; --water-soft:#14293A;
+    --blood:#F0647A; --blood-soft:#3A1B21; --vein:#C25C7A;
+    --good:#4CC384; --good-soft:#15321F; --warn:#F0A63C; --warn-soft:#382811; --bad:#FF7B6F; --bad-soft:#3B1A17;
+    --skin-epi:#8B6349; --skin-derm:#5F4434; --fat:#6E6038; --air:#182934; --filtrate:#16303F; --tubule:#9C6B45;
+    --protein:#B790F2; --salt:#A8C2C5; --urea:#9BCB62; --muscle:#D9788E;
+    color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.55}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--surface)}
+.wrap{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+p{margin:0;max-width:66ch}
+h1,h2,h3,h4{margin:0;text-wrap:balance}
+h1{font-family:var(--font-display);font-weight:800;font-size:clamp(34px,7vw,56px);line-height:1.02;letter-spacing:-.02em}
+h2{font-family:var(--font-display);font-weight:600;font-size:clamp(24px,4.4vw,30px);line-height:1.15;letter-spacing:-.01em}
+h3{font-size:18px;line-height:1.3}
+strong{font-weight:700}
+.eyebrow{font-size:12.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--tone)}
+.muted{color:var(--muted)}
+.small{font-size:14.5px}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--tone);outline-offset:2px}
+
+/* header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
+.top-in{display:flex;align-items:center;gap:10px 14px;flex-wrap:wrap;padding-block:10px 6px}
+.brand{display:flex;flex-direction:column;min-width:0}
+.brand-name{font-family:var(--font-display);font-weight:800;font-size:20px;letter-spacing:-.01em;line-height:1.1}
+.brand-sub{font-size:11.5px;color:var(--muted);letter-spacing:.07em;text-transform:uppercase}
+.score{margin-left:auto;display:flex;align-items:baseline;gap:4px;font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+.score b{font-size:30px;font-weight:700;line-height:1}
+.score span{font-size:14px;color:var(--muted)}
+.score .ii{width:22px;height:22px;align-self:center;color:var(--sugar)}
+.score.bump b{animation:bump .5s ease}
+@keyframes bump{40%{transform:scale(1.25);color:var(--good)}}
+.badges{display:flex;gap:5px}
+.badge{width:30px;height:30px;border-radius:50%;border:2px dashed var(--line);display:grid;place-items:center;color:var(--muted)}
+.badge svg{width:16px;height:16px}
+.badge.on{border-style:solid;border-color:currentColor;background:var(--surface-2)}
+.badge.b-start.on{color:var(--accent)} .badge.b-temp.on{color:var(--heat)} .badge.b-sugar.on{color:var(--sugar)} .badge.b-water.on{color:var(--water)} .badge.b-finish.on{color:var(--good)}
+.tabs{display:flex;gap:4px;overflow-x:auto;padding-block:2px 8px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:0 0 auto;font-size:14.5px;font-weight:700;border:0;background:transparent;color:var(--muted);padding:7px 13px;border-radius:999px;cursor:pointer;min-height:38px;display:flex;align-items:center;gap:6px}
+.tabs button:hover{color:var(--ink);background:var(--surface-2)}
+.tabs button[aria-current="page"]{background:var(--ink);color:var(--bg)}
+.tabs .dot{width:8px;height:8px;border-radius:50%;background:var(--line)}
+.tabs .dot.done{background:var(--good)}
+
+/* sections */
+.sec{padding-block:8px 64px}
+.sec[data-tone="heat"]{--tone:var(--heat);--tone-soft:var(--heat-soft)}
+.sec[data-tone="sugar"]{--tone:var(--sugar);--tone-soft:var(--sugar-soft)}
+.sec[data-tone="water"]{--tone:var(--water);--tone-soft:var(--water-soft)}
+.sec[data-tone="good"]{--tone:var(--good);--tone-soft:var(--good-soft)}
+.opener{display:grid;gap:12px;padding-block:28px 18px}
+.opener .lede{font-size:19px;color:var(--ink)}
+.flow{display:grid;gap:22px}
+.flow > section, .block{display:grid;gap:12px}
+hr.rule{border:0;border-top:1px solid var(--line);margin:8px 0}
+
+/* panels */
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:grid;gap:14px;min-width:0}
+.bench{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:18px;align-items:start}
+.bench > *{min-width:0}
+@media (max-width:760px){.bench{grid-template-columns:minmax(0,1fr)}}
+.panel-title{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.panel-title h3{font-family:var(--font-display);font-weight:600;font-size:20px}
+.ctrls{display:grid;gap:14px}
+.ctrl{display:grid;gap:6px}
+.ctrl > .lab{font-size:12.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:8px}
+.ctrl > .lab output{font-family:var(--font-mono);color:var(--ink);letter-spacing:0;text-transform:none;font-size:14px}
+input[type=range]{width:100%;accent-color:var(--tone);height:30px}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button,.act{border:1.5px solid var(--line);background:var(--surface-2);border-radius:10px;padding:8px 12px;min-height:44px;cursor:pointer;font-size:15px;font-weight:700;text-align:left;line-height:1.25}
+.seg button:hover,.act:hover{border-color:var(--tone)}
+.seg button[aria-pressed="true"]{border-color:var(--tone);background:var(--tone-soft)}
+.act{display:flex;align-items:center;gap:8px}
+.act:active{transform:translateY(1px)}
+.act .ico{flex:0 0 auto;width:22px;height:22px;color:var(--tone)}
+.act.flash{animation:flash .6s ease}
+@keyframes flash{30%{background:var(--tone-soft);border-color:var(--tone)}}
+.acts{display:grid;gap:8px}
+.switch{display:flex;align-items:center;gap:10px;cursor:pointer;font-weight:700;font-size:15px;min-height:44px}
+.switch input{appearance:none;width:46px;height:26px;border-radius:999px;background:var(--line);position:relative;cursor:pointer;flex:0 0 auto;transition:background .2s}
+.switch input::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--surface);transition:transform .2s}
+.switch input:checked{background:var(--tone)}
+.switch input:checked::after{transform:translateX(20px)}
+.btn{border:0;border-radius:10px;padding:10px 16px;min-height:44px;font-weight:700;cursor:pointer;background:var(--ink);color:var(--bg);font-size:15.5px}
+.btn.tone{background:var(--tone);color:var(--surface)}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.ghost{border:1.5px solid var(--line);background:transparent;border-radius:10px;padding:8px 14px;min-height:42px;font-weight:700;cursor:pointer;font-size:14.5px;color:var(--muted)}
+.ghost:hover{color:var(--ink);border-color:var(--ink)}
+.ghost.armed{color:var(--bad);border-color:var(--bad);background:var(--bad-soft)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.next-row{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;margin-top:8px}
+
+/* readouts */
+.reads{display:grid;gap:0;border-top:1px solid var(--line)}
+.read{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px;padding:9px 0;border-bottom:1px solid var(--line)}
+.read .k{font-weight:700;font-size:15px}
+.read .v{font-size:14.5px;font-weight:700;text-align:right}
+.read .because{grid-column:1 / -1;font-size:14px;color:var(--muted)}
+.read.on .v{color:var(--tone)}
+.big{font-family:var(--font-mono);font-variant-numeric:tabular-nums;font-weight:700;font-size:32px;line-height:1}
+.pill{display:inline-block;font-size:13px;font-weight:700;padding:3px 10px;border-radius:999px;white-space:nowrap}
+.pill.good{background:var(--good-soft);color:var(--good)} .pill.warn{background:var(--warn-soft);color:var(--warn)} .pill.bad{background:var(--bad-soft);color:var(--bad)} .pill.cold{background:var(--cold-soft);color:var(--cold)}
+.statline{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+
+/* diagrams */
+.fig{width:100%;overflow-x:auto}
+.fig svg{display:block;width:100%;height:auto}
+.fig.wide svg{min-width:520px}
+svg text{font-family:var(--font-body);fill:var(--ink);font-size:12px}
+svg .lbl{font-size:12px;font-weight:700}
+svg .lbl-s{font-size:11px;fill:var(--muted)}
+.phone-only{display:none}
+#reflIn{width:100%;font:inherit;font-size:16.5px;line-height:1.5;padding:12px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);resize:vertical;min-height:150px}
+#reflIn:focus{border-color:var(--tone);outline:none}
+.sendbox{display:grid;gap:10px;background:var(--surface);border:2px solid var(--tone);border-radius:16px;padding:16px}
+.sendbox .btn{text-decoration:none;display:inline-flex;align-items:center}
+.sendbox .btn[aria-disabled="true"]{opacity:.35;pointer-events:none}
+.addr{user-select:all;-webkit-user-select:all;font-family:var(--font-mono);font-weight:700}
+.cert .refl{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;font-size:15.5px;white-space:pre-wrap;word-break:break-word}
+.cert .refl .k{display:block;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:4px}
+@media (max-width:560px){header.top .badges,.brand-sub{display:none}.top-in{padding-block:8px 2px}}
+@media (max-width:560px){#filterSvg text{font-size:17px}#wSvg text{font-size:15px}#gMap .lbl-s{font-size:14px}#kSvg text{font-size:17px}.phone-only{display:block}#gGraph text,#acGraph text{font-size:19px}.fig:not(.wide) svg .lbl{font-size:13.5px}.fig:not(.wide) svg .lbl-s{font-size:12.5px}}
+svg .lead{stroke:var(--muted);stroke-width:1;fill:none}
+.f-air{fill:var(--air)} .f-epi{fill:var(--skin-epi)} .f-derm{fill:var(--skin-derm)} .f-fat{fill:var(--fat)}
+.f-blood{fill:var(--blood)} .s-blood{stroke:var(--blood);fill:none} .s-vein{stroke:var(--vein);fill:none}
+.f-surface{fill:var(--surface)} .f-surface2{fill:var(--surface-2)} .s-ink{stroke:var(--ink);fill:none} .s-line{stroke:var(--line);fill:none}
+.caption{font-size:14px;color:var(--muted)}
+.shiver{animation:shiver .09s linear infinite}
+@keyframes shiver{0%{transform:translate(0,0)}25%{transform:translate(-1.6px,.5px)}50%{transform:translate(1.4px,-.4px)}75%{transform:translate(-1px,-.6px)}}
+.flowing{stroke-dasharray:4 6;animation:dash 1.6s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-20}}
+.hum{animation:hum .35s ease-in-out infinite alternate}
+@keyframes hum{to{transform:translateX(2px)}}
+.rise{animation:rise 3.2s ease-in infinite}
+@keyframes rise{0%{transform:translateY(6px);opacity:0}30%{opacity:.9}100%{transform:translateY(-16px);opacity:0}}
+
+/* text blocks */
+.think{border:1.5px dashed var(--tone);border-radius:14px;padding:12px 16px;display:grid;gap:6px;background:var(--surface)}
+.think .tag{font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--tone)}
+.whys{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:640px){.whys{grid-template-columns:minmax(0,1fr)}}
+.why{background:var(--surface-2);border-radius:14px;padding:14px 16px;display:grid;gap:6px;align-content:start}
+.why h3{font-size:16.5px}
+.why p{font-size:15.5px}
+.fact{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.fact .num{font-family:var(--font-display);font-weight:800;font-size:40px;line-height:1;color:var(--tone)}
+.fact p{font-size:15.5px}
+table.map{width:100%;border-collapse:collapse;font-size:15px}
+table.map th,table.map td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+table.map th{font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+table.map td:first-child{font-weight:700}
+.tablewrap{overflow-x:auto}
+ol.loop{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px;align-items:stretch}
+ol.loop li{flex:1 1 140px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:14.5px;position:relative}
+ol.loop li b{display:block;font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--tone);margin-bottom:2px}
+.loopback{font-size:14px;color:var(--muted);display:flex;align-items:center;gap:8px}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:640px){.two{grid-template-columns:minmax(0,1fr)}}
+
+/* missions */
+.missions{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.missions li{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:10px;align-items:start;padding:10px 12px;border-radius:12px;background:var(--surface-2);font-size:15.5px}
+.missions .box{width:24px;height:24px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center;margin-top:1px}
+.missions li.done .box{background:var(--tone);border-color:var(--tone);color:var(--surface)}
+.missions li.done .mt{color:var(--muted)}
+.missions .pts{font-family:var(--font-mono);font-size:13px;color:var(--muted);white-space:nowrap}
+.missions li.done .pts{color:var(--good)}
+.missions .hint{display:block;font-size:13.5px;color:var(--muted)}
+.mhead{display:flex;align-items:baseline;justify-content:space-between;gap:8px;flex-wrap:wrap}
+
+/* quiz */
+.quiz{display:grid;gap:14px}
+.qhead{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.qhead h2{display:flex;align-items:center;gap:10px}
+.qprog{font-family:var(--font-mono);font-size:14px;color:var(--muted)}
+.q{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:grid;gap:10px}
+.q.solved{border-color:var(--good)}
+.q .qn{font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:8px}
+.q .qn .earned{color:var(--good);font-family:var(--font-mono);letter-spacing:0}
+.q h4{font-size:17.5px;line-height:1.4;font-weight:700}
+.opts{display:grid;gap:8px}
+.opt{display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;align-items:start;text-align:left;border:1.5px solid var(--line);background:var(--surface-2);border-radius:12px;padding:10px 12px;cursor:pointer;font-size:15.5px;line-height:1.4;min-height:48px}
+.opt:hover:not(:disabled){border-color:var(--tone)}
+.opt .L{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:700;background:var(--surface);border:1.5px solid var(--line)}
+.opt.wrong{background:var(--bad-soft);border-color:var(--bad);cursor:default}
+.opt.wrong .L{background:var(--bad);border-color:var(--bad);color:var(--surface)}
+.opt.right{background:var(--good-soft);border-color:var(--good)}
+.opt.right .L{background:var(--good);border-color:var(--good);color:var(--surface)}
+.opt:disabled{cursor:default}
+.opt .fb{display:block;font-size:14.5px;margin-top:6px;color:var(--ink)}
+.opt .fb b{color:var(--bad)}
+.opt.right .fb b{color:var(--good)}
+.explain{background:var(--good-soft);border-radius:12px;padding:10px 14px;font-size:15px}
+
+/* toast */
+#toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translate(-50%,calc(100% + 40px));visibility:hidden;background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:12px;font-weight:700;font-size:15px;z-index:40;transition:transform .3s ease;max-width:calc(100vw - 32px);text-align:center}
+#toast.show{transform:translate(-50%,0);visibility:visible}
+#toast:empty{display:none}
+
+/* name + certificate */
+.namebox{display:flex;gap:8px;flex-wrap:wrap}
+.namebox input{flex:1 1 220px;min-width:0;font:inherit;font-size:17px;padding:10px 12px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);min-height:46px}
+.cert{border:3px solid var(--ink);border-radius:20px;padding:22px 20px;display:grid;gap:14px;background:var(--surface);position:relative;overflow:hidden}
+.cert::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent 0 14px,var(--surface-2) 14px 15px);opacity:.9;pointer-events:none}
+.cert > *{position:relative}
+.cert .who{font-family:var(--font-display);font-weight:800;font-size:clamp(28px,6vw,40px);line-height:1.05;word-break:break-word}
+.cert .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+@media (max-width:520px){.cert .grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.cert .cell{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px}
+.cert .cell .k{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.cert .cell .v{font-family:var(--font-mono);font-weight:700;font-size:20px;font-variant-numeric:tabular-nums}
+.stars{display:flex;gap:4px;color:var(--sugar)}
+.stars svg{width:30px;height:30px}
+.cert .bdg{display:flex;gap:8px;flex-wrap:wrap}
+.cert .bdg span{font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;border:1.5px solid var(--line);color:var(--muted)}
+.cert .bdg span.on{border-color:var(--good);color:var(--good);background:var(--good-soft)}
+
+/* gauges */
+.gauge{position:relative;height:16px;border-radius:999px;display:flex;overflow:hidden}
+.gauge > i{display:block;height:100%}
+.gauge-wrap{position:relative;padding-top:4px}
+.gauge-mark{position:absolute;top:0;width:4px;height:24px;border-radius:2px;background:var(--ink);transform:translateX(-50%);transition:left .35s ease}
+.gauge-labels{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);margin-top:4px}
+.bar{height:12px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line);overflow:hidden}
+.bar > i{display:block;height:100%;width:0;border-radius:999px;transition:width .35s ease}
+.meter{display:grid;gap:4px}
+.meter .mk{display:flex;justify-content:space-between;font-size:14px;font-weight:700}
+.meter .mk span{font-family:var(--font-mono);font-weight:500;color:var(--muted)}
+.organs{display:grid;gap:8px;list-style:none;margin:0;padding:0}
+.organs li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 10px;align-items:start;padding:10px 12px;border-radius:12px;background:var(--surface-2);font-size:15px;transition:background .3s}
+.organs li .st{grid-row:span 2}
+.organs li b{font-size:15.5px}
+.organs li.hit{background:var(--bad-soft)}
+.organs li .desc{color:var(--muted)}
+.organs li.hit .desc{color:var(--ink)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:14px}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{display:inline-block;border-radius:50%}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:8px;counter-reset:st}
+.steps li{display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;padding:10px 12px;border-radius:12px;background:var(--surface-2);font-size:15px;border:1.5px solid transparent}
+.steps li::before{counter-increment:st;content:counter(st);width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px;background:var(--surface);border:1.5px solid var(--line)}
+.steps li.cur{border-color:var(--tone);background:var(--tone-soft)}
+.steps li.cur::before{background:var(--tone);border-color:var(--tone);color:var(--surface)}
+.steps li.done::before{content:"✓";background:var(--good);border-color:var(--good);color:var(--surface)}
+.result{background:var(--tone-soft);border-radius:12px;padding:12px 14px;font-size:15.5px}
+.result:empty{display:none}
+
+svg.ii{width:1.05em;height:1.05em;vertical-align:-.17em;display:inline-block;flex:0 0 auto}
+.c-cold{color:var(--cold)} .c-heat{color:var(--heat)} .c-sugar{color:var(--sugar)} .c-water{color:var(--water)} .c-muted{color:var(--muted)}
+h1 svg.ii{width:.62em;height:.62em;vertical-align:.04em}
+.steady{display:grid;grid-template-columns:minmax(0,1fr) 120px minmax(0,1fr);gap:14px;align-items:center;border-radius:20px;padding:18px;background:var(--st-bg,var(--cold-soft));transition:background-color 1.8s ease;border:1px solid var(--line)}
+.st-side{display:grid;gap:4px;min-width:0}
+.st-k{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.st-scene{font-family:var(--font-display);font-weight:600;font-size:clamp(17px,3.4vw,23px);line-height:1.15;transition:opacity .6s ease}
+.st-val{font-family:var(--font-mono);font-weight:700;font-size:20px;transition:opacity .6s ease}
+.st-hide{opacity:0}
+.st-in{background:var(--surface);border-radius:14px;padding:12px;border:2px solid var(--good)}
+.st-in .st-k{color:var(--good)}
+.st-row{display:flex;align-items:center;gap:6px;font-size:15px;flex-wrap:wrap}
+.st-row b{font-family:var(--font-mono)}
+.st-body svg{width:100%;height:auto;max-height:210px;display:block}
+@media (max-width:520px){.steady{grid-template-columns:minmax(0,1fr) 70px minmax(0,1fr);padding:12px;gap:8px}.st-row{font-size:13px}.st-val{font-size:17px}}
+.think .seg button:disabled{opacity:.45;cursor:default}
+.think .seg button.locked{opacity:1;border-color:var(--tone);background:var(--tone-soft)}
+.pred-out{display:grid;gap:8px;font-size:15.5px;justify-items:start}
+.pred-out:empty{display:none}
+.pred-ans{background:var(--surface-2);border-radius:10px;padding:10px 12px}
+.pic{display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.pic .pic-ico{width:28px;height:28px;color:var(--tone)}
+.pic .tag{font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--tone);display:block;margin-bottom:4px}
+.pic p{font-size:16px}
+.why p + p{margin-top:6px}
+.earn{border:2px solid var(--tone);border-radius:22px;padding:18px 14px;display:grid;gap:18px;background:var(--tone-soft)}
+@media (min-width:640px){.earn{padding:22px}}
+.earn-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.earn-head .eyebrow{display:flex;align-items:center;gap:6px}
+.earn-tally{font-family:var(--font-mono);display:flex;align-items:baseline;gap:6px;font-variant-numeric:tabular-nums}
+.earn-tally b{font-size:32px;line-height:1}
+.earn-tally span{font-size:13.5px;color:var(--muted)}
+.earn .missions li{background:var(--surface)}
+.earn .qhead h2{font-size:22px}
+.mnote{font-size:14.5px;color:var(--muted);display:flex;gap:8px;align-items:flex-start;margin:0}
+.mnote .ii{margin-top:3px}
+.mnote .ii{color:var(--sugar)}
+.act.hot{background:var(--heat-soft);border-color:var(--heat)}
+.act.hot .ico{color:var(--heat)}
+.act .ico{fill:none}
+#acPanel{position:relative;overflow:hidden}
+.hotwash{position:absolute;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(236,104,128,.45) 0%,rgba(236,104,128,.25) 45%,rgba(236,104,128,0) 70%);transform:translate(-50%,-50%) scale(.05);animation:wash 3.6s ease-out forwards;z-index:2}
+@keyframes wash{55%{opacity:1}100%{transform:translate(-50%,-50%) scale(1);opacity:0}}
+.clock{display:flex;align-items:center;gap:10px}
+.clock svg{width:50px;height:50px;flex:0 0 auto}
+.clock b{display:block;font-family:var(--font-mono);font-size:19px}
+.clock span{display:block}
+#clkH,#clkM{transition:transform .7s ease;transform-origin:24px 24px}
+.offer{background:var(--surface);border:1.5px dashed var(--tone);border-radius:12px;padding:10px 12px;display:grid;gap:8px;font-size:15px;justify-items:start}
+.kcap{font-size:16px;min-height:4.5em;max-width:66ch}
+table.tally{width:100%;border-collapse:collapse;font-size:14.5px;font-variant-numeric:tabular-nums;background:var(--surface);border-radius:12px;overflow:hidden}
+table.tally th,table.tally td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:center}
+table.tally th{font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);vertical-align:bottom;line-height:1.25}
+table.tally td:first-child,table.tally th:first-child{text-align:left;white-space:nowrap}
+table.tally td.new{background:var(--tone-soft);font-weight:700}
+table.tally td.z{color:var(--muted)}
+table.tally .sw{display:inline-block;border-radius:50%;margin-right:7px;vertical-align:middle}
+#skinSvg #arteriole,#skinSvg #capLoop,#skinSvg #venule,#skinSvg #erector{transition:stroke-width 1.2s ease,opacity 1.2s ease}
+#skinSvg #flush,#skinSvg #radiate,#skinSvg #vapour,#skinSvg #drops path,#skinSvg #coreGlow,#skinSvg #ball,#skinSvg #bump{transition:opacity 1.2s ease}
+#hairLine{transform-box:fill-box;transform-origin:50% 100%;transition:transform 1.4s ease}
+@media (prefers-reduced-motion: reduce){.steady,.st-scene,.st-val,#hairLine{transition:none}.shiver,.flowing,.hum,.rise,.score.bump b{animation:none}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-cold" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2.5v19M3.8 7.3l16.4 9.4M3.8 16.7l16.4-9.4"/><path d="M9.5 4.5 12 7l2.5-2.5M9.5 19.5 12 17l2.5 2.5"/></g></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></g></symbol>
+  <symbol id="i-rice" viewBox="0 0 24 24"><path d="M2.5 12.5h19a9.5 7.5 0 0 1-19 0z" fill="currentColor"/><path d="M5.5 11.5c.8-3 3.3-5 6.5-5s5.7 2 6.5 5" fill="none" stroke="currentColor" stroke-width="2"/><g fill="currentColor"><circle cx="9" cy="9.5" r="1"/><circle cx="12" cy="8.5" r="1"/><circle cx="15" cy="9.5" r="1"/></g></symbol>
+  <symbol id="i-plate" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/></g></symbol>
+  <symbol id="i-bottle" viewBox="0 0 24 24"><path d="M9.5 3h5v2.5l2 3V21h-9V8.5l2-3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8.5 12h7v8h-7z" fill="currentColor"/></symbol>
+  <symbol id="i-bottle0" viewBox="0 0 24 24"><path d="M9.5 3h5v2.5l2 3V21h-9V8.5l2-3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-dasharray="3 2"/></symbol>
+  <symbol id="i-thermo" viewBox="0 0 24 24"><path d="M10 14V5a2 2 0 1 1 4 0v9a4 4 0 1 1-4 0z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="17.2" r="2" fill="currentColor"/><path d="M12 15V9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-sugar" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M4 7.5 12 12l8-4.5M12 12v9"/></g></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3s6.5 7.2 6.5 11.3a6.5 6.5 0 0 1-13 0C5.5 10.2 12 3 12 3z" fill="currentColor"/></symbol>
+  <symbol id="i-bulb" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2h5c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3z"/></g></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z" fill="currentColor"/></symbol>
+  <symbol id="i-reset" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 1 0 2.6-5.9"/><path d="M4 4v5h5"/></g></symbol>
+  <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-mute" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M17 9l5 6M22 9l-5 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z" fill="currentColor"/></symbol>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <div class="top-in">
+      <div class="brand"><span class="brand-name">The Steady Body</span><span class="brand-sub">HSB · Form 5 · Homeostasis</span></div>
+      <div class="score" id="score" aria-live="polite"><svg class="ii c-sugar" aria-hidden="true"><use href="#i-star"/></svg><b id="ptsNow">0</b><span>/ <span id="ptsMax">0</span> points</span></div>
+      <div class="badges" id="badgeRow" aria-label="Badges earned"></div>
+    </div>
+    <nav class="tabs" id="tabs" aria-label="Parts of the class">
+      <button data-go="start"><i class="dot" data-dot="start"></i>Start</button>
+      <button data-go="temp"><i class="dot" data-dot="temp"></i>1 · Temperature</button>
+      <button data-go="sugar"><i class="dot" data-dot="sugar"></i>2 · Blood sugar</button>
+      <button data-go="water"><i class="dot" data-dot="water"></i>3 · Water</button>
+      <button data-go="finish"><i class="dot" data-dot="finish"></i>Finish</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ================= START ================= -->
+<section class="sec" data-sec="start" id="sec-start">
+  <div class="opener">
+    <span class="eyebrow">Extra lesson · work through this on your own</span>
+    <h1>The Steady Body</h1>
+    <p class="lede">In one day you can go from a cold AC classroom <svg class="ii c-cold" aria-hidden="true"><use href="#i-cold"/></svg> to the midday sun <svg class="ii c-heat" aria-hidden="true"><use href="#i-sun"/></svg>, from a big plate of rice <svg class="ii c-sugar" aria-hidden="true"><use href="#i-rice"/></svg> to a long morning with no food <svg class="ii c-muted" aria-hidden="true"><use href="#i-plate"/></svg>, and from a full bottle of water <svg class="ii c-water" aria-hidden="true"><use href="#i-bottle"/></svg> to a football match with none <svg class="ii c-muted" aria-hidden="true"><use href="#i-bottle0"/></svg>. Through all of that, your body keeps three things inside you almost exactly the same: your <strong>temperature</strong> <svg class="ii c-heat" aria-hidden="true"><use href="#i-thermo"/></svg>, the <strong>sugar</strong> <svg class="ii c-sugar" aria-hidden="true"><use href="#i-sugar"/></svg> in your blood, and the <strong>water</strong> <svg class="ii c-water" aria-hidden="true"><use href="#i-drop"/></svg> in your blood.</p>
+    <p>Keeping conditions inside the body steady while the outside keeps changing is called <strong>homeostasis</strong>. The word comes from two Greek parts: <em>homeo</em> means "the same" and <em>stasis</em> means "standing still".</p>
+  </div>
+
+  <div class="flow">
+    <div class="steady" id="steady" aria-label="The outside keeps changing while the inside of the body stays steady">
+      <div class="st-side">
+        <span class="st-k">Outside</span>
+        <span class="st-scene" id="stScene">Cold AC classroom</span>
+        <span class="st-val" id="stOut">18°C</span>
+      </div>
+      <div class="st-body">
+        <svg viewBox="0 0 100 200" aria-hidden="true">
+          <circle cx="50" cy="26" r="17" class="f-surface" stroke="var(--ink)" stroke-width="2.5"/>
+          <path d="M28 52 Q50 44 72 52 L80 118 Q78 124 72 122 L68 92 L68 190 Q60 194 54 190 L52 132 L48 132 L46 190 Q40 194 32 190 L32 92 L28 122 Q22 124 20 118 Z" class="f-surface" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round"/>
+          <circle cx="50" cy="92" r="16" fill="var(--good)" opacity=".85" class="st-core"/>
+        </svg>
+      </div>
+      <div class="st-side st-in">
+        <span class="st-k">Inside you</span>
+        <span class="st-row"><svg class="ii c-heat" aria-hidden="true"><use href="#i-thermo"/></svg><b id="stT">37.0°C</b></span>
+        <span class="st-row"><svg class="ii c-sugar" aria-hidden="true"><use href="#i-sugar"/></svg><b id="stG">5.0</b>&nbsp;sugar</span>
+        <span class="st-row"><svg class="ii c-water" aria-hidden="true"><use href="#i-drop"/></svg><b>just right</b></span>
+      </div>
+    </div>
+    <p class="caption">Watch the colour behind the body change as the conditions outside change. The middle of the body stays the same colour the whole time. The numbers inside move a tiny bit, but they stay close to normal.</p>
+
+    <div class="panel">
+      <div class="block">
+        <h3>First, type your name</h3>
+        <p class="small muted">Your name goes on the completion card at the end. Your teacher will ask you to send a screenshot of that card.</p>
+        <div class="namebox"><input id="nameIn" type="text" autocomplete="name" maxlength="40" placeholder="First name and surname" aria-label="Your name"></div>
+      </div>
+      <hr class="rule">
+      <div class="block">
+        <h3>How this class works</h3>
+        <div class="two">
+          <p class="small"><strong>There are three sections:</strong> temperature, blood sugar and water. Each one has a simulator. Change the conditions and watch how the body responds.</p>
+          <p class="small"><strong>Each section ends with "Earn points".</strong> Missions are worth 15 points each and tick off by themselves when you make something happen in the simulator. Checkpoint questions are worth 10 points if you are right the first time and 5 on the second try.</p>
+          <p class="small"><strong>When you get a question wrong, read the feedback.</strong> It tells you why that answer does not work, so you can try again.</p>
+          <p class="small"><strong>You can redo anything.</strong> Every simulator has a <em>Reset</em> button, and each section has a <em>Reset this section</em> button. Your progress is saved on this phone or computer only.</p>
+        </div>
+      </div>
+    </div>
+
+    <section>
+      <span class="eyebrow">The big idea</span>
+      <h2>The AC on the wall already does homeostasis</h2>
+      <p>Think about the split-unit AC high up on the classroom wall. Somebody sets it on the remote, maybe to 22°C. The unit hums and blows cold air. After a while the humming stops and the room goes quiet. A few minutes later, as heat creeps back in from outside, the hum starts up again. On, off, on, off, all day long.</p>
+      <p>The AC is not guessing. Inside the unit there is a sensor that measures the temperature of the room air. When the room gets warmer than the setting, the AC switches its cooling on. When the room gets cooler than the setting, it switches the cooling off.</p>
+    </section>
+
+    <div class="think" data-pred="ac" data-answer="Humming. The room (25°C) is warmer than the setting (22°C), so the sensor tells the AC to cool. It will keep cooling until the room drops a little below 22°C, then it will go quiet.">
+      <span class="tag">Predict first · tap your answer</span>
+      <p>The room is at 25°C and the AC is set to 22°C. Will the AC be humming or quiet?</p>
+      <div class="seg"><button data-opt="0" data-ok="1">Humming: it is cooling</button><button data-opt="1">Quiet: it is off</button></div>
+      <div class="pred-out"></div>
+    </div>
+
+    <div class="panel" id="acPanel">
+      <div class="panel-title"><h3>Classroom AC</h3><span class="pill good" id="acStatus">Cooling off · quiet</span></div>
+      <div class="bench">
+        <div class="ctrls">
+          <div class="ctrl">
+            <div class="lab"><label for="acSet">AC setting on the remote</label><output id="acSetOut">22°C</output></div>
+            <input type="range" id="acSet" min="17" max="27" step="1" value="22">
+          </div>
+          <div class="acts">
+            <button class="act hot" id="acDoor"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="3" width="12" height="18" rx="1"/><path d="M14 12h.01M17 6l4-2v16l-4-2"/></svg>Open the door: hot air rushes in</button>
+            <button class="act" id="acSound" aria-pressed="false"><svg class="ico" aria-hidden="true"><use href="#i-mute"/></svg><span>Turn on the hum sound</span></button>
+          </div>
+          <div class="row"><button class="ghost" id="acPause">Pause</button><button class="ghost" id="acReset"><svg class="ii" aria-hidden="true"><use href="#i-reset"/></svg> Reset</button></div>
+          <div class="reads">
+            <div class="read"><span class="k">Room temperature</span><span class="v" id="acRoom">27.0°C</span></div>
+            <div class="read"><span class="k">Outside</span><span class="v">32°C</span></div>
+          </div>
+        </div>
+        <div class="fig">
+          <svg viewBox="0 0 360 210" role="img" aria-label="A classroom wall with a split-unit AC, a window with sun shining in, and a thermometer">
+            <rect x="0" y="0" width="360" height="210" class="f-surface2"/>
+            <rect id="acTint" x="0" y="0" width="360" height="210" fill="var(--heat)" opacity="0" style="transition:opacity 1.2s ease"/>
+            <rect x="250" y="62" width="90" height="80" rx="4" fill="var(--air)" stroke="var(--line)" stroke-width="3"/>
+            <path d="M295 62v80M250 102h90" stroke="var(--line)" stroke-width="2"/>
+            <circle cx="300" cy="100" r="13" fill="var(--sugar)"/>
+            <g stroke="var(--sugar)" stroke-width="2.5" stroke-linecap="round"><path d="M300 79v-5M300 126v-5M279 100h-5M326 100h-5M285 85l-3-3M315 115l3 3M315 85l3-3M285 115l-3 3"/></g>
+            <text x="295" y="160" text-anchor="middle" class="lbl-s">sun heating the room</text><text x="295" y="174" text-anchor="middle" class="lbl-s">through the window</text>
+            <g id="acHeat" stroke="var(--heat)" stroke-width="2.5" fill="none" stroke-linecap="round"><path d="M244 92 q-8 -4 -16 0 t-16 0"/><path d="M244 112 q-8 -4 -16 0 t-16 0"/></g>
+            <rect x="24" y="16" width="190" height="44" rx="10" class="f-surface" stroke="var(--line)" stroke-width="2"/>
+            <path d="M34 48h170" stroke="var(--line)" stroke-width="3" stroke-linecap="round"/>
+            <rect x="138" y="22" width="46" height="20" rx="3" fill="#0B1A16" stroke="var(--ink)" stroke-width="1"/>
+            <text id="acLcd" x="161" y="37" text-anchor="middle" style="font-family:var(--font-mono);font-size:13px;font-weight:700;fill:#5CF2B4;letter-spacing:.5px">22°C</text>
+            <circle id="acLed" cx="198" cy="29" r="4" fill="var(--line)"/>
+            <text x="38" y="35" class="lbl-s">split unit</text>
+            <g id="acHum" opacity="0"><text x="222" y="40" class="lbl hum" style="fill:var(--muted)">hmmmm…</text></g>
+            <g id="acAir" opacity="0" stroke="var(--cold)" stroke-width="2.5" fill="none" stroke-linecap="round">
+              <path d="M60 68 q6 10 0 20 t0 20" class="flowing"/><path d="M110 68 q6 10 0 20 t0 20" class="flowing"/><path d="M160 68 q6 10 0 20 t0 20" class="flowing"/>
+            </g>
+            <text x="110" y="128" text-anchor="middle" class="lbl-s" id="acAirLbl" opacity="0">cold air</text>
+            <rect x="40" y="138" width="12" height="56" rx="6" class="f-surface" stroke="var(--ink)" stroke-width="1.5"/>
+            <rect id="acMerc" x="43" y="160" width="6" height="30" rx="3" fill="var(--heat)"/>
+            <circle cx="46" cy="194" r="8" fill="var(--heat)"/>
+            <text x="62" y="170" class="lbl" id="acThermo">27.0°C</text>
+            <text x="62" y="186" class="lbl-s">room air</text>
+          </svg>
+        </div>
+      </div>
+      <div class="fig">
+        <svg id="acGraph" viewBox="0 0 600 190" role="img" aria-label="Graph of room temperature over time"></svg>
+      </div>
+      <p class="caption">Look at the red line. It never stays perfectly flat on the setting. It goes a little above, the AC comes on and pulls it down. It goes a little below, the AC goes off and it creeps back up. It wobbles inside a narrow band.</p>
+    </div>
+
+    <section>
+      <h2>The same loop, inside you</h2>
+      <p>Every homeostasis system in your body works like that AC. Something changes. Something detects the change. Something decides what to do. Something acts. The action pushes the change back the other way.</p>
+      <ol class="loop">
+        <li><b>Change</b>The room (or your body) gets warmer than the set point.</li>
+        <li><b>Detector</b>A sensor notices. In the body these sensors are called <strong>receptors</strong>.</li>
+        <li><b>Control centre</b>Something decides what to do. In the body this is often the <strong>hypothalamus</strong> in the brain.</li>
+        <li><b>Effector</b>Something carries out the action: the AC's cooling, or your sweat glands.</li>
+      </ol>
+      <p class="loopback"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12a8 8 0 1 1-3-6.2M20 4v5h-5"/></svg>The action reverses the change, so the level comes back towards normal. Then the loop waits for the next change.</p>
+      <div class="tablewrap">
+        <table class="map">
+          <thead><tr><th>Part of the loop</th><th>Classroom AC</th><th>Your body temperature</th></tr></thead>
+          <tbody>
+            <tr><td>Set point (normal level)</td><td>The number on the remote</td><td>About 37°C</td></tr>
+            <tr><td>Detector</td><td>The sensor inside the unit</td><td>Temperature receptors in the skin and in the brain</td></tr>
+            <tr><td>Control centre</td><td>The unit's circuit board</td><td>The hypothalamus</td></tr>
+            <tr><td>Effectors</td><td>The compressor and the fan</td><td>Sweat glands, blood vessels in the skin, muscles</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>This is called <strong>negative feedback</strong>. "Negative" does not mean bad, and it does not mean cold. It means the response goes in the <strong>opposite direction</strong> to the change. Too warm, so cool down. Too cool, so warm up. Too much sugar, so take sugar out of the blood. Too little water, so hold on to water.</p>
+    </section>
+
+    <section class="earn" data-earn="start">
+      <div class="earn-head">
+        <div><span class="eyebrow"><svg class="ii" aria-hidden="true"><use href="#i-star"/></svg> Earn points</span><h2>Check your understanding</h2></div>
+        <div class="earn-tally"><b data-earn-got="start">0</b><span>/ <span data-earn-max="start">0</span> points here</span></div>
+      </div>
+      <div class="quiz" data-quiz="start"></div>
+      <div class="row"><button class="ghost" data-reset="start">Reset this section</button></div>
+    </section>
+
+    <div class="next-row"><span></span><button class="btn" data-go="temp">Next: Section 1, Temperature →</button></div>
+  </div>
+</section>
+
+<!-- ================= TEMPERATURE ================= -->
+<section class="sec" data-sec="temp" data-tone="heat" id="sec-temp" hidden>
+  <div class="opener">
+    <span class="eyebrow">Section 1 of 3</span>
+    <h1>Body temperature <svg class="ii c-heat" aria-hidden="true"><use href="#i-thermo"/></svg></h1>
+    <p class="lede">The chemical reactions in your cells are controlled by <strong>enzymes</strong>, and your enzymes work best at about 37°C. If you get too cold, the reactions slow down. If you get too hot, the enzymes lose their shape (we say they are <strong>denatured</strong>) and stop working. That is why your body works so hard to stay close to 37°C.</p>
+  </div>
+
+  <div class="flow">
+    <div class="pic"><svg class="pic-ico" aria-hidden="true"><use href="#i-bulb"/></svg><div><span class="tag">Picture it</span><p>Fry an egg. The clear part turns white and solid, and no matter what you do, it never turns clear again. The heat has changed the shape of the proteins in the egg for good. Enzymes are proteins too. If your body gets too hot, they start to lose their shape in the same way, and an enzyme that has lost its shape cannot do its job.</p></div></div>
+
+    <div class="think" data-pred="temp" data-answer="Less blood near the surface. The arterioles leading to the skin narrow (vasoconstriction), so less warm blood flows close to the cold air. Less heat is lost, and the warm blood stays deep in your body. That is why your fingers look pale in a cold room.">
+      <span class="tag">Predict first · tap your answer</span>
+      <p>You sit for an hour in an exam room with the AC set very cold. Will the blood vessels in your skin send <em>more</em> blood to the surface or <em>less</em>? Choose, then test it in the simulator.</p>
+      <div class="seg"><button data-opt="0">More blood near the surface</button><button data-opt="1" data-ok="1">Less blood near the surface</button></div>
+      <div class="pred-out"></div>
+    </div>
+
+    <div class="panel" id="tPanel">
+      <div class="panel-title"><h3>Skin and body simulator</h3><div class="row"><span class="pill good" id="tStatus">Normal</span><button class="ghost" id="tReset"><svg class="ii" aria-hidden="true"><use href="#i-reset"/></svg> Reset</button></div></div>
+      <div class="bench">
+        <div class="ctrls">
+          <div class="ctrl">
+            <div class="lab"><label for="tEnv">Surroundings</label><output id="tEnvOut">26°C</output></div>
+            <input type="range" id="tEnv" min="12" max="45" step="1" value="26">
+            <div class="seg" id="tPresets">
+              <button data-env="16">Cold AC room</button><button data-env="26">Morning in Arima</button><button data-env="33">Midday sun</button><button data-env="45">Inside a parked car</button>
+            </div>
+          </div>
+          <div class="ctrl">
+            <div class="lab">What you are doing</div>
+            <div class="seg" id="tAct">
+              <button data-act="rest" aria-pressed="true">Resting</button><button data-act="walk" aria-pressed="false">Walking</button><button data-act="ball" aria-pressed="false">Playing football</button>
+            </div>
+          </div>
+          <div class="ctrl">
+            <div class="lab">The air</div>
+            <div class="seg" id="tAir">
+              <button data-air="dry" aria-pressed="true">Dry, with a breeze</button><button data-air="humid" aria-pressed="false">Humid, no breeze</button>
+            </div>
+          </div>
+          <label class="switch"><input type="checkbox" id="tSweat" checked>Sweat glands working</label>
+        </div>
+        <div class="fig">
+          <svg viewBox="0 0 440 330" role="img" aria-label="A person with a core thermometer beside a cross-section of skin showing a hair, its erector muscle, a sweat gland and a blood vessel loop" id="skinSvg">
+            <g id="person">
+              <circle id="coreGlow" cx="44" cy="150" r="34" fill="var(--heat)" opacity="0"/>
+              <circle cx="44" cy="74" r="17" class="f-surface" stroke="var(--ink)" stroke-width="2"/>
+              <rect x="22" y="96" width="44" height="92" rx="18" class="f-surface" stroke="var(--ink)" stroke-width="2"/>
+              <rect x="26" y="182" width="14" height="62" rx="7" class="f-surface" stroke="var(--ink)" stroke-width="2"/>
+              <rect x="48" y="182" width="14" height="62" rx="7" class="f-surface" stroke="var(--ink)" stroke-width="2"/>
+              <circle id="ball" cx="78" cy="238" r="9" class="f-surface" stroke="var(--ink)" stroke-width="2" opacity="0"/>
+            </g>
+            <rect x="96" y="60" width="10" height="170" rx="5" class="f-surface" stroke="var(--ink)" stroke-width="1.5"/>
+            <rect id="coreMerc" x="98.5" y="150" width="5" height="78" rx="2.5" fill="var(--heat)"/>
+            <path d="M92 145 h18" stroke="var(--ink)" stroke-width="1.5"/>
+            <text x="112" y="149" class="lbl-s">37</text>
+            <text x="44" y="272" text-anchor="middle" class="lbl">Core</text>
+            <text x="44" y="292" text-anchor="middle" class="lbl" id="coreTxt">37.0°C</text>
+            <g transform="translate(140,0)">
+              <clipPath id="skinClip"><rect x="0" y="0" width="300" height="330" rx="12"/></clipPath>
+              <g clip-path="url(#skinClip)">
+                <rect x="0" y="0" width="300" height="70" class="f-air"/>
+                <rect x="0" y="70" width="300" height="24" class="f-epi"/>
+                <rect id="flush" x="0" y="70" width="300" height="24" class="f-blood" opacity="0"/>
+                <rect x="0" y="94" width="300" height="156" class="f-derm"/>
+                <rect x="0" y="250" width="300" height="80" class="f-fat"/>
+                <g fill="none" stroke="var(--tubule)" stroke-width="1.5" opacity=".6">
+                  <circle cx="20" cy="275" r="14"/><circle cx="50" cy="300" r="14"/><circle cx="85" cy="272" r="14"/><circle cx="120" cy="302" r="14"/><circle cx="155" cy="275" r="14"/><circle cx="190" cy="303" r="14"/><circle cx="225" cy="274" r="14"/><circle cx="262" cy="300" r="14"/><circle cx="292" cy="274" r="14"/>
+                </g>
+                <g id="radiate" opacity="0" stroke="var(--heat)" stroke-width="2" fill="none" stroke-linecap="round">
+                  <path class="rise" d="M186 60 q4 -6 0 -12 t0 -12"/><path class="rise" style="animation-delay:1s" d="M206 60 q4 -6 0 -12 t0 -12"/><path class="rise" style="animation-delay:2s" d="M226 60 q4 -6 0 -12 t0 -12"/>
+                </g>
+                <g id="vapour" opacity="0" stroke="var(--water)" stroke-width="2" fill="none" stroke-linecap="round" stroke-dasharray="2 4">
+                  <path class="rise" d="M118 60 q4 -6 0 -12 t0 -12"/><path class="rise" style="animation-delay:1.2s" d="M134 60 q4 -6 0 -12 t0 -12"/><path class="rise" style="animation-delay:2.2s" d="M150 60 q4 -6 0 -12 t0 -12"/>
+                </g>
+                <path d="M40 72 L 62 205" stroke="var(--tubule)" stroke-width="12" stroke-linecap="round" fill="none"/>
+                <path d="M41 74 L 60 200" stroke="var(--ink)" stroke-width="2.5" fill="none"/>
+                <ellipse id="bump" cx="40" cy="70" rx="12" ry="0" class="f-epi"/>
+                <path id="hairLine" d="M40 70 L 40 18" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/>
+                <path id="erector" d="M57 168 L 92 98" stroke="var(--muscle)" stroke-width="5" stroke-linecap="round" fill="none"/>
+                <path id="duct" d="M134 222 C 142 200, 126 180, 134 160 S 126 110, 134 70" stroke="var(--water)" stroke-width="3" fill="none"/>
+                <g stroke="var(--water)" stroke-width="3" fill="none"><ellipse cx="134" cy="228" rx="16" ry="8"/><ellipse cx="128" cy="234" rx="12" ry="7"/><ellipse cx="141" cy="236" rx="11" ry="6"/></g>
+                <g id="drops" fill="var(--water)">
+                  <path d="M112 70 c-4 0 -5 -5 0 -10 c5 5 4 10 0 10z"/><path d="M124 70 c-4 0 -5 -5 0 -10 c5 5 4 10 0 10z"/><path d="M146 70 c-4 0 -5 -5 0 -10 c5 5 4 10 0 10z"/><path d="M158 70 c-4 0 -5 -5 0 -10 c5 5 4 10 0 10z"/><path d="M170 70 c-4 0 -5 -5 0 -10 c5 5 4 10 0 10z"/><path d="M100 70 c-4 0 -5 -5 0 -10 c5 5 4 10 0 10z"/>
+                </g>
+                <rect x="168" y="238" width="140" height="14" rx="7" class="f-blood"/>
+                <path id="venule" d="M182 112 L 182 240" class="s-vein" stroke-width="6"/>
+                <path id="capLoop" d="M234 112 C 234 84, 182 84, 182 112" class="s-blood" stroke-width="6"/>
+                <path id="arteriole" d="M234 112 L 234 240" class="s-blood" stroke-width="8"/>
+              </g>
+              <rect x="0" y="0" width="300" height="330" rx="12" fill="none" stroke="var(--line)" stroke-width="1.5"/>
+              <text x="8" y="16" class="lbl-s">air</text>
+              <text x="294" y="86" text-anchor="end" class="lbl-s">epidermis</text>
+              <text x="294" y="110" text-anchor="end" class="lbl-s">dermis</text>
+              <text x="294" y="324" text-anchor="end" class="lbl-s">fat (insulation)</text>
+              <text x="70" y="40" class="lbl">hair</text>
+              <text x="66" y="232" class="lbl" style="fill:var(--muscle)">erector</text>
+              <text x="66" y="245" class="lbl" style="fill:var(--muscle)">muscle</text><path d="M84 220 L 74 150" class="lead"/>
+              <text x="152" y="210" class="lbl">sweat</text>
+              <text x="152" y="223" class="lbl">gland</text>
+              <text x="242" y="172" class="lbl">arteriole</text>
+              <text x="242" y="187" class="lbl-s" id="artState">normal width</text>
+              <text x="208" y="130" text-anchor="middle" class="lbl-s">capillary</text><text x="208" y="142" text-anchor="middle" class="lbl-s">loop</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <div class="statline"><span class="big" id="coreBig">37.0°C</span><span class="muted small" id="coreNote">core temperature</span></div>
+      <div class="reads" id="tReads"></div>
+      <p class="mnote"><svg class="ii" aria-hidden="true"><use href="#i-star"/></svg><span>There are 4 missions to find in this simulator. See <strong>Earn points</strong> at the end of this section.</span></p>
+    </div>
+
+    <section>
+      <h2>Why each response works</h2>
+      <div class="whys">
+        <div class="why"><h3>Blood vessels: wider or narrower</h3><p>The blood vessels do not move up or down in the skin. What changes is the width of the small arteries, called <strong>arterioles</strong>, that feed the capillaries near the surface. When they widen (<strong>vasodilation</strong>), more warm blood flows close to the air and heat radiates away. That is why your face goes red after football. When they narrow (<strong>vasoconstriction</strong>), less blood reaches the surface, so the heat stays deep inside you. That is why your fingers look pale in a cold AC room.</p></div>
+        <div class="why"><h3>Sweat: it cools only when it evaporates</h3><p>Sweat is mostly water, and it comes out at body temperature, so it is not cold. It cools you because water needs heat energy to change from liquid into vapour, and it takes that heat from your skin. Sweat that just drips off you has not taken much heat with it.</p><p><strong>Try it:</strong> rub a little hand sanitiser on the back of your hand. It feels cold as it dries, because the liquid takes heat from your skin to evaporate. Sweat does the same thing, only more slowly.</p></div>
+        <div class="why"><h3>Why a humid day feels hotter</h3><p>When the air is already full of water vapour, sweat evaporates slowly. You stay wet, and you stay hot. That is why a still, humid afternoon in Trinidad feels worse than a dry, breezy day at the same temperature. Try it in the simulator: keep the same temperature and change only the air.</p></div>
+        <div class="why"><h3>Hairs standing up</h3><p>A tiny muscle, the <strong>hair erector muscle</strong>, is attached to each hair. When it contracts, it pulls the hair upright. In furry animals this traps a thick layer of still air next to the skin, and still air does not let heat pass through easily, so it works like a blanket. Think of a cat or a dog fluffing up its fur. Human body hair is too thin to trap much air, so in us it mostly shows up as goosebumps.</p></div>
+        <div class="why"><h3>Shivering</h3><p>Shivering is your muscles contracting and relaxing very quickly. Muscles need energy from respiration to contract, and respiration always releases some heat. It is like rubbing your hands together fast on a cold morning, except your brain does it for you with the muscles all over your body. You cannot stop shivering just by trying.</p></div>
+        <div class="why"><h3>What you do also counts</h3><p>The hypothalamus also makes you <em>feel</em> hot or cold, and that changes what you do. You move into the shade, fan yourself with your copybook, drink something cold, or put on a sweater in a cold AC room. These are part of temperature control too.</p></div>
+      </div>
+    </section>
+
+    <section class="earn" data-earn="temp">
+      <div class="earn-head">
+        <div><span class="eyebrow"><svg class="ii" aria-hidden="true"><use href="#i-star"/></svg> Earn points</span><h2>Missions and checkpoint</h2></div>
+        <div class="earn-tally"><b data-earn-got="temp">0</b><span>/ <span data-earn-max="temp">0</span> points here</span></div>
+      </div>
+      <div class="block">
+        <div class="mhead"><h3>Missions <span class="muted small">15 points each</span></h3><span class="qprog" id="mprog-temp"></span></div>
+        <ul class="missions" data-missions="temp"></ul>
+      </div>
+      <div class="quiz" data-quiz="temp"></div>
+      <div class="row"><button class="ghost" data-reset="temp">Reset this section</button></div>
+    </section>
+    <div class="next-row"><span></span><button class="btn" data-go="sugar">Next: Section 2, Blood sugar →</button></div>
+  </div>
+</section>
+
+<!-- ================= BLOOD SUGAR ================= -->
+<section class="sec" data-sec="sugar" data-tone="sugar" id="sec-sugar" hidden>
+  <div class="opener">
+    <span class="eyebrow">Section 2 of 3</span>
+    <h1>Blood sugar <svg class="ii c-sugar" aria-hidden="true"><use href="#i-sugar"/></svg></h1>
+    <p class="lede">Every cell in your body uses glucose in respiration to release energy. Your brain uses glucose all the time, even while you sleep. So the glucose in your blood must never fall too low. It must not stay too high either, and by the end of this section you will be able to explain why.</p>
+    <p>A healthy level is about <strong>4 to 7 mmol/L</strong>. You do not need to learn the unit. Just watch the number.</p>
+  </div>
+
+  <div class="flow">
+    <div class="pic"><svg class="pic-ico" aria-hidden="true"><use href="#i-bulb"/></svg><div><span class="tag">Picture it</span><p>Respiration in your cells is like the burner on a gas stove. Fuel (glucose) reacts with oxygen and energy is released, and some of it comes off as heat. Your cells do it slowly, in small controlled steps, with no flame. But the idea is the same: no fuel, no energy. That is why your blood must always carry some glucose.</p></div></div>
+
+    <section>
+      <h2>Two hormones from the pancreas</h2>
+      <p>Small groups of cells in the pancreas, called the <strong>islets of Langerhans</strong>, check the glucose level of the blood flowing past them. They are the detectors and the control centre at the same time.</p>
+      <div class="two">
+        <div class="why"><h3>Glucose too high → insulin</h3><p>The pancreas releases <strong>insulin</strong> into the blood. Insulin lets body cells take in glucose, and it tells the liver and muscles to join spare glucose together into a storage substance called <strong>glycogen</strong>. Blood glucose falls.</p></div>
+        <div class="why"><h3>Glucose too low → glucagon</h3><p>The pancreas releases <strong>glucagon</strong>. Glucagon tells the liver to break glycogen back down into glucose and release it into the blood. Blood glucose rises. A way to remember it: glucagon is released when the glucose is gone.</p></div>
+      </div>
+      <div class="pic"><svg class="pic-ico" aria-hidden="true"><use href="#i-bulb"/></svg><div><span class="tag">Picture it</span><p>Think of each glucose molecule as one bead. Glycogen is hundreds of those beads strung together on long, branching strings. Strung together, they pack away neatly in the liver, like goods in a storeroom. When the blood runs short, glucagon tells the liver to snip beads off the strings and send them back out into the blood one by one.</p></div></div>
+    </section>
+
+    <div class="think" data-pred="sugar" data-answer="Insulin. The soft drink puts far more sugar into your blood than it normally carries, so the pancreas releases insulin. Body cells take in glucose and the liver stores the extra as glycogen, and the level comes back down within about two hours.">
+      <span class="tag">Predict first · tap your answer</span>
+      <p>A 500 mL sweet drink has about 12 to 13 teaspoons of sugar in it. Your whole bloodstream normally carries only about <strong>one</strong> teaspoon. After you finish that drink, which hormone will the pancreas release?</p>
+      <div class="seg"><button data-opt="0" data-ok="1">Insulin</button><button data-opt="1">Glucagon</button></div>
+      <div class="pred-out"></div>
+    </div>
+
+    <div class="panel" id="gPanel">
+      <div class="panel-title"><h3>Blood sugar simulator</h3><span class="pill good" id="gStatus">Normal</span></div>
+      <div class="bench">
+        <div class="ctrls">
+          <div class="ctrl">
+            <div class="lab">Whose body?</div>
+            <div class="seg" id="gMode">
+              <button data-mode="h" aria-pressed="true">Healthy</button><button data-mode="t1" aria-pressed="false">Type 1 diabetes</button><button data-mode="t2" aria-pressed="false">Type 2 diabetes</button>
+            </div>
+            <div class="offer" id="gOffer" hidden></div>
+          </div>
+          <div class="acts">
+            <button class="act" data-ev="rice"><svg class="ico" aria-hidden="true"><use href="#i-rice"/></svg>Eat a plate of rice and stew chicken</button>
+            <button class="act" data-ev="drink"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3h6M10 3v3l-2 3v12h8V9l-2-3V3"/><path d="M8 13h8"/></svg>Drink a 500 mL sweet drink</button>
+            <button class="act" data-ev="ball"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7l4 3-1.5 4.5h-5L8 10z"/></svg>Play football for an hour</button>
+          </div>
+          <p class="small muted">If you press nothing, the clock keeps going and the person eats nothing. That is fasting, like skipping breakfast.</p>
+          <div class="row"><button class="ghost" id="gPause">Pause</button><button class="ghost" id="gRestart"><svg class="ii" aria-hidden="true"><use href="#i-reset"/></svg> Reset the day</button></div>
+        </div>
+        <div class="fig">
+          <svg id="gMap" viewBox="0 0 460 260" role="img" aria-label="Pancreas, liver, gut and body cells around a blood vessel, with glucose dots moving between them"></svg>
+          <p class="caption">Each gold dot is glucose. Watch the dots move: from the gut into the blood, from the blood into body cells and the liver, and back out of the liver when glucagon is released.</p>
+        </div>
+      </div>
+      <div class="statline">
+        <div class="clock" aria-live="off"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21" class="f-surface" stroke="var(--ink)" stroke-width="2.5"/><g stroke="var(--muted)" stroke-width="2" stroke-linecap="round"><path d="M24 6v3M24 39v3M6 24h3M39 24h3"/></g><path id="clkH" d="M24 24 L24 13" stroke="var(--ink)" stroke-width="3.2" stroke-linecap="round"/><path id="clkM" d="M24 24 L24 8" stroke="var(--sugar)" stroke-width="2.2" stroke-linecap="round"/><circle cx="24" cy="24" r="2.5" fill="var(--ink)"/></svg><div><b id="gTime">1:20 p.m.</b><span class="small muted">each tick = 10 minutes</span></div></div>
+        <div><span class="big" id="gBig">4.9</span> <span class="muted small">mmol/L of glucose in the blood</span></div>
+        <span class="pill" id="gTsp"></span>
+      </div>
+      <div class="fig"><svg id="gGraph" viewBox="0 0 600 220" role="img" aria-label="Graph of blood glucose over the last 8 hours"></svg></div>
+      <div class="two">
+        <div class="meter"><div class="mk">Insulin <span id="gInsV">low</span></div><div class="bar"><i id="gInsB" style="background:var(--good)"></i></div></div>
+        <div class="meter"><div class="mk">Glucagon <span id="gGlcV">low</span></div><div class="bar"><i id="gGlcB" style="background:var(--water)"></i></div></div>
+        <div class="meter"><div class="mk">Glycogen stored in the liver <span id="gGlyV"></span></div><div class="bar"><i id="gGlyB" style="background:var(--sugar)"></i></div></div>
+        <div class="meter"><div class="mk">Sugar in the urine <span id="gUrV">none</span></div><div class="bar"><i id="gUrB" style="background:var(--bad)"></i></div></div>
+      </div>
+      <p class="mnote"><svg class="ii" aria-hidden="true"><use href="#i-star"/></svg><span>There are 3 missions to find in this simulator and 1 in the blood vessel diagram further down. See <strong>Earn points</strong> at the end of this section.</span></p>
+    </div>
+
+    <div class="panel" id="kPanel">
+      <div class="panel-title"><h3>Insulin is a key: what goes wrong in diabetes</h3><div class="seg" id="kMode"><button data-k="h" aria-pressed="true">Healthy</button><button data-k="t1" aria-pressed="false">Type 1</button><button data-k="t2" aria-pressed="false">Type 2</button></div></div>
+      <div class="fig"><svg id="kSvg" viewBox="0 0 540 250" role="img" aria-label="Animation: insulin keys travel from the pancreas to the doors of a body cell so that glucose can enter"></svg></div>
+      <p class="kcap" id="kCap"></p>
+      <p class="caption">This animation plays slowly and repeats. Choose Healthy, Type 1 or Type 2 to compare them.</p>
+    </div>
+
+    <div class="two">
+      <div class="why"><h3>Type 1 diabetes</h3><p>The pancreas makes little or no insulin. It usually starts in childhood or the teenage years. With no insulin, glucose cannot get into the cells or be stored, so it stays in the blood. People with Type 1 diabetes must inject insulin every day.</p></div>
+      <div class="why"><h3>Type 2 diabetes</h3><p>The pancreas still makes insulin, but the body's cells stop responding to it properly, so glucose leaves the blood slowly. It is linked with being overweight, getting little exercise, and eating a lot of sugar and white flour or white rice. It is very common in the Caribbean. Diet, exercise and medicine help to control it.</p></div>
+    </div>
+
+    <section>
+      <span class="eyebrow">Reasoning it out</span>
+      <h2>What does too much sugar in the blood actually do?</h2>
+      <p>You might picture sugary blood as thick and sticky, like syrup. Let's check that with numbers. Syrup is more than half sugar: one litre of it holds over 600 g. In someone with badly controlled diabetes, one litre of blood holds about 3 or 4 g of glucose. That is nowhere near syrup. The blood still flows like blood.</p>
+      <p>So the damage must come from something else. Sugar does two other things, and once you understand them, you can work out every problem diabetes causes for yourself.</p>
+      <div class="two">
+        <div class="why"><h3>1. Sugar sticks to proteins</h3><p>Glucose slowly attaches itself to proteins: proteins in the blood, and proteins in the walls of blood vessels. Once it is stuck, it does not come off. You have seen this kind of chemistry before. It is the same kind of reaction that turns the outside of bread brown in the oven: sugar joining onto protein. Proteins coated with sugar become stiff and stop working properly. The lining of the vessel gets damaged, the wall thickens, and the space inside the vessel gets narrower.</p></div>
+        <div class="why"><h3>2. Sugar pulls water</h3><p>Sugar dissolved in a liquid draws water towards it by osmosis. When blood glucose goes above about 10 mmol/L, the kidneys cannot take all of it back into the blood (you will see why in Section 3). The sugar stays in the urine and holds water with it. The person passes a lot of urine, loses water, and is always thirsty. Now the blood really does become more concentrated. The full name, <em>diabetes mellitus</em>, comes from Greek and Latin words meaning "passing through" and "sweet as honey", because doctors long ago noticed that the urine was sweet.</p></div>
+      </div>
+      <div class="fact"><span class="num">3 mo</span><p>Doctors can measure the sticking directly. A blood test called <strong>HbA1c</strong> measures how much sugar is stuck to the haemoglobin in your red blood cells. Red blood cells live about three months, so the test shows your average blood sugar over the last three months, not just today.</p></div>
+    </section>
+
+    <div class="panel" id="yPanel">
+      <div class="panel-title"><h3>Inside a small blood vessel, year after year</h3></div>
+      <div class="bench">
+        <div class="ctrls">
+          <div class="ctrl">
+            <div class="lab"><label for="yYears">Years with blood sugar often high</label><output id="yOut">0 years</output></div>
+            <input type="range" id="yYears" min="0" max="20" step="1" value="0">
+          </div>
+          <div class="ctrl">
+            <div class="lab">Sugar level</div>
+            <div class="seg" id="yCtl"><button data-ctl="0" aria-pressed="true">Often high (not controlled)</button><button data-ctl="1" aria-pressed="false">Kept under control</button></div>
+          </div>
+          <div class="fig">
+            <svg id="ySvg" viewBox="0 0 260 260" role="img" aria-label="Cross-section of a blood vessel whose wall thickens as sugar sticks to it"></svg>
+          </div>
+          <p class="small" id="ySpace"></p>
+        </div>
+        <div class="block">
+          <p class="small">Narrow, stiff vessels carry less blood, and the heart has to push harder to drive blood through them. The organs that depend on the tiniest vessels are hit first. Before you move the slider, try to reason out why each organ below would fail.</p>
+          <ul class="organs" id="yOrgans"></ul>
+          <p class="caption">This shows the general pattern, not a timetable. How fast the damage happens varies a lot from person to person. Keeping blood sugar under control slows it down a great deal.</p>
+        </div>
+      </div>
+    </div>
+
+    <section class="earn" data-earn="sugar">
+      <div class="earn-head">
+        <div><span class="eyebrow"><svg class="ii" aria-hidden="true"><use href="#i-star"/></svg> Earn points</span><h2>Missions and checkpoint</h2></div>
+        <div class="earn-tally"><b data-earn-got="sugar">0</b><span>/ <span data-earn-max="sugar">0</span> points here</span></div>
+      </div>
+      <div class="block">
+        <div class="mhead"><h3>Missions <span class="muted small">15 points each</span></h3><span class="qprog" id="mprog-sugar"></span></div>
+        <ul class="missions" data-missions="sugar"></ul>
+      </div>
+      <div class="quiz" data-quiz="sugar"></div>
+      <div class="row"><button class="ghost" data-reset="sugar">Reset this section</button></div>
+    </section>
+    <div class="next-row"><span></span><button class="btn" data-go="water">Next: Section 3, Water →</button></div>
+  </div>
+</section>
+
+<!-- ================= WATER ================= -->
+<section class="sec" data-sec="water" data-tone="water" id="sec-water" hidden>
+  <div class="opener">
+    <span class="eyebrow">Section 3 of 3</span>
+    <h1>Water balance <svg class="ii c-water" aria-hidden="true"><use href="#i-drop"/></svg></h1>
+    <p class="lede">Your blood has to stay at the right concentration: not too watery, and not too salty. Every day you take in water from drinks, food and respiration, and you lose water in urine, sweat, your breath and your faeces. Your kidneys keep the balance.</p>
+    <p>Hold on to this from the start: the kidneys <strong>cannot make water</strong>. They can only decide how much of it to keep.</p>
+  </div>
+
+  <div class="flow">
+    <section>
+      <h2>Why concentration matters</h2>
+      <p>Water moves by <strong>osmosis</strong>: it moves towards the side where there is more dissolved stuff (more salt or sugar). So the concentration of your blood decides whether water moves into your cells or out of them.</p>
+      <div class="pic"><svg class="pic-ico" aria-hidden="true"><use href="#i-bulb"/></svg><div><span class="tag">Picture it</span><p>Make cucumber or green mango chow. Sprinkle the salt and leave it for a few minutes, and juice collects in the bottom of the bowl. Where did that juice come from? The salt outside the cells pulled water out of them. That is osmosis. Your red blood cells would do the same thing in blood that is too salty.</p></div></div>
+      <div class="fig">
+        <svg viewBox="0 0 600 175" role="img" aria-label="Three red blood cells: shrunken in concentrated blood, normal, and swollen in dilute blood">
+          <g>
+            <rect x="10" y="10" width="180" height="120" rx="14" fill="var(--blood-soft)"/>
+            <path d="M100 42 l8 10 12 -4 -2 13 12 8 -12 7 2 13 -12 -3 -8 10 -8 -10 -12 3 2 -13 -12 -7 12 -8 -2 -13 12 4z" fill="var(--blood)"/>
+            <g stroke="var(--water)" stroke-width="3" fill="none" stroke-linecap="round"><path d="M128 70 h28 m-7 -6 l7 6 -7 6"/><path d="M72 70 h-28 m7 -6 l-7 6 7 6"/></g>
+            <text x="100" y="152" text-anchor="middle" class="lbl">Blood too concentrated</text>
+            <text x="100" y="168" text-anchor="middle" class="lbl-s">water leaves, cell shrinks</text>
+          </g>
+          <g transform="translate(205,0)">
+            <rect x="10" y="10" width="180" height="120" rx="14" fill="var(--good-soft)"/>
+            <circle cx="100" cy="70" r="30" fill="var(--blood)"/><circle cx="100" cy="70" r="13" fill="var(--blood-soft)" opacity=".55"/>
+            <text x="100" y="152" text-anchor="middle" class="lbl">Just right</text>
+            <text x="100" y="168" text-anchor="middle" class="lbl-s">water in = water out</text>
+          </g>
+          <g transform="translate(410,0)">
+            <rect x="10" y="10" width="180" height="120" rx="14" fill="var(--water-soft)"/>
+            <circle cx="100" cy="70" r="42" fill="var(--blood)"/>
+            <g stroke="var(--water)" stroke-width="3" fill="none" stroke-linecap="round"><path d="M178 70 h-28 m7 -6 l-7 6 7 6"/><path d="M22 70 h28 m-7 -6 l7 6 -7 6"/></g>
+            <text x="100" y="152" text-anchor="middle" class="lbl">Blood too dilute</text>
+            <text x="100" y="168" text-anchor="middle" class="lbl-s">water enters, cell swells</text>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <section>
+      <h2>Meet the kidneys</h2>
+      <p>You have two kidneys at the back of your abdomen, just below the ribs, one on each side of the spine. Blood comes in through the <strong>renal artery</strong>, gets cleaned and balanced, and leaves through the <strong>renal vein</strong>. The urine the kidneys make flows down two tubes called <strong>ureters</strong> into the <strong>bladder</strong>, which stores it until you pass it out through the <strong>urethra</strong>.</p>
+      <div class="bench">
+        <div class="fig">
+          <svg viewBox="0 0 320 340" role="img" aria-label="The urinary system: two kidneys, renal arteries and veins, ureters, bladder and urethra">
+            <rect x="40" y="10" width="240" height="310" rx="80" class="f-surface2" stroke="var(--line)" stroke-width="2"/>
+            <path d="M150 20 V 300" stroke="var(--blood)" stroke-width="9" stroke-linecap="round"/>
+            <path d="M172 20 V 300" stroke="var(--vein)" stroke-width="9" stroke-linecap="round"/>
+            <path d="M150 116 L 112 116" stroke="var(--blood)" stroke-width="6"/>
+            <path d="M150 116 L 208 116" stroke="var(--blood)" stroke-width="6"/>
+            <path d="M172 136 L 112 136" stroke="var(--vein)" stroke-width="6"/>
+            <path d="M172 136 L 208 136" stroke="var(--vein)" stroke-width="6"/>
+            <path d="M102 82 C 58 82, 58 176, 102 176 C 114 176, 118 160, 110 148 C 106 140, 106 112, 110 104 C 118 92, 114 82, 102 82z" fill="var(--tubule)" stroke="var(--ink)" stroke-width="1.5"/>
+            <path d="M218 82 C 262 82, 262 176, 218 176 C 206 176, 202 160, 210 148 C 214 140, 214 112, 210 104 C 202 92, 206 82, 218 82z" fill="var(--tubule)" stroke="var(--ink)" stroke-width="1.5"/>
+            <path d="M110 152 C 125 192, 138 222, 148 258" stroke="var(--sugar)" stroke-width="4" fill="none"/>
+            <path d="M210 152 C 195 192, 182 222, 172 258" stroke="var(--sugar)" stroke-width="4" fill="none"/>
+            <ellipse cx="160" cy="274" rx="30" ry="22" fill="var(--sugar-soft)" stroke="var(--sugar)" stroke-width="3"/>
+            <path d="M160 296 V 322" stroke="var(--sugar)" stroke-width="4"/>
+            <circle cx="80" cy="128" r="10" fill="none" stroke="var(--water)" stroke-width="2.5"/>
+            <text x="8" y="70" class="lbl">kidney</text><path d="M40 74 L 70 96" class="lead"/>
+            <text x="314" y="100" text-anchor="end" class="lbl-s" style="fill:var(--blood)">renal artery</text><path d="M262 104 L 206 114" class="lead"/>
+            <text x="314" y="160" text-anchor="end" class="lbl-s">renal vein</text><path d="M268 154 L 206 138" class="lead"/>
+            <text x="196" y="40" class="lbl-s">aorta and vena cava</text>
+            <text x="200" y="226" class="lbl">ureter</text><path d="M198 222 L 186 214" class="lead"/>
+            <text x="198" y="280" class="lbl">bladder</text>
+            <text x="170" y="320" class="lbl-s">urethra</text>
+            <text x="8" y="210" class="lbl-s" style="fill:var(--water)">one nephron,</text>
+            <text x="8" y="224" class="lbl-s" style="fill:var(--water)">magnified below</text>
+            <path d="M76 138 L 52 196" class="lead"/>
+          </svg>
+        </div>
+        <div class="block">
+          <div class="fact"><span class="num">1 M</span><p>Each kidney contains about <strong>one million</strong> tiny tubes called <strong>nephrons</strong>. A nephron is the working unit of the kidney. If you understand one nephron, you understand the whole kidney.</p></div>
+          <div class="fact"><span class="num">180 L</span><p>Your kidneys filter about 180 litres of fluid out of your blood every day, almost a full blue water drum. Yet you pass only about 1.5 litres of urine. So more than 99% of what is filtered goes back into the blood. Keep that in mind as you watch the nephron.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Step 1 up close: the filter</h2>
+      <p>The first step in the nephron is a filter. Blood flows through a knot of tiny capillaries called the <strong>glomerulus</strong>, which sits inside a cup called the <strong>Bowman's capsule</strong>. The walls of these capillaries have tiny holes in them. The blood is under high pressure, so anything small enough is pushed out through the holes into the capsule. The liquid that comes through is called the <strong>filtrate</strong>.</p>
+      <div class="pic"><svg class="pic-ico" aria-hidden="true"><use href="#i-bulb"/></svg><div><span class="tag">Picture it</span><p>Think of making coconut milk for callaloo or pelau. You put the grated coconut in a cloth and squeeze. The liquid goes through the cloth and the coarse bits stay behind. The squeezing is the pressure, and the cloth is the filter. The glomerulus works the same way. This is why it is called <strong>ultrafiltration</strong>: filtering under pressure, through holes so small that they sort out molecules.</p></div></div>
+      <div class="fig">
+        <svg id="filterSvg" viewBox="0 0 560 300" role="img" aria-label="Close-up of the glomerulus filter: blood cells and proteins are too big for the holes; water, glucose, salt and urea pass through into the capsule">
+          <rect x="0" y="0" width="560" height="118" rx="14" fill="var(--blood-soft)"/>
+          <text x="14" y="22" class="lbl">BLOOD in the glomerulus capillary (high pressure)</text>
+          <rect x="0" y="146" width="560" height="154" rx="14" fill="var(--filtrate)"/>
+          <text x="14" y="290" class="lbl">FILTRATE in the Bowman's capsule</text>
+          <g fill="var(--tubule)">
+            <rect x="0" y="120" width="88" height="24"/><rect x="104" y="120" width="96" height="24"/><rect x="216" y="120" width="70" height="24"/><rect x="302" y="120" width="70" height="24"/><rect x="388" y="120" width="70" height="24"/><rect x="474" y="120" width="86" height="24"/>
+          </g>
+          <text x="14" y="172" class="lbl-s" style="fill:var(--ink)">↑ capillary wall with tiny holes</text>
+          <ellipse cx="96" cy="72" rx="26" ry="17" fill="var(--blood)"/><ellipse cx="96" cy="72" rx="11" ry="6" fill="var(--blood-soft)" opacity=".6"/>
+          <path d="M96 92 q0 18 -14 22 m3 -8 l-3 8 8 1" stroke="var(--ink)" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <text x="96" y="44" text-anchor="middle" class="lbl">red blood cell</text>
+          <text x="126" y="102" class="lbl-s" style="fill:var(--bad)">too big</text>
+          <circle cx="208" cy="74" r="13" fill="var(--protein)"/>
+          <path d="M208 90 q0 18 14 22 m-3 -8 l3 8 -8 1" stroke="var(--ink)" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <text x="208" y="50" text-anchor="middle" class="lbl">protein</text>
+          <text x="226" y="102" class="lbl-s" style="fill:var(--bad)">too big</text>
+          <g stroke="var(--ink)" stroke-width="2" fill="none" stroke-linecap="round">
+            <path d="M294 82 V 196 m-6 -8 l6 8 6 -8"/><path d="M380 82 V 196 m-6 -8 l6 8 6 -8"/><path d="M466 82 V 196 m-6 -8 l6 8 6 -8"/>
+          </g>
+          <circle cx="294" cy="70" r="6" fill="var(--water)"/><circle cx="294" cy="212" r="6" fill="var(--water)"/>
+          <text x="294" y="50" text-anchor="middle" class="lbl">water</text>
+          <circle cx="380" cy="70" r="8" fill="var(--sugar)"/><circle cx="380" cy="212" r="8" fill="var(--sugar)"/>
+          <text x="380" y="50" text-anchor="middle" class="lbl">glucose</text>
+          <circle cx="452" cy="70" r="6.5" fill="var(--salt)"/><circle cx="480" cy="70" r="6.5" fill="var(--urea)"/>
+          <circle cx="452" cy="212" r="6.5" fill="var(--salt)"/><circle cx="480" cy="212" r="6.5" fill="var(--urea)"/>
+          <text x="466" y="50" text-anchor="middle" class="lbl">salt, urea</text>
+          <text x="380" y="248" text-anchor="middle" class="lbl" style="fill:var(--good)">small enough: pushed through</text>
+        </svg>
+      </div>
+      <p class="caption">The holes are bigger than water, glucose, salt and urea, but smaller than blood cells and proteins. So the filtrate is like blood with the cells and proteins taken out. Notice that useful glucose gets through too. The nephron has to take it back later.</p>
+    </section>
+
+    <div class="think" data-pred="water" data-answer="Red blood cells and proteins. They are too big for the holes in the capillary walls, so they stay in the blood. Water, glucose, salt and urea are all small, so they are pushed through into the capsule.">
+      <span class="tag">Predict first · tap your answer</span>
+      <p>Before you run the nephron below: which of these will be too big to get into the Bowman's capsule?</p>
+      <div class="seg"><button data-opt="0">Water</button><button data-opt="1">Glucose</button><button data-opt="2" data-ok="1">Red blood cells and proteins</button><button data-opt="3">Urea</button></div>
+      <div class="pred-out"></div>
+    </div>
+
+    <div class="panel" id="nPanel">
+      <div class="panel-title"><h3>Nephron explorer</h3><button class="ghost" id="nReplay"><svg class="ii" aria-hidden="true"><use href="#i-reset"/></svg> Reset</button></div>
+      <p class="small">Run the three steps one at a time. Watch where each kind of dot goes, then check the table underneath to see what ended up where.</p>
+      <div class="legend" aria-label="Key">
+        <span><i style="width:15px;height:15px;background:var(--blood)"></i>red blood cell</span>
+        <span><i style="width:12px;height:12px;background:var(--protein)"></i>protein</span>
+        <span><i style="width:10px;height:10px;background:var(--sugar)"></i>glucose</span>
+        <span><i style="width:9px;height:9px;background:var(--salt)"></i>salt</span>
+        <span><i style="width:9px;height:9px;background:var(--urea)"></i>urea</span>
+        <span><i style="width:8px;height:8px;background:var(--water)"></i>water</span>
+      </div>
+      <div class="fig wide">
+        <svg id="nSvg" viewBox="0 76 640 404" role="img" aria-label="A simplified nephron: glomerulus in Bowman's capsule, proximal tubule, loop of Henle, distal tubule and collecting duct, with capillaries"></svg>
+      </div>
+      <p class="caption phone-only">Swipe the diagram sideways to see the whole nephron.</p>
+      <div class="row"><button class="btn tone" id="nStep">Run step 1: Filter</button></div>
+      <div class="result" id="nResult" aria-live="polite"></div>
+      <div class="tablewrap"><table class="tally" id="nTally"></table></div>
+      <div class="bench">
+        <div class="ctrls">
+          <div class="ctrl"><div class="lab">Blood glucose</div><div class="seg" id="nGlu"><button data-g="0" aria-pressed="true">Normal</button><button data-g="1" aria-pressed="false">Very high (uncontrolled diabetes)</button></div></div>
+          <div class="ctrl"><div class="lab">ADH in the blood (used in step 3)</div><div class="seg" id="nAdh"><button data-a="1" aria-pressed="true">A lot: you are short of water</button><button data-a="0" aria-pressed="false">Very little: you drank a lot</button></div></div>
+        </div>
+        <ol class="steps" id="nSteps">
+          <li data-s="1"><div><strong>Ultrafiltration</strong> in the glomerulus. Blood arrives in a wide arteriole and leaves through a narrower one, so the blood in the glomerulus is squeezed under high pressure, like putting your thumb over the end of a hose. Small molecules are pushed out into the Bowman's capsule. Blood cells and proteins are too big, so they stay in the blood.</div></li>
+          <li data-s="2"><div><strong>Selective reabsorption</strong> in the tubule. As the filtrate flows along the tubule, the useful substances are taken back into the capillaries wrapped around it: <strong>all</strong> of the glucose, most of the salt and most of the water. Most of the urea is left behind. "Selective" means the tubule chooses what to take back.</div></li>
+          <li data-s="3"><div><strong>Water control</strong> in the collecting duct. The final amount of water is decided here. ADH makes the duct walls let water through, so more water goes back to the blood and the urine is small and concentrated. Without ADH, the walls stay watertight and the water flows on as a lot of dilute urine.</div></li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="pic"><svg class="pic-ico" aria-hidden="true"><use href="#i-bulb"/></svg><div><span class="tag">Picture it</span><p>Why filter out so much, only to take most of it back? Imagine emptying your whole school bag onto the desk, then packing back everything you need and leaving the old paper and sweetie wrappers behind. It is a safe way to clean out: anything that is not deliberately packed back leaves. The nephron empties out everything small, then takes back only what the body needs.</p></div></div>
+
+    <div class="why"><h3>Why glucose can end up in the urine</h3><p>The tubule takes glucose back using carrier proteins in its walls. Think of them as a team of workers who can only carry so many bags a minute. At normal blood sugar, they carry back every single bag. When blood glucose is above about 10 mmol/L, there is more glucose in the filtrate than the workers can carry, and the extra stays in the urine. Because sugar pulls water, it holds water in the tubule too. Run the nephron explorer with very high glucose and count the water in the urine.</p></div>
+
+    <section>
+      <h2>ADH: the water-saving hormone</h2>
+      <p>Receptors in the <strong>hypothalamus</strong> check the concentration of the blood flowing through the brain. When the blood is too concentrated, the <strong>pituitary gland</strong> just below it releases more <strong>ADH</strong> (antidiuretic hormone) into the blood. "Diuresis" means making a lot of urine, so <em>anti</em>diuretic means "against making a lot of urine". ADH travels in the blood to the kidneys and opens up the collecting ducts so more water goes back into the blood. When the blood is too dilute, less ADH is released, so more water passes out as urine. The colour of your urine is a free test of this system.</p>
+    </section>
+
+    <div class="panel" id="wPanel">
+      <div class="panel-title"><h3>Body water simulator</h3><span class="pill good" id="wStatus">Normal</span></div>
+      <div class="bench">
+        <div class="ctrls">
+          <div class="acts">
+            <button class="act" data-wev="drink"><svg class="ico" aria-hidden="true"><use href="#i-bottle"/></svg>Drink a 500 mL bottle of water</button>
+            <button class="act" data-wev="ball"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7l4 3-1.5 4.5h-5L8 10z"/></svg>Play football in the sun for an hour</button>
+            <button class="act" data-wev="salt"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="6" width="16" height="12" rx="2"/><path d="M8 10h.01M12 10h.01M16 10h.01M10 14h.01M14 14h.01"/></svg>Eat a pack of salted crackers</button>
+          </div>
+          <label class="switch"><input type="checkbox" id="wSugar">Blood sugar very high (uncontrolled diabetes)</label>
+          <div class="row"><button class="ghost" id="wPause">Pause</button><button class="ghost" id="wRestart"><svg class="ii" aria-hidden="true"><use href="#i-reset"/></svg> Reset</button></div>
+        </div>
+        <div class="fig">
+          <svg id="wSvg" viewBox="0 0 440 270" role="img" aria-label="The hypothalamus and pituitary releasing ADH, which travels to the collecting duct; water returns to the blood and urine collects in a jar"></svg>
+        </div>
+      </div>
+      <div class="meter">
+        <div class="mk">Concentration of the blood <span id="wConcV">normal</span></div>
+        <div class="gauge-wrap">
+          <div class="gauge"><i style="flex:10;background:var(--water-soft)"></i><i style="flex:9;background:var(--good-soft)"></i><i style="flex:16;background:var(--warn-soft)"></i></div>
+          <div class="gauge-mark" id="wMark" style="left:43%"></div>
+        </div>
+        <div class="gauge-labels"><span>too dilute</span><span>just right</span><span>too concentrated</span></div>
+      </div>
+      <div class="two">
+        <div class="meter"><div class="mk">ADH released <span id="wAdhV"></span></div><div class="bar"><i id="wAdhB" style="background:var(--water)"></i></div></div>
+        <div class="meter"><div class="mk">Urine made in the last hour <span id="wUrV"></span></div><div class="bar"><i id="wUrB" style="background:var(--sugar)"></i></div></div>
+      </div>
+      <div class="reads" id="wReads"></div>
+      <p class="mnote"><svg class="ii" aria-hidden="true"><use href="#i-star"/></svg><span>There are 4 missions in this section: 2 in the nephron explorer and 2 in this simulator. See <strong>Earn points</strong> below.</span></p>
+    </div>
+
+    <section class="earn" data-earn="water">
+      <div class="earn-head">
+        <div><span class="eyebrow"><svg class="ii" aria-hidden="true"><use href="#i-star"/></svg> Earn points</span><h2>Missions and checkpoint</h2></div>
+        <div class="earn-tally"><b data-earn-got="water">0</b><span>/ <span data-earn-max="water">0</span> points here</span></div>
+      </div>
+      <div class="block">
+        <div class="mhead"><h3>Missions <span class="muted small">15 points each</span></h3><span class="qprog" id="mprog-water"></span></div>
+        <ul class="missions" data-missions="water"></ul>
+      </div>
+      <div class="quiz" data-quiz="water"></div>
+      <div class="row"><button class="ghost" data-reset="water">Reset this section</button></div>
+    </section>
+    <div class="next-row"><span></span><button class="btn" data-go="finish">Next: Finish →</button></div>
+  </div>
+</section>
+
+<!-- ================= FINISH ================= -->
+<section class="sec" data-sec="finish" data-tone="good" id="sec-finish" hidden>
+  <div class="opener">
+    <span class="eyebrow">Putting it together</span>
+    <h1>One idea, three systems</h1>
+    <p class="lede">Temperature, blood sugar and water are controlled by different organs, but each one runs the same loop as the AC on the wall: a change is detected, a control centre responds, and the response pushes the level back the other way.</p>
+  </div>
+  <div class="flow">
+    <div class="tablewrap">
+      <table class="map">
+        <thead><tr><th></th><th>Temperature</th><th>Blood sugar</th><th>Water</th></tr></thead>
+        <tbody>
+          <tr><td>Normal level</td><td>About 37°C</td><td>About 4 to 7 mmol/L</td><td>Blood neither too dilute nor too concentrated</td></tr>
+          <tr><td>Detector</td><td>Receptors in the skin and the hypothalamus</td><td>Islets of Langerhans in the pancreas</td><td>Receptors in the hypothalamus</td></tr>
+          <tr><td>Messenger</td><td>Nerves</td><td>Insulin and glucagon</td><td>ADH from the pituitary</td></tr>
+          <tr><td>Effectors</td><td>Sweat glands, arterioles in the skin, hair erector muscles, muscles (shivering)</td><td>Liver, muscles, body cells</td><td>Collecting ducts of the kidney</td></tr>
+          <tr><td>When it fails</td><td>Heatstroke, hypothermia</td><td>Diabetes: damaged vessels, kidneys, eyes, feet</td><td>Dehydration; cells shrink or swell</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <section class="earn" data-earn="finish">
+      <div class="earn-head">
+        <div><span class="eyebrow"><svg class="ii" aria-hidden="true"><use href="#i-star"/></svg> Earn points</span><h2>Final check</h2></div>
+        <div class="earn-tally"><b data-earn-got="finish">0</b><span>/ <span data-earn-max="finish">0</span> points here</span></div>
+      </div>
+      <div class="quiz" data-quiz="finish"></div>
+      <div class="row"><button class="ghost" data-reset="finish">Reset this section</button></div>
+    </section>
+
+    <section class="block">
+      <span class="eyebrow">One last question</span>
+      <h2>In your own words</h2>
+      <p>Write a short paragraph, at least 25 words. What did you learn in this class? Was there anything that surprised you? Is there anything that is still not clear to you? Be honest. If something did not make sense, say so, and your teacher will go over it.</p>
+      <textarea id="reflIn" rows="7" placeholder="In this class I learned that…"></textarea>
+      <p class="small muted" id="reflCount">0 words</p>
+    </section>
+
+    <section class="block">
+      <h2>Your completion card</h2>
+      <p>Your card shows your score and your paragraph. When you have finished, send it to Mr. Legall using the buttons under the card. If your score is not where you want it yet, go back and redo any section first. You can try as many times as you like.</p>
+      <div class="cert" id="cert"></div>
+      <div class="sendbox" id="sendBox">
+        <h3>Send it to Mr. Legall</h3>
+        <p class="small" id="sendNeed"></p>
+        <div class="row">
+          <a class="btn tone" id="sendMail" href="#">Open my email and send</a>
+          <button class="ghost" id="sendCopy">Copy my results</button>
+        </div>
+        <p class="small">The email goes to <strong class="addr" id="addr">a.legall@cuc.edu.tt</strong>. If the button does not open your email, tap <em>Copy my results</em>, open your email yourself, paste it in, and send it to that address.</p>
+      </div>
+    </section>
+
+    <div class="next-row"><button class="ghost" id="startOver">Start the whole class over</button><span></span></div>
+  </div>
+</section>
+
+</main>
+<div id="toast" role="status" aria-live="polite"></div>
+<script>
+const QUIZ = {
+start: [
+ {id:'s1', q:'The AC hums on when the room gets warm and cuts off when the room gets cool. Why is this called negative feedback?',
+  o:[
+   {t:'Because the AC makes the room colder, and cold is negative.', why:'"Negative" does not mean cold. A heater that switches on when a room gets too cold is also negative feedback, and it makes things warmer.'},
+   {t:'Because the response reverses the change: the room warms up, so the AC cools it down.', ok:true},
+   {t:'Because the AC is bad for the environment.', why:'"Negative" here has nothing to do with good or bad. It describes the direction of the response.'},
+   {t:'Because the room stays at exactly the set point all the time.', why:'Look at the graph again. The temperature wobbles a little above and below the setting. It never stays exactly on it.'}
+  ],
+  ex:'Negative feedback means the response goes in the opposite direction to the change. Too warm leads to cooling; too cool leads to the cooling switching off.'},
+ {id:'s2', q:'In body temperature control, which part plays the same role as the AC\'s circuit board, deciding what to do?',
+  o:[
+   {t:'The skin', why:'The skin contains receptors that detect temperature, like the AC\'s sensor. Detecting is not the same as deciding.'},
+   {t:'The sweat glands', why:'Sweat glands carry out the response. They are effectors, like the AC\'s compressor and fan.'},
+   {t:'The hypothalamus in the brain', ok:true},
+   {t:'The blood', why:'The blood carries heat around the body, but it does not make any decisions.'}
+  ],
+  ex:'The hypothalamus receives information from temperature receptors and sends out instructions to the effectors. It is the control centre.'},
+ {id:'s3', q:'A student\'s temperature is 36.8°C at 7 a.m. and 37.3°C after lunch. What does this tell you?',
+  o:[
+   {t:'Homeostasis has failed.', why:'A change of half a degree is normal. Homeostasis keeps the level within a narrow range, not at one exact number.'},
+   {t:'The student has a fever.', why:'A fever is usually above about 38°C. 37.3°C is within the normal range.'},
+   {t:'The body keeps temperature within a narrow range, not at one exact number.', ok:true},
+   {t:'One of the readings must be wrong.', why:'Both readings are realistic. Like the AC graph, body temperature wobbles a little around the set point.'}
+  ],
+  ex:'Just like the room temperature on the AC graph, your body temperature rises and falls a little during the day. Homeostasis keeps it inside a narrow band.'}
+],
+temp: [
+ {id:'t1', q:'You sit for an hour in an exam room with the AC set very cold. What happens to the arterioles that supply the capillaries near your skin surface?',
+  o:[
+   {t:'They narrow (vasoconstriction), so less warm blood flows near the surface.', ok:true},
+   {t:'They widen (vasodilation), so more warm blood reaches the skin to warm it.', why:'More blood at the surface would lose even more heat to the cold air. That is what the body does when it is too hot.'},
+   {t:'The capillaries move deeper into the skin, away from the cold.', why:'Blood vessels cannot move through the skin. What changes is the width of the arterioles, which controls how much blood reaches the surface capillaries.'},
+   {t:'The blood stops flowing in the skin completely.', why:'Skin cells still need oxygen and glucose. Less blood flows, but it does not stop.'}
+  ],
+  ex:'Narrow arterioles mean less blood near the surface, so less heat is lost to the cold air. The warm blood stays deep in the body. That is why your fingers look pale.'},
+ {id:'t2', q:'Why does sweating cool you down?',
+  o:[
+   {t:'Sweat is cold when it leaves the skin.', why:'Sweat comes out at body temperature. It is not cold.'},
+   {t:'Sweat removes salt from the body, and salt holds heat.', why:'Sweat does contain some salt, but losing salt does not cool you. In fact, losing too much salt is a problem.'},
+   {t:'When sweat evaporates, the water takes heat energy from the skin.', ok:true},
+   {t:'Sweat forms a layer that blocks the sun\'s rays.', why:'A thin film of water does not block sunlight. The cooling comes from evaporation.'}
+  ],
+  ex:'To change from liquid to vapour, water needs heat energy. It takes that heat from your skin, so your skin cools.'},
+ {id:'t3', q:'Two afternoons are both 32°C. Afternoon A is dry and breezy. Afternoon B is humid and still. On which afternoon does sweating cool you less well, and why?',
+  o:[
+   {t:'Afternoon A, because the breeze blows the sweat away before it can cool you.', why:'A breeze actually helps. It carries away the water vapour next to your skin, so more sweat can evaporate.'},
+   {t:'Neither. The temperature is the same, so sweating works the same.', why:'Temperature is not the only thing that matters. Sweat cools only when it evaporates, and that depends on the air.'},
+   {t:'Afternoon B, because air already full of water vapour slows down evaporation.', ok:true},
+   {t:'Afternoon B, because humid air contains less oxygen.', why:'Oxygen has nothing to do with it. The problem is how fast sweat can evaporate.'}
+  ],
+  ex:'In humid air, sweat evaporates slowly, so less heat is taken from the skin. You stay wet and hot. That is why a still, humid day feels so uncomfortable.'},
+ {id:'t4', q:'Why do your muscles shiver when you are very cold?',
+  o:[
+   {t:'To pump blood faster to the skin.', why:'Shivering is not about blood flow. When you are cold, the body is actually sending less blood to the skin.'},
+   {t:'Because the muscles are freezing and have lost control.', why:'Shivering is controlled on purpose by the brain. The muscles are not frozen.'},
+   {t:'To shake off the layer of cold air around the body.', why:'Shaking does not remove cold air. The heat comes from inside the muscles.'},
+   {t:'Muscle contraction uses respiration, and respiration releases heat.', ok:true}
+  ],
+  ex:'Rapid contractions need energy from respiration, and respiration releases heat. Shivering turns muscles into small heaters.'},
+ {id:'t5', q:'A footballer is badly dehydrated and his sweat glands stop producing sweat. He keeps playing in the midday sun. Predict what happens.',
+  o:[
+   {t:'His core temperature rises, his enzymes begin to denature, and he is at risk of heatstroke.', ok:true},
+   {t:'Vasoconstriction cools him down instead.', why:'Vasoconstriction keeps heat inside the body. It is a response to cold, and it would make him hotter.'},
+   {t:'He starts shivering to cool himself.', why:'Shivering produces heat. It would make things worse.'},
+   {t:'Nothing serious. Vasodilation alone can remove all the extra heat.', why:'In strong sun during exercise, vasodilation cannot remove enough heat on its own. When the air is hotter than the skin, the skin even gains heat. Sweating is the main way to lose heat.'}
+  ],
+  ex:'Without sweating, his main way of losing heat is gone. Heat builds up faster than he can lose it, his core temperature rises, and enzymes start to denature. This is heatstroke, and it is an emergency.'}
+],
+sugar: [
+ {id:'g1', q:'After lunch, a healthy student\'s blood glucose rises to 8 mmol/L. What happens next?',
+  o:[
+   {t:'The pancreas releases glucagon, which lowers blood glucose.', why:'Glucagon raises blood glucose by making the liver release it. That is the opposite of what is needed.'},
+   {t:'The pancreas releases insulin; cells take in glucose and the liver stores the extra as glycogen.', ok:true},
+   {t:'The liver releases more glucose into the blood.', why:'That would push the level even higher. The liver releases glucose when the level is too low.'},
+   {t:'The kidneys remove the extra glucose in the urine.', why:'In a healthy person, the kidneys take back all the glucose. Removing glucose from the blood is the job of insulin.'}
+  ],
+  ex:'A rise in glucose is detected by the pancreas, which releases insulin. Cells take up glucose and the liver and muscles store it as glycogen, so the level falls back.'},
+ {id:'g2', q:'A student skips breakfast and has football practice. Her blood glucose stays at about 4.5 mmol/L instead of falling dangerously low. What keeps it up?',
+  o:[
+   {t:'Insulin makes the liver release glucose.', why:'Insulin does the opposite. It makes cells take in glucose and stores it as glycogen.'},
+   {t:'Her muscles make new glucose and release it into the blood.', why:'Working muscles use glucose. They do not top up the blood.'},
+   {t:'There is still food from breakfast in her stomach.', why:'She skipped breakfast, so there is no new food to absorb.'},
+   {t:'Glucagon makes her liver break down glycogen into glucose.', ok:true}
+  ],
+  ex:'When glucose falls, the pancreas releases glucagon. The liver breaks down its glycogen store and releases glucose into the blood. The warehouse is being emptied.'},
+ {id:'g3', q:'A person with Type 1 diabetes forgets their insulin and eats a big plate of rice. Why does their blood glucose stay high for hours?',
+  o:[
+   {t:'Their pancreas makes little or no insulin, so cells cannot take in the glucose and the liver cannot store it.', ok:true},
+   {t:'Rice turns into sugar faster in people with diabetes.', why:'Digestion works the same way. The difference is what happens after the glucose reaches the blood.'},
+   {t:'Their kidneys add extra sugar to the blood.', why:'Kidneys do not add sugar to the blood. In fact, at very high levels some sugar is lost in the urine.'},
+   {t:'They release too much glucagon after a meal.', why:'Glucagon is not the main problem here. The missing hormone is insulin.'}
+  ],
+  ex:'Without insulin there is nothing to open the cells to glucose or to send it into storage, so the glucose stays in the blood.'},
+ {id:'g4', q:'Even in diabetes, blood never becomes as thick as syrup. So how does high blood sugar damage blood vessels?',
+  o:[
+   {t:'Sugar crystals form in the blood and block the vessels.', why:'Glucose stays dissolved in the blood. It does not form crystals.'},
+   {t:'It does not damage blood vessels. It only affects the urine.', why:'High blood sugar damages vessels all over the body. That is why diabetes affects the eyes, kidneys, heart and feet.'},
+   {t:'Glucose sticks to proteins in the vessel walls, making them stiff and narrowing the vessel.', ok:true},
+   {t:'Sugar raises the temperature of the blood and cooks the vessels.', why:'Blood sugar does not change blood temperature.'}
+  ],
+  ex:'Glucose slowly attaches to proteins and does not come off. Coated proteins stiffen, the vessel lining is damaged, the wall thickens and the space inside narrows.'},
+ {id:'g5', q:'Why are the kidneys, the eyes and the feet among the first parts of the body damaged by years of high blood sugar?',
+  o:[
+   {t:'They store the most sugar.', why:'These organs do not store sugar. The liver and muscles store glycogen.'},
+   {t:'They depend on very small blood vessels, which narrow and get damaged first.', ok:true},
+   {t:'They are the furthest from the pancreas.', why:'Distance from the pancreas does not matter. Hormones travel around the whole body in the blood in about a minute.'},
+   {t:'They do not respond to insulin.', why:'That is not the reason. The problem is the damage to their blood supply.'}
+  ],
+  ex:'The filters in the kidney, the vessels in the retina, and the vessels feeding the nerves in the feet are all tiny. A small amount of narrowing makes a big difference to them.'},
+ {id:'g6', q:'Why is a person with uncontrolled diabetes often very thirsty?',
+  o:[
+   {t:'Glucose spills into the urine and pulls water with it, so they lose a lot of water.', ok:true},
+   {t:'Sugar tastes salty in large amounts.', why:'Taste has nothing to do with it. The thirst comes from losing water.'},
+   {t:'Insulin makes people thirsty.', why:'In uncontrolled diabetes the problem is too little insulin action, not too much.'},
+   {t:'High sugar dries out the mouth directly.', why:'The thirst is triggered by the brain, because the blood has become concentrated after losing water in the urine.'}
+  ],
+  ex:'Above about 10 mmol/L, the kidneys cannot take back all the glucose. The sugar in the urine holds water by osmosis, so a lot of water is lost. The blood becomes concentrated and the brain triggers thirst.'}
+],
+water: [
+ {id:'w1', q:'During ultrafiltration, which of these stay in the blood and do NOT pass into the Bowman\'s capsule?',
+  o:[
+   {t:'Glucose and water', why:'Glucose and water are small molecules. They are forced into the capsule. You saw them in the filtrate.'},
+   {t:'Red blood cells and proteins', ok:true},
+   {t:'Urea and salt', why:'Urea and salt are small. They pass into the capsule with the filtrate.'},
+   {t:'Only water', why:'Water is the smallest of all. It passes through easily.'}
+  ],
+  ex:'The holes in the glomerulus are too small for blood cells and proteins. Everything small is pushed through into the capsule.'},
+ {id:'w2', q:'Why is the blood in the glomerulus under high pressure?',
+  o:[
+   {t:'The heart is right next to the kidney.', why:'The kidneys are not next to the heart. The pressure is created at the glomerulus itself.'},
+   {t:'The Bowman\'s capsule squeezes the glomerulus.', why:'The capsule does not squeeze. It collects what is forced out.'},
+   {t:'Glucose makes the blood thick.', why:'Remember Section 2: blood never gets thick like syrup. The pressure comes from the shape of the vessels.'},
+   {t:'The vessel leaving the glomerulus is narrower than the vessel entering it.', ok:true}
+  ],
+  ex:'Blood flows in through a wide arteriole and out through a narrower one. Like your thumb over a hose, this builds up pressure that forces small molecules out.'},
+ {id:'w3', q:'A healthy person\'s filtrate contains glucose, but their urine contains none. Explain.',
+  o:[
+   {t:'Glucose is too big to be filtered.', why:'If glucose were too big, it would not be in the filtrate. It is small, so it is filtered.'},
+   {t:'The glucose is turned into urea in the tubule.', why:'The tubule does not turn glucose into urea. Urea is made in the liver from extra amino acids.'},
+   {t:'All the glucose is taken back into the blood during selective reabsorption.', ok:true},
+   {t:'The bladder absorbs the glucose.', why:'The bladder only stores urine. The glucose was taken back much earlier, in the tubule.'}
+  ],
+  ex:'The tubule takes back all of the glucose into the surrounding capillaries. That is the "selective" part of selective reabsorption.'},
+ {id:'w4', q:'After an hour of football in the midday sun with nothing to drink, what happens?',
+  o:[
+   {t:'Blood becomes more concentrated → more ADH → more water reabsorbed → a small amount of dark urine.', ok:true},
+   {t:'Blood becomes more concentrated → less ADH → a lot of pale urine.', why:'If ADH went down, even more water would be lost. The body needs to save water, so ADH goes up.'},
+   {t:'Blood becomes more dilute → more ADH → a lot of pale urine.', why:'Sweating removes water, so the blood becomes more concentrated, not more dilute.'},
+   {t:'The kidneys make extra water to replace what was lost.', why:'The kidneys cannot make water. They can only keep more of it. Only drinking replaces it.'}
+  ],
+  ex:'Sweating removes water, so the blood is more concentrated. The hypothalamus detects this, the pituitary releases more ADH, and the collecting ducts let more water back into the blood. The urine is small in volume and dark.'},
+ {id:'w5', q:'Why does a person with uncontrolled diabetes pass a lot of urine, even when they are already dehydrated?',
+  o:[
+   {t:'Glucose left in the tubule holds water by osmosis, so less water can be taken back.', ok:true},
+   {t:'ADH stops being made in diabetes.', why:'Diabetes mellitus does not stop ADH being made. Even with lots of ADH, water held by the sugar cannot be taken back.'},
+   {t:'They drink a lot, so they pass a lot.', why:'Their drinking is a response to losing water. The loss comes first.'},
+   {t:'Insulin makes the kidneys filter faster.', why:'That is not the reason. The extra urine comes from the sugar that is left in the tubule.'}
+  ],
+  ex:'Above about 10 mmol/L, glucose is left in the tubule. It holds water by osmosis, so that water flows on into the urine no matter how much ADH there is.'},
+ {id:'w6', q:'Your kidneys filter about 180 litres a day, but you pass only about 1.5 litres of urine. What does this tell you?',
+  o:[
+   {t:'The bladder stores the other 178.5 litres.', why:'An adult bladder holds about half a litre. The rest must have gone somewhere else.'},
+   {t:'Most of the filtrate evaporates inside the body.', why:'Filtrate does not evaporate inside you. It is taken back into the blood.'},
+   {t:'More than 99% of the filtrate is reabsorbed into the blood.', ok:true},
+   {t:'You lose the other 178.5 litres in sweat.', why:'That would be impossible to replace by drinking. Most of the filtrate is taken back into the blood.'}
+  ],
+  ex:'Almost all the filtrate goes back into the blood. Filtering everything and then taking back what is useful is how the kidney makes sure nothing harmful stays behind.'}
+],
+finish: [
+ {id:'f1', q:'What do temperature control, blood sugar control and water control all have in common?',
+  o:[
+   {t:'They are all controlled by the pancreas.', why:'Only blood sugar is controlled by the pancreas. Temperature and water are controlled by the hypothalamus.'},
+   {t:'They all work by negative feedback: a change is detected and the response reverses it.', ok:true},
+   {t:'They are all controlled by the kidneys.', why:'Only water balance involves the kidneys directly.'},
+   {t:'They all keep the level at exactly one value.', why:'Remember the AC graph. Each level wobbles a little inside a narrow range.'}
+  ],
+  ex:'Each system detects a change and responds in the opposite direction, bringing the level back towards normal.'},
+ {id:'f2', q:'The hypothalamus detects changes in which two of these?',
+  o:[
+   {t:'Blood glucose and blood temperature', why:'Blood glucose is detected by the islets of Langerhans in the pancreas, not the hypothalamus.'},
+   {t:'Urea and blood glucose', why:'Neither of these is the hypothalamus\'s job in this topic.'},
+   {t:'Blood temperature and the concentration of the blood', ok:true},
+   {t:'Oxygen and carbon dioxide', why:'These are detected elsewhere and are not part of this topic.'}
+  ],
+  ex:'The hypothalamus controls both temperature and water balance. Blood sugar is handled by the pancreas.'},
+ {id:'f3', q:'A teenager with Type 1 diabetes forgets their insulin and spends the afternoon playing in the sun. Why might they become dehydrated very quickly?',
+  o:[
+   {t:'They lose water in sweat, and the high glucose in their filtrate drags even more water into the urine.', ok:true},
+   {t:'Insulin is mostly water, so missing it causes dehydration.', why:'Insulin is a hormone. Missing a dose does not remove water from the body directly.'},
+   {t:'High blood sugar stops sweating.', why:'High blood sugar does not stop sweating. They lose water by sweating and through the urine.'},
+   {t:'Their kidneys stop filtering.', why:'If the kidneys stopped filtering, they would lose less water, not more.'}
+  ],
+  ex:'Two water losses add up: sweat to keep cool, and extra urine because glucose in the tubule holds water. This is why uncontrolled diabetes in hot weather is dangerous.'},
+ {id:'f4', q:'Why can\'t the kidneys fix dehydration on their own?',
+  o:[
+   {t:'They can only reduce how much water is lost. Only drinking puts water back.', ok:true},
+   {t:'They stop working when you are dehydrated.', why:'The kidneys keep working. They make a small amount of concentrated urine to save water.'},
+   {t:'ADH only works at night.', why:'ADH works whenever it is released, day or night.'},
+   {t:'They need glucose to make water.', why:'The kidneys do not make water from glucose.'}
+  ],
+  ex:'The kidneys can save water by making less urine, but they cannot create water. That is why thirst is part of the system: it makes you drink.'},
+ {id:'f5', q:'A student\'s face is bright red after a football match. Which response is this?',
+  o:[
+   {t:'Vasoconstriction', why:'Vasoconstriction sends less blood to the skin, which makes it paler.'},
+   {t:'Shivering', why:'Shivering happens when you are cold, and it is in the muscles.'},
+   {t:'The hair erector muscles contracting', why:'That makes the hairs stand up and causes goosebumps. It does not make the skin red.'},
+   {t:'Vasodilation', ok:true}
+  ],
+  ex:'The arterioles to the skin widen, more warm blood flows near the surface, the skin looks red, and heat is lost to the air.'},
+ {id:'f6', q:'A doctor wants to know a patient\'s average blood sugar over the past three months. Which test makes sense?',
+  o:[
+   {t:'One finger-prick glucose reading', why:'A finger-prick reading only shows the level at that moment, which changes after every meal.'},
+   {t:'HbA1c, which measures how much sugar is stuck to haemoglobin', ok:true},
+   {t:'Checking the colour of the urine', why:'Urine colour tells you mostly about water balance, not average blood sugar.'},
+   {t:'Taking the body temperature', why:'Body temperature does not tell you about blood sugar.'}
+  ],
+  ex:'Sugar sticks to haemoglobin and stays stuck for the life of the red blood cell, about three months. So HbA1c gives a three-month average.'}
+]
+};
+
+const MISSIONS = [
+ {id:'mt1', sec:'temp', t:'Make the arterioles to the skin narrow (vasoconstriction).', h:'What kind of surroundings would make the body want to keep its heat in?'},
+ {id:'mt2', sec:'temp', t:'Find conditions that make the body shiver.', h:'Shivering is the strongest response to cold.'},
+ {id:'mt3', sec:'temp', t:'With sweating still working, push the core temperature to 38°C or more using humid air.', h:'Try football in the midday sun, then change only the air.'},
+ {id:'mt4', sec:'temp', t:'Switch off the sweat glands and find out how hot the core can get. Reach heatstroke (39.5°C or more).', h:'Turn off "Sweat glands working", then make the body work hard in the heat.'},
+ {id:'mg1', sec:'sugar', t:'In the healthy body, make the pancreas release a lot of insulin.', h:'Which is the fastest way to put sugar into the blood?'},
+ {id:'mg2', sec:'sugar', t:'In the healthy body, make the pancreas release glucagon.', h:'Let the blood sugar fall. Exercise, or wait without food.'},
+ {id:'mg3', sec:'sugar', t:'In the Type 1 body, push blood glucose above 10 mmol/L so that sugar spills into the urine.', h:'Eat or drink, and watch the line cross the dashed kidney limit.'},
+ {id:'mg4', sec:'sugar', t:'In the vessel diagram, compare 15 or more years of high sugar with 15 or more years of controlled sugar.', h:'Use the years slider with both settings.'},
+ {id:'mw1', sec:'water', t:'Run all three steps of the nephron explorer.', h:'Filter, take back, then the collecting duct.'},
+ {id:'mw2', sec:'water', t:'Run the nephron explorer with very high blood glucose and see where the glucose ends up.', h:'Choose "Very high", then run at least steps 1 and 2.'},
+ {id:'mw3', sec:'water', t:'In the body water simulator, make the urine pale and dilute.', h:'What would make the blood too dilute?'},
+ {id:'mw4', sec:'water', t:'Make the body thirsty, then bring the blood back to "just right".', h:'Sweat or salt makes you thirsty. What is the only real fix?'}
+];
+(function(){
+'use strict';
+const KEY='steady-body-hsb-v1';
+const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+const NS='http://www.w3.org/2000/svg';
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const rnd=(a,b)=>a+Math.random()*(b-a);
+let REDUCE=false; try{REDUCE=matchMedia('(prefers-reduced-motion: reduce)').matches;}catch(e){}
+function sv(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
+function h(tag,cls,html){const e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
+
+/* ---------- saved state ---------- */
+let S={name:'',sec:'start',q:{},m:{},f:{}};
+try{const raw=localStorage.getItem(KEY);if(raw){const o=JSON.parse(raw);if(o&&typeof o==='object'){S=Object.assign(S,o);S.q=S.q||{};S.m=S.m||{};S.f=S.f||{};}}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+
+/* ---------- scoring ---------- */
+const ALLQ=[].concat(...Object.values(QUIZ));
+const MAX=ALLQ.length*10+MISSIONS.length*15;
+function qPts(st){if(!st||!st.ok)return 0;return st.tries===1?10:st.tries===2?5:2;}
+function total(){let p=0;ALLQ.forEach(q=>p+=qPts(S.q[q.id]));MISSIONS.forEach(m=>{if(S.m[m.id])p+=15;});return p;}
+const SECS=['start','temp','sugar','water','finish'];
+const SECNAME={start:'The big idea',temp:'Temperature',sugar:'Blood sugar',water:'Water balance',finish:'Final check'};
+function secDone(sec){return QUIZ[sec].every(q=>S.q[q.id]&&S.q[q.id].ok)&&MISSIONS.filter(m=>m.sec===sec).every(m=>S.m[m.id]);}
+const ICON={
+ start:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 12a8 8 0 1 1-3-6.2M20 4v5h-5"/></svg>',
+ temp:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M10 14V5a2 2 0 0 1 4 0v9a4 4 0 1 1-4 0z"/></svg>',
+ sugar:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><path d="M12 3l7.5 4.5v9L12 21l-7.5-4.5v-9z"/></svg>',
+ water:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z"/></svg>',
+ finish:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z"/></svg>'
+};
+let prevDone=null;
+function updateScore(bump){
+  const p=total();
+  $('#ptsNow').textContent=p;
+  if(bump){const s=$('#score');s.classList.remove('bump');void s.offsetWidth;s.classList.add('bump');}
+  const row=$('#badgeRow');row.innerHTML='';
+  const done={};
+  SECS.forEach(sec=>{done[sec]=secDone(sec);const b=h('span','badge b-'+sec+(done[sec]?' on':''),ICON[sec]);b.title=SECNAME[sec]+(done[sec]?': complete':': not yet complete');row.appendChild(b);
+    const d=document.querySelector('[data-dot="'+sec+'"]');if(d)d.classList.toggle('done',done[sec]);});
+  if(prevDone){SECS.forEach(sec=>{if(done[sec]&&!prevDone[sec])setTimeout(()=>toast('Badge earned: '+SECNAME[sec]+'!'),1300);});}
+  prevDone=done;
+  SECS.forEach(sec=>{const ms=MISSIONS.filter(m=>m.sec===sec);
+    const got=QUIZ[sec].reduce((a,q)=>a+qPts(S.q[q.id]),0)+ms.filter(m=>S.m[m.id]).length*15;
+    const max=QUIZ[sec].length*10+ms.length*15;
+    $$('[data-earn-got="'+sec+'"]').forEach(e=>e.textContent=got);$$('[data-earn-max="'+sec+'"]').forEach(e=>e.textContent=max);});
+  renderCert();
+}
+
+/* ---------- predict-first ---------- */
+const PREDSEC={ac:'start',temp:'temp',sugar:'sugar',water:'water'};
+function renderPred(el){
+  S.f.pred=S.f.pred||{};
+  const id=el.dataset.pred,st=S.f.pred[id];
+  const btns=Array.from(el.querySelectorAll('.seg button')),out=el.querySelector('.pred-out');
+  btns.forEach(b=>{const me=st&&+b.dataset.opt===st.pick;b.disabled=!!st;b.classList.toggle('locked',!!me);b.setAttribute('aria-pressed',me?'true':'false');});
+  if(!st){out.innerHTML='';return;}
+  const chosen=btns.find(b=>+b.dataset.opt===st.pick);
+  let html='<p><strong>Locked in:</strong> '+(chosen?chosen.textContent:'')+'. Now test it below and see if you were right.</p>';
+  if(st.shown)html+='<div class="pred-ans">'+(st.ok?'<strong>You predicted it correctly.</strong> ':'<strong>Not this time, and that is fine. Now you know why.</strong> ')+el.dataset.answer+'</div><button class="ghost" data-pclear>Clear my prediction</button>';
+  else html+='<button class="ghost" data-pshow>Show me the answer</button>';
+  out.innerHTML=html;
+  const sb=out.querySelector('[data-pshow]');if(sb)sb.addEventListener('click',()=>{st.shown=true;save();renderPred(el);});
+  const cb=out.querySelector('[data-pclear]');if(cb)cb.addEventListener('click',()=>{delete S.f.pred[id];save();renderPred(el);});
+}
+$$('.think[data-pred]').forEach(el=>{
+  el.querySelectorAll('.seg button').forEach(b=>b.addEventListener('click',()=>{
+    S.f.pred=S.f.pred||{};if(S.f.pred[el.dataset.pred])return;
+    S.f.pred[el.dataset.pred]={pick:+b.dataset.opt,ok:b.dataset.ok==='1',shown:false};save();renderPred(el);}));
+  renderPred(el);
+});
+let toastT;
+function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2300);}
+function armed(btn,fn){
+  if(btn.classList.contains('armed')){btn.classList.remove('armed');btn.textContent=btn.dataset.label;clearTimeout(btn._t);fn();return;}
+  btn.dataset.label=btn.textContent;btn.classList.add('armed');btn.textContent='Tap again to confirm';
+  btn._t=setTimeout(()=>{btn.classList.remove('armed');btn.textContent=btn.dataset.label;},3500);
+}
+
+/* ---------- quizzes ---------- */
+function renderQuiz(key){
+  const box=document.querySelector('[data-quiz="'+key+'"]');if(!box)return;
+  box.innerHTML='';
+  const qs=QUIZ[key];
+  const head=h('div','qhead');
+  head.appendChild(h('h3',null,'Checkpoint questions <span class="muted small">10 points first try · 5 points second try</span>'));
+  const right=h('div','row');
+  right.appendChild(h('span','qprog',''));
+  const rb=h('button','ghost','Redo these questions');
+  rb.addEventListener('click',()=>armed(rb,()=>{qs.forEach(q=>delete S.q[q.id]);save();renderQuiz(key);updateScore();toast('Questions cleared. Try them again.');}));
+  right.appendChild(rb);head.appendChild(right);box.appendChild(head);
+  qs.forEach((q,i)=>box.appendChild(qCard(key,q,i,qs.length)));
+  qProg(key);
+}
+function qProg(key){const box=document.querySelector('[data-quiz="'+key+'"]');const qs=QUIZ[key];const n=qs.filter(q=>S.q[q.id]&&S.q[q.id].ok).length;box.querySelector('.qprog').textContent=n+' of '+qs.length+' correct';}
+function qCard(key,q,i,n){
+  const st=S.q[q.id]||{tries:0,ok:false,picked:[]};
+  const c=h('div','q'+(st.ok?' solved':''));c.tabIndex=-1;
+  c.innerHTML='<div class="qn"><span>Question '+(i+1)+' of '+n+'</span>'+(st.ok?'<span class="earned">+'+qPts(st)+' points</span>':'')+'</div><h4>'+q.q+'</h4>';
+  const opts=h('div','opts');
+  q.o.forEach((o,oi)=>{
+    const b=h('button','opt');b.type='button';
+    const picked=st.picked.indexOf(oi)>-1;
+    let fb='';
+    if(picked&&!o.ok){b.classList.add('wrong');b.disabled=true;fb='<span class="fb"><b>Not quite.</b> '+o.why+'</span>';}
+    if(o.ok&&st.ok){b.classList.add('right');}
+    if(st.ok)b.disabled=true;
+    b.innerHTML='<span class="L">'+'ABCD'[oi]+'</span><span>'+o.t+fb+'</span>';
+    b.addEventListener('click',()=>pick(key,q,oi));
+    opts.appendChild(b);
+  });
+  c.appendChild(opts);
+  if(st.ok)c.appendChild(h('div','explain','<strong>Correct.</strong> '+q.ex));
+  return c;
+}
+function pick(key,q,oi){
+  const st=S.q[q.id]||(S.q[q.id]={tries:0,ok:false,picked:[]});
+  if(st.ok||st.picked.indexOf(oi)>-1)return;
+  st.tries++;st.picked.push(oi);
+  const good=!!q.o[oi].ok;
+  if(good){st.ok=true;}
+  save();
+  const box=document.querySelector('[data-quiz="'+key+'"]');
+  const idx=QUIZ[key].indexOf(q);
+  const old=box.querySelectorAll('.q')[idx];
+  const nc=qCard(key,q,idx,QUIZ[key].length);old.replaceWith(nc);
+  try{nc.focus({preventScroll:true});}catch(e){}
+  qProg(key);
+  if(good){toast('Correct! +'+qPts(st)+' points');updateScore(true);}else{updateScore();}
+}
+
+/* ---------- missions ---------- */
+function renderMissions(sec){
+  const ul=document.querySelector('[data-missions="'+sec+'"]');if(!ul)return;
+  ul.innerHTML='';
+  const ms=MISSIONS.filter(m=>m.sec===sec);
+  ms.forEach(m=>{const d=!!S.m[m.id];const li=h('li',d?'done':'');
+    li.innerHTML='<span class="box">'+(d?'✓':'')+'</span><span class="mt">'+m.t+'<span class="hint">Hint: '+m.h+'</span></span><span class="pts">'+(d?'+15':'15 pts')+'</span>';ul.appendChild(li);});
+  const pr=$('#mprog-'+sec);if(pr)pr.textContent=ms.filter(m=>S.m[m.id]).length+' of '+ms.length+' done';
+}
+function complete(id){
+  if(S.m[id])return;S.m[id]=true;save();
+  const m=MISSIONS.find(x=>x.id===id);renderMissions(m.sec);
+  toast('Mission complete! +15 points');updateScore(true);
+}
+
+/* ---------- navigation ---------- */
+function show(sec,scroll){
+  if(SECS.indexOf(sec)<0)sec='start';
+  S.sec=sec;save();
+  $$('.sec').forEach(s=>{s.hidden=s.dataset.sec!==sec;});
+  $$('#tabs button').forEach(b=>b.setAttribute('aria-current',b.dataset.go===sec?'page':'false'));
+  const cur=document.querySelector('#tabs button[data-go="'+sec+'"]');if(cur&&cur.scrollIntoView){try{cur.scrollIntoView({block:'nearest',inline:'center'});}catch(e){}}
+  if(scroll!==false)window.scrollTo(0,0);
+  if(sec==='start'){AC.start();ST.start();}else{AC.stop();ST.stop();}
+  if(sec==='sugar')K.start();else K.stop();
+  if(sec==='sugar')G.start();else G.stop();
+  if(sec==='water')W.start();else W.stop();
+  if(sec==='finish')renderCert();
+}
+document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g){e.preventDefault();show(g.dataset.go);}});
+
+/* =====================================================
+   AC (feedback loop demo)
+   ===================================================== */
+const AC={T:27,set:22,on:false,hist:[],timer:null,paused:false,
+  tick(){const out=32;this.T+=(out-this.T)*0.02;if(this.on)this.T-=0.32;
+    if(this.T>this.set+0.8)this.on=true;else if(this.T<this.set-0.8)this.on=false;
+    this.hist.push({T:this.T,on:this.on});if(this.hist.length>150)this.hist.shift();},
+  start(){if(this.timer||this.paused)return;this.timer=setInterval(()=>{this.tick();this.draw();},450);},
+  stop(){clearInterval(this.timer);this.timer=null;Hum.set(false);},
+  draw(){
+    const T=this.T;
+    $('#acRoom').textContent=T.toFixed(1)+'°C';$('#acLcd').textContent=this.set+'°C';$('#acThermo').textContent=T.toFixed(1)+'°C';
+    const hgt=clamp((T-16)/(34-16),0,1)*50;const m=$('#acMerc');m.setAttribute('y',(180-hgt).toFixed(1));m.setAttribute('height',hgt.toFixed(1));
+    $('#acLed').setAttribute('fill',this.on?'var(--good)':'var(--line)');
+    $('#acHum').setAttribute('opacity',this.on?1:0);$('#acAir').setAttribute('opacity',this.on?1:0);$('#acAirLbl').setAttribute('opacity',this.on?1:0);
+    $('#acTint').setAttribute('opacity',clamp((T-this.set)/7,0,0.3).toFixed(2));
+    Hum.set(this.on&&!!this.timer);
+    const st=$('#acStatus');st.textContent=this.on?'Cooling on · hmmmm':'Cooling off · quiet';st.className='pill '+(this.on?'cold':'good');
+    const g=$('#acGraph');g.innerHTML='';
+    const X0=44,X1=590,Y0=14,Y1=150,tmin=16,tmax=34,N=150;
+    const y=t=>Y1-(t-tmin)/(tmax-tmin)*(Y1-Y0);
+    sv('rect',{x:X0,y:y(this.set+0.8),width:X1-X0,height:y(this.set-0.8)-y(this.set+0.8),fill:'var(--accent-soft)'},g);
+    [18,22,26,30,34].forEach(t=>{sv('line',{x1:X0,x2:X1,y1:y(t),y2:y(t),stroke:'var(--line)','stroke-width':1},g);const tx=sv('text',{x:X0-6,y:y(t)+4,'text-anchor':'end','class':'lbl-s'},g);tx.textContent=t+'°';});
+    sv('line',{x1:X0,x2:X1,y1:y(this.set),y2:y(this.set),stroke:'var(--accent)','stroke-width':1.5,'stroke-dasharray':'6 5'},g);
+    const lt=sv('text',{x:X0+6,y:y(this.set)-6,'class':'lbl',fill:'var(--accent)',style:'fill:var(--accent)'},g);lt.textContent='AC setting '+this.set+'°C';
+    const n=this.hist.length;const dx=(X1-X0)/(N-1);
+    let d='',on='';
+    this.hist.forEach((p,i)=>{const x=X1-(n-1-i)*dx;d+=(i?'L':'M')+x.toFixed(1)+' '+y(clamp(p.T,tmin,tmax)).toFixed(1);if(p.on)on+='M'+(x-dx/2).toFixed(1)+' 160h'+dx.toFixed(2)+'v9h-'+dx.toFixed(2)+'z';});
+    sv('path',{d:on,fill:'var(--cold)',opacity:.75},g);
+    sv('path',{d:d,fill:'none',stroke:'var(--heat)','stroke-width':2.5,'stroke-linejoin':'round'},g);
+    const l2=sv('text',{x:X0,y:184,'class':'lbl-s'},g);l2.textContent='Blue strip = AC humming (cooling on)';
+    const l3=sv('text',{x:X1,y:184,'text-anchor':'end','class':'lbl-s'},g);l3.textContent='time →';
+  }
+};
+for(let i=0;i<110;i++)AC.tick();
+$('#acSet').addEventListener('input',e=>{AC.set=+e.target.value;$('#acSetOut').textContent=AC.set+'°C';AC.draw();});
+function hotWash(btn){if(REDUCE)return;const panel=$('#acPanel');const pr=panel.getBoundingClientRect(),br=btn.getBoundingClientRect();
+  const d=document.createElement('div');d.className='hotwash';const size=Math.hypot(pr.width,pr.height)*2.2;d.style.width=d.style.height=size+'px';
+  d.style.left=(br.left+br.width/2-pr.left)+'px';d.style.top=(br.top+br.height/2-pr.top)+'px';panel.appendChild(d);setTimeout(()=>d.remove(),3900);}
+$('#acDoor').addEventListener('click',e=>{const b=e.currentTarget;AC.T=Math.min(33,AC.T+4);flash(b);hotWash(b);AC.draw();});
+$('#acPause').addEventListener('click',e=>{AC.paused=!AC.paused;e.currentTarget.textContent=AC.paused?'Play':'Pause';if(AC.paused)AC.stop();else AC.start();AC.draw();});
+$('#acReset').addEventListener('click',()=>{AC.T=27;AC.set=22;AC.on=false;AC.hist=[];for(let i=0;i<110;i++)AC.tick();$('#acSet').value=22;$('#acSetOut').textContent='22°C';AC.draw();});
+const Hum={ctx:null,g:null,enabled:false,
+  init(){const C=window.AudioContext||window.webkitAudioContext;if(!C)return false;try{const ctx=this.ctx=new C();
+    this.g=ctx.createGain();this.g.gain.value=0;this.g.connect(ctx.destination);
+    const lp=ctx.createBiquadFilter();lp.type='lowpass';lp.frequency.value=320;lp.connect(this.g);
+    const o1=ctx.createOscillator();o1.type='sawtooth';o1.frequency.value=60;const g1=ctx.createGain();g1.gain.value=0.3;o1.connect(g1);g1.connect(lp);o1.start();
+    const o2=ctx.createOscillator();o2.type='sine';o2.frequency.value=120;const g2=ctx.createGain();g2.gain.value=0.45;o2.connect(g2);g2.connect(lp);o2.start();
+    const len=ctx.sampleRate*2,buf=ctx.createBuffer(1,len,ctx.sampleRate),dd=buf.getChannelData(0);for(let i=0;i<len;i++)dd[i]=Math.random()*2-1;
+    const n=ctx.createBufferSource();n.buffer=buf;n.loop=true;const bp=ctx.createBiquadFilter();bp.type='bandpass';bp.frequency.value=480;bp.Q.value=0.6;const gn=ctx.createGain();gn.gain.value=0.35;n.connect(bp);bp.connect(gn);gn.connect(this.g);n.start();
+    return true;}catch(e){return false;}},
+  set(on){if(!this.ctx)return;const t=this.ctx.currentTime;try{this.g.gain.cancelScheduledValues(t);this.g.gain.setTargetAtTime(on&&this.enabled?0.09:0,t,0.3);}catch(e){}}
+};
+$('#acSound').addEventListener('click',e=>{const b=e.currentTarget;
+  if(!Hum.ctx&&!Hum.init()){b.querySelector('span').textContent='Sound is not available on this device';return;}
+  try{Hum.ctx.resume();}catch(err){}
+  Hum.enabled=!Hum.enabled;b.setAttribute('aria-pressed',Hum.enabled?'true':'false');
+  b.querySelector('use').setAttribute('href',Hum.enabled?'#i-sound':'#i-mute');
+  b.querySelector('span').textContent=Hum.enabled?'Mute the hum':'Turn on the hum sound';
+  Hum.set(AC.on&&!!AC.timer);});
+
+/* steady body animation */
+const ST={i:0,timer:null,scenes:[
+  {s:'Cold AC classroom',ic:'i-cold',c:'c-cold',v:'18°C',bg:'var(--cold-soft)',t:'36.9',g:'4.9'},
+  {s:'Midday sun',ic:'i-sun',c:'c-heat',v:'33°C',bg:'var(--heat-soft)',t:'37.2',g:'5.0'},
+  {s:'Big plate of rice',ic:'i-rice',c:'c-sugar',v:'lunch time',bg:'var(--sugar-soft)',t:'37.0',g:'6.4'},
+  {s:'Long morning, no food',ic:'i-plate',c:'c-muted',v:'no breakfast',bg:'var(--surface-2)',t:'36.9',g:'4.4'},
+  {s:'Football match, no water',ic:'i-bottle0',c:'c-muted',v:'sweating a lot',bg:'var(--warn-soft)',t:'37.3',g:'4.6'},
+  {s:'A full bottle of water',ic:'i-bottle',c:'c-water',v:'500 mL',bg:'var(--water-soft)',t:'37.0',g:'5.0'}],
+  paint(){const sc=this.scenes[this.i];$('#steady').style.setProperty('--st-bg',sc.bg);
+    $('#stScene').innerHTML=sc.s+' <svg class="ii '+sc.c+'" aria-hidden="true"><use href="#'+sc.ic+'"/></svg>';$('#stOut').textContent=sc.v;
+    $('#stT').textContent=sc.t+'°C';$('#stG').textContent=sc.g;},
+  next(){this.i=(this.i+1)%this.scenes.length;if(REDUCE){this.paint();return;}
+    $('#stScene').classList.add('st-hide');$('#stOut').classList.add('st-hide');
+    setTimeout(()=>{this.paint();$('#stScene').classList.remove('st-hide');$('#stOut').classList.remove('st-hide');},600);},
+  start(){if(!this.timer)this.timer=setInterval(()=>this.next(),4500);},
+  stop(){clearInterval(this.timer);this.timer=null;}
+};
+ST.paint();
+function flash(b){b.classList.remove('flash');void b.offsetWidth;b.classList.add('flash');}
+
+/* =====================================================
+   TEMPERATURE
+   ===================================================== */
+const TS={env:26,act:'rest',humid:false,sweatOn:true};
+function tCompute(){
+  const actHeat={rest:0,walk:5,ball:12}[TS.act];
+  const load=(TS.env-27)+actHeat;
+  const cold=load<0?Math.min(1,-load/14):0;
+  const hot=load>0?Math.min(1,load/16):0;
+  const vaso=hot-cold;
+  const hair=cold>0.15?cold:0;
+  const shiver=cold>0.45?(cold-0.45)/0.55:0;
+  const sweat=TS.sweatOn?hot:0;
+  const evap=TS.humid?0.45:1;
+  const vasoCap=Math.max(0,4-Math.max(0,TS.env-35));
+  const hotCap=vasoCap+(TS.sweatOn?18*evap:0);
+  const residual=load>0?Math.max(0,load-hotCap):Math.min(0,load+16);
+  const core=37+clamp(load*0.03,-0.3,0.3)+residual*0.22;
+  return {load,cold,hot,vaso,hair,shiver,sweat,evap,core};
+}
+function tRender(){
+  const r=tCompute();
+  $('#tEnvOut').textContent=TS.env+'°C';$('#tEnv').value=TS.env;
+  $$('#tPresets button').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.env===TS.env?'true':'false'));
+  $$('#tAct button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.act===TS.act?'true':'false'));
+  $$('#tAir button').forEach(b=>b.setAttribute('aria-pressed',(b.dataset.air==='humid')===TS.humid?'true':'false'));
+  $('#tSweat').checked=TS.sweatOn;
+  const flow=(r.vaso+1)/2;
+  $('#arteriole').style.strokeWidth=(8+r.vaso*5).toFixed(1)+'px';
+  const cl=$('#capLoop');cl.style.strokeWidth=(2.5+flow*5).toFixed(1)+'px';cl.style.opacity=(0.25+0.75*flow).toFixed(2);
+  $('#venule').style.opacity=(0.35+0.65*flow).toFixed(2);
+  $('#flush').style.opacity=(Math.max(0,r.vaso)*0.35).toFixed(2);
+  $('#radiate').style.opacity=(TS.env<36?Math.max(0,r.vaso):0).toFixed(2);
+  $('#artState').textContent=r.vaso>0.15?'(widened)':r.vaso<-0.15?'(narrowed)':'(normal width)';
+  $('#hairLine').style.transform='rotate('+(68-r.hair*63).toFixed(1)+'deg)';
+  $('#bump').setAttribute('ry',(r.hair*5).toFixed(1));
+  const er=$('#erector');er.style.strokeWidth=(4+r.hair*5).toFixed(1)+'px';
+  $('#duct').classList.toggle('flowing',r.sweat>0.05&&!REDUCE);
+  const nDrops=Math.round(r.sweat*(TS.humid?6:3));
+  $$('#drops path').forEach((p,i)=>p.style.opacity=i<nDrops?1:0);
+  $('#vapour').style.opacity=(r.sweat*r.evap).toFixed(2);
+  $('#person').classList.toggle('shiver',r.shiver>0&&!REDUCE);
+  $('#ball').style.opacity=TS.act==='ball'?1:0;
+  const dev=r.core-37;
+  const gl=$('#coreGlow');
+  if(r.cold>0.3){gl.setAttribute('fill','var(--cold)');gl.style.opacity=(r.cold*0.35).toFixed(2);}
+  else{gl.setAttribute('fill','var(--heat)');gl.style.opacity=clamp(dev*0.28,0,0.8).toFixed(2);}
+  const yT=228-clamp(r.core-34,0,6.1)*27.67;const mc=$('#coreMerc');mc.setAttribute('y',yT.toFixed(1));mc.setAttribute('height',(228-yT).toFixed(1));
+  mc.setAttribute('fill',r.core<36.5?'var(--cold)':'var(--heat)');
+  const ct=r.core.toFixed(1)+'°C';$('#coreTxt').textContent=ct;$('#coreBig').textContent=ct;
+  let pill,cls,note;
+  if(r.core<36){pill='Too cold';cls='cold';note='core temperature: enzymes slowing down';}
+  else if(r.core<37.5){pill='Normal';cls='good';note='core temperature: enzymes working well';}
+  else if(r.core<38.5){pill='Warmer than normal';cls='warn';note='core temperature: the body is struggling to lose heat';}
+  else if(r.core<39.5){pill='Too hot: heat exhaustion';cls='bad';note='core temperature: dizziness, weakness, headache';}
+  else{pill='Danger: heatstroke';cls='bad';note='core temperature: enzymes begin to denature. This is an emergency.';}
+  const st=$('#tStatus');st.textContent=pill;st.className='pill '+cls;$('#coreNote').textContent=note;
+  // readouts
+  const rows=[];
+  if(r.vaso>0.15)rows.push(['Arterioles to the skin','Widening (vasodilation)',TS.env>=36?'More blood flows near the surface. But the air is hotter than your skin, so the skin cannot lose heat this way any more.':'More warm blood flows near the surface, so heat radiates into the air. The skin looks redder.',true]);
+  else if(r.vaso<-0.15)rows.push(['Arterioles to the skin','Narrowing (vasoconstriction)','Less blood reaches the surface, so heat stays deep in the body. The skin looks paler.',true]);
+  else rows.push(['Arterioles to the skin','Normal width','The body is not gaining or losing too much heat.',false]);
+  if(!TS.sweatOn)rows.push(['Sweat glands','Not working','You switched them off. The body has lost its main way to cool down.',true]);
+  else if(r.sweat>0.6)rows.push(['Sweat glands','Making a lot of sweat',TS.humid?'The air is humid, so sweat evaporates slowly and drips off. Less heat is removed.':'The air is dry, so sweat evaporates quickly and takes heat from the skin.',true]);
+  else if(r.sweat>0.05)rows.push(['Sweat glands','Making some sweat',TS.humid?'Humid air slows evaporation, so the sweat cools you less.':'The sweat evaporates and takes heat from the skin.',true]);
+  else rows.push(['Sweat glands','Resting','No need to lose extra heat.',false]);
+  rows.push(r.hair>0?['Hair erector muscles','Contracting: hairs stand up','You get goosebumps. Upright hairs trap a little still air next to the skin.',true]:['Hair erector muscles','Relaxed: hairs lie flat','No need to trap air.',false]);
+  rows.push(r.shiver>0?['Shivering','Yes','Muscles contract rapidly. Respiration in the muscles releases heat.',true]:['Shivering','No','',false]);
+  $('#tReads').innerHTML=rows.map(x=>'<div class="read'+(x[3]?' on':'')+'"><span class="k">'+x[0]+'</span><span class="v">'+x[1]+'</span>'+(x[2]?'<span class="because">'+x[2]+'</span>':'')+'</div>').join('');
+  // missions
+  if(r.vaso<-0.2)complete('mt1');
+  if(r.shiver>0)complete('mt2');
+  if(TS.humid&&TS.sweatOn&&r.core>=38)complete('mt3');
+  if(!TS.sweatOn&&r.core>=39.5)complete('mt4');
+}
+$('#tEnv').addEventListener('input',e=>{TS.env=+e.target.value;tRender();});
+$$('#tPresets button').forEach(b=>b.addEventListener('click',()=>{TS.env=+b.dataset.env;tRender();}));
+$$('#tAct button').forEach(b=>b.addEventListener('click',()=>{TS.act=b.dataset.act;tRender();}));
+$$('#tAir button').forEach(b=>b.addEventListener('click',()=>{TS.humid=b.dataset.air==='humid';tRender();}));
+$('#tSweat').addEventListener('change',e=>{TS.sweatOn=e.target.checked;tRender();});
+$('#tReset').addEventListener('click',()=>{Object.assign(TS,{env:26,act:'rest',humid:false,sweatOn:true});tRender();});
+
+/* =====================================================
+   BLOOD SUGAR
+   ===================================================== */
+function gFresh(mode){return {G:4.9,fast:0,slow:0,ins:0.15,glc:0.05,gly:70,ex:0,mode:mode||'h',spill:0,abs:0,uptake:0};}
+function gStep(s){
+  const fa=s.fast*0.4,sa=s.slow*0.12;s.fast-=fa;s.slow-=sa;
+  const inG=(fa+sa)/7;s.abs=inG;
+  const tgtI=s.mode==='t1'?0.02:clamp((s.G-4.6)*0.32,0,1);
+  s.ins+=(tgtI-s.ins)*0.5;
+  const eff=s.mode==='t2'?0.28:1;
+  let tgtC=clamp((5.0-s.G)*0.7,0,1);if(s.mode==='t1')tgtC=Math.max(tgtC,0.15);
+  s.glc+=(tgtC-s.glc)*0.5;
+  const brain=0.12;
+  const uptake=eff*s.ins*s.G*0.11;
+  const store=Math.min(uptake*0.5,Math.max(0,(100-s.gly)/7*0.5));
+  s.gly+=store*7*0.6;s.store=store;
+  const ex=s.ex>0?0.32:0;if(s.ex>0)s.ex--;
+  s.uptake=uptake+ex;
+  let liver=0;if(s.gly>1){liver=s.glc*0.45+(s.G<5.4?0.08:0)+(s.mode==='t1'?0.09:0);s.gly-=liver*7*0.6;}
+  s.liver=liver;
+  const spill=s.G>10?(s.G-10)*0.07:0;s.spill=spill;
+  s.G+=inG+liver-brain-uptake-ex-spill;
+  s.G=clamp(s.G,1.8,24);s.gly=clamp(s.gly,0,100);
+}
+const G={s:gFresh('h'),hist:[],timer:null,paused:false,ref:{},min:0,moving:[],acc:{},raf:0,last:0,
+  start(){if(!this.timer&&!this.paused)this.timer=setInterval(()=>{this.step();this.draw();},900);if(!this.raf&&!REDUCE){this.last=performance.now();this.raf=requestAnimationFrame(gAnim);}},
+  stop(){clearInterval(this.timer);this.timer=null;cancelAnimationFrame(this.raf);this.raf=0;},
+  step(ev){gStep(this.s);this.min+=10;this.hist.push({G:this.s.G,ev:ev||this.pendingEv||null,min:this.min});this.pendingEv=null;if(this.hist.length>48)this.hist.shift();},
+  restart(prefillEvent){const mode=this.s.mode;this.s=gFresh(mode);this.hist=[];
+    this.min=(prefillEvent?13*60+10:6*60)-480;
+    for(let i=0;i<48;i++){let ev=null;if(prefillEvent&&i===10){this.s.slow+=80;ev='breakfast';}gStep(this.s);this.min+=10;this.hist.push({G:this.s.G,ev:ev,min:this.min});}}
+};
+function fmtTime(m){m=((m%1440)+1440)%1440;let hh=Math.floor(m/60),mm=m%60;const ap=hh<12?'a.m.':'p.m.';hh=hh%12;if(hh===0)hh=12;return hh+':'+(mm<10?'0':'')+mm+' '+ap;}
+function gAnim(now){
+  const dt=Math.min(0.1,(now-G.last)/1000);G.last=now;const s=G.s,R=G.ref;
+  if(R.mv&&!G.paused){
+    const flows={gut:s.abs*1.4,cells:(s.uptake||0)*2.2,store:(s.store||0)*4,release:(s.liver||0)*4,kid:(s.spill||0)*6};
+    for(const k in flows){G.acc[k]=(G.acc[k]||0)+Math.min(3,flows[k])*dt;
+      while(G.acc[k]>=1){G.acc[k]-=1;spawnDot(k,now);}}
+  }
+  G.moving=G.moving.filter(d=>{let k=(now-d.t0)/d.dur;if(k>=1.25){d.el.remove();return false;}
+    const e=Math.min(1,k);const ee=e<.5?2*e*e:1-Math.pow(-2*e+2,2)/2;
+    d.el.setAttribute('cx',(d.x0+(d.x1-d.x0)*ee).toFixed(1));d.el.setAttribute('cy',(d.y0+(d.y1-d.y0)*ee).toFixed(1));
+    d.el.setAttribute('opacity',k>1?(1-(k-1)/0.25).toFixed(2):1);return true;});
+  G.raf=requestAnimationFrame(gAnim);
+}
+function spawnDot(k,now){
+  const R=G.ref;if(G.moving.length>40)return;let a,b;
+  if(k==='gut'){a=[368+rnd(-14,14),60];b=[368+rnd(-40,40),rnd(120,142)];}
+  else if(k==='cells'){const cx=[250,286,322][Math.floor(Math.random()*3)];a=[cx+rnd(-20,20),rnd(128,146)];b=[cx+rnd(-7,7),rnd(212,222)];}
+  else if(k==='store'){a=[rnd(44,90),rnd(132,148)];b=[rnd(40,104),232];}
+  else if(k==='release'){a=[rnd(112,146),226];b=[rnd(110,170),rnd(120,140)];}
+  else{a=[388,rnd(140,150)];b=[rnd(378,392),rnd(214,226)];}
+  const el=sv('circle',{cx:a[0],cy:a[1],r:3.8,fill:'var(--sugar)',stroke:'var(--ink)','stroke-width':0.8},R.mv);
+  G.moving.push({el:el,x0:a[0],y0:a[1],x1:b[0],y1:b[1],t0:now,dur:1900});
+}
+const EVLABEL={rice:'rice',drink:'sweet drink',ball:'football',breakfast:'breakfast',h:'healthy',t1:'Type 1',t2:'Type 2'};
+function gBuildMap(){
+  const g=$('#gMap');g.innerHTML='';const R=G.ref;
+  const arrow=(x1,y1,x2,y2,col,w)=>{const gg=sv('g',{},g);const ang=Math.atan2(y2-y1,x2-x1);const hx=x2-10*Math.cos(ang),hy=y2-10*Math.sin(ang);
+    sv('line',{x1:x1,y1:y1,x2:hx,y2:hy,stroke:col,'stroke-width':w||4,'stroke-linecap':'round'},gg);
+    sv('path',{d:'M'+x2+' '+y2+' L'+(hx+6*Math.cos(ang+Math.PI/2))+' '+(hy+6*Math.sin(ang+Math.PI/2))+' L'+(hx-6*Math.cos(ang+Math.PI/2))+' '+(hy-6*Math.sin(ang+Math.PI/2))+'z',fill:col},gg);return gg;};
+  const txt=(x,y,t,cls,anchor,fill)=>{const e=sv('text',{x:x,y:y,'class':cls||'lbl','text-anchor':anchor||'start'},g);if(fill){e.setAttribute('style','fill:'+fill);}e.textContent=t;return e;};
+  // organs
+  sv('path',{d:'M24 40 C 30 18, 90 14, 130 26 C 160 34, 175 30, 182 40 C 186 54, 160 62, 120 58 C 80 54, 40 66, 28 56 Z',fill:'var(--warn-soft)',stroke:'var(--warn)','stroke-width':2},g);
+  txt(54,46,'pancreas');
+  sv('rect',{x:288,y:16,width:160,height:44,rx:22,fill:'var(--surface-2)',stroke:'var(--line)','stroke-width':2},g);
+  txt(368,36,'gut',null,'middle');txt(368,51,'food → glucose','lbl-s','middle');
+  sv('rect',{x:10,y:106,width:440,height:50,rx:25,fill:'var(--blood-soft)',stroke:'var(--blood)','stroke-width':2},g);
+  txt(440,100,'blood','lbl-s','end');
+  sv('path',{d:'M16 200 C 20 186, 120 182, 186 196 C 200 210, 190 246, 150 250 C 100 254, 30 248, 18 232 Z',fill:'var(--blood-soft)',stroke:'var(--vein)','stroke-width':2},g);
+  txt(30,218,'liver');
+  sv('rect',{x:30,y:226,width:120,height:12,rx:6,fill:'var(--surface)',stroke:'var(--line)'},g);
+  R.gly=sv('rect',{x:30,y:226,width:80,height:12,rx:6,fill:'var(--sugar)'},g);
+  txt(66,218,'glycogen store','lbl-s');
+  sv('rect',{x:226,y:196,width:120,height:54,rx:12,fill:'var(--surface-2)',stroke:'var(--line)','stroke-width':2},g);
+  for(let i=0;i<3;i++)sv('rect',{x:236+i*36,y:206,width:28,height:22,rx:6,fill:'none',stroke:'var(--muted)','stroke-width':1.5},g);
+  txt(286,244,'body cells, muscles','lbl-s','middle');
+  sv('path',{d:'M388 198 C 360 198, 360 250, 388 250 C 396 250, 398 242, 394 236 C 391 230, 391 218, 394 212 C 398 206, 396 198, 388 198 Z',fill:'var(--tubule)',stroke:'var(--ink)','stroke-width':1.5},g);
+  txt(404,232,'kidney','lbl-s');
+  // dots in blood
+  R.dots=[];let seed=7;const rr=()=>{seed=(seed*9301+49297)%233280;return seed/233280;};
+  for(let i=0;i<64;i++){R.dots.push(sv('circle',{cx:(26+rr()*408).toFixed(1),cy:(116+rr()*30).toFixed(1),r:3.2,fill:'var(--sugar)'},g));}
+  // arrows
+  R.aIns=arrow(78,62,78,104,'var(--good)',5);txt(84,86,'insulin','lbl',null,'var(--good)');
+  R.aGlc=arrow(150,62,150,104,'var(--water)',5);txt(156,86,'glucagon','lbl',null,'var(--water)');
+  R.aGut=arrow(368,62,368,104,'var(--sugar)',5);txt(374,86,'absorbed','lbl-s');
+  R.aStore=arrow(60,158,60,194,'var(--good)',4);txt(4,176,'store','lbl-s');
+  R.aRel=arrow(120,194,120,158,'var(--water)',4);txt(126,176,'release','lbl-s');
+  R.aCell=arrow(286,158,286,194,'var(--good)',4);txt(292,176,'taken in','lbl-s');
+  R.aUr=arrow(388,158,388,196,'var(--bad)',4);
+  R.mv=sv('g',{},g);txt(396,172,'sugar lost','lbl-s',null,'var(--bad)');txt(396,185,'in urine','lbl-s',null,'var(--bad)');
+}
+function lvl(v){return v>0.6?'high':v>0.25?'medium':'low';}
+function gDraw(){
+  const s=G.s,R=G.ref;
+  const n=Math.round(clamp(s.G*3.4,0,64));R.dots.forEach((d,i)=>d.setAttribute('opacity',i<n?1:0));
+  const eff=s.mode==='t2'?0.28:1;
+  R.aIns.setAttribute('opacity',(0.1+0.9*clamp(s.ins/0.8,0,1)).toFixed(2));
+  R.aGlc.setAttribute('opacity',(0.1+0.9*clamp(s.glc/0.6,0,1)).toFixed(2));
+  R.aGut.setAttribute('opacity',(0.08+0.92*clamp(s.abs/1.5,0,1)).toFixed(2));
+  R.aStore.setAttribute('opacity',(0.1+0.9*clamp(s.ins*eff/0.7,0,1)).toFixed(2));
+  R.aRel.setAttribute('opacity',(0.1+0.9*clamp((s.liver||0)/0.35,0,1)).toFixed(2));
+  R.aCell.setAttribute('opacity',(0.15+0.85*clamp((s.uptake||0)/0.8,0,1)).toFixed(2));
+  R.aUr.setAttribute('opacity',s.spill>0?1:0.06);
+  R.gly.setAttribute('width',(1.2*s.gly).toFixed(1));
+  $('#gBig').textContent=s.G.toFixed(1);
+  $('#gTime').textContent=fmtTime(G.min);
+  $('#clkM').style.transform='rotate('+((G.min%60)*6)+'deg)';$('#clkH').style.transform='rotate('+(((G.min/60)%12)*30)+'deg)';
+  const tsp=s.G*0.9/4;$('#gTsp').textContent='≈ '+tsp.toFixed(1)+' teaspoons in your whole bloodstream';$('#gTsp').className='pill '+(s.G>10?'bad':s.G>7.8?'warn':'good');
+  $('#gInsB').style.width=(clamp(s.ins,0,1)*100)+'%';$('#gInsV').textContent=s.mode==='t1'?'almost none':lvl(s.ins);
+  $('#gGlcB').style.width=(clamp(s.glc,0,1)*100)+'%';$('#gGlcV').textContent=lvl(s.glc);
+  $('#gGlyB').style.width=s.gly+'%';$('#gGlyV').textContent=Math.round(s.gly)+'% full';
+  $('#gUrB').style.width=(clamp(s.spill/0.5,0,1)*100)+'%';$('#gUrV').textContent=s.spill>0?'yes':'none';
+  let pill,cls;
+  if(s.G<3.5){pill='Too low: brain short of fuel';cls='bad';}else if(s.G<4){pill='Low';cls='warn';}
+  else if(s.G<=7.8){pill='Normal';cls='good';}else if(s.G<=10){pill='High';cls='warn';}else{pill='Very high: sugar in urine';cls='bad';}
+  const st=$('#gStatus');st.textContent=pill;st.className='pill '+cls;
+  $$('#gMode button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.mode===s.mode?'true':'false'));
+  // graph
+  const g=$('#gGraph');g.innerHTML='';
+  const X0=40,X1=590,Y0=12,Y1=186,gmin=0,gmax=16;const y=v=>Y1-(clamp(v,gmin,gmax)-gmin)/(gmax-gmin)*(Y1-Y0);
+  sv('rect',{x:X0,y:y(7),width:X1-X0,height:y(4)-y(7),fill:'var(--good-soft)'},g);
+  [0,4,7,10,16].forEach(v=>{sv('line',{x1:X0,x2:X1,y1:y(v),y2:y(v),stroke:'var(--line)','stroke-width':1},g);const t=sv('text',{x:X0-6,y:y(v)+4,'text-anchor':'end','class':'lbl-s'},g);t.textContent=v;});
+  sv('line',{x1:X0,x2:X1,y1:y(10),y2:y(10),stroke:'var(--bad)','stroke-width':1.5,'stroke-dasharray':'6 5'},g);
+  const k=sv('text',{x:X1,y:y(10)-5,'text-anchor':'end','class':'lbl-s',style:'fill:var(--bad)'},g);k.textContent='kidney limit: above this, sugar spills into urine';
+  const nl=sv('text',{x:X0+6,y:y(5.5)+4,'class':'lbl-s',style:'fill:var(--good)'},g);nl.textContent='normal';
+  sv('line',{x1:X0,x2:X1,y1:y(3.5),y2:y(3.5),stroke:'var(--warn)','stroke-width':1,'stroke-dasharray':'3 4'},g);
+  const N=48,dx=(X1-X0)/(N-1),hl=G.hist.length;let d='';
+  G.hist.forEach((p,i)=>{const x=X1-(hl-1-i)*dx;d+=(i?'L':'M')+x.toFixed(1)+' '+y(p.G).toFixed(1);
+    if(p.ev){sv('line',{x1:x,x2:x,y1:Y0,y2:Y1,stroke:'var(--muted)','stroke-width':1,'stroke-dasharray':'2 3'},g);const nearEnd=x>X1-90;const t=sv('text',{x:nearEnd?x-4:x+4,y:Y0+12,'class':'lbl-s','text-anchor':nearEnd?'end':'start'},g);t.textContent=EVLABEL[p.ev]||p.ev;}});
+  sv('path',{d:d,fill:'none',stroke:'var(--sugar)','stroke-width':3,'stroke-linejoin':'round','stroke-linecap':'round'},g);
+  if(hl){const last=G.hist[hl-1];sv('circle',{cx:X1,cy:y(last.G),r:5,fill:'var(--sugar)',stroke:'var(--surface)','stroke-width':2},g);}
+  const xl=sv('text',{x:X0,y:206,'class':'lbl-s'},g);xl.textContent=fmtTime(G.min-470);
+  const xm=sv('text',{x:(X0+X1)/2,y:206,'class':'lbl-s','text-anchor':'middle'},g);xm.textContent=fmtTime(G.min-235);
+  const xr=sv('text',{x:X1,y:206,'class':'lbl-s','text-anchor':'end'},g);xr.textContent='now · '+fmtTime(G.min);
+  // missions
+  if(s.mode==='h'&&s.ins>0.6)complete('mg1');
+  if(s.mode==='h'&&s.glc>0.35)complete('mg2');
+  if(s.mode==='t1'&&s.G>10)complete('mg3');
+}
+G.draw=gDraw;
+$$('#gPanel [data-ev]').forEach(b=>b.addEventListener('click',()=>{const ev=b.dataset.ev;
+  if(ev==='rice')G.s.slow+=80;if(ev==='drink')G.s.fast+=50;if(ev==='ball')G.s.ex=6;
+  G.pendingEv=ev;flash(b);if(G.paused||!G.timer){G.step();gDraw();}}));
+$$('#gMode button').forEach(b=>b.addEventListener('click',()=>{if(G.s.mode===b.dataset.mode)return;G.s.mode=b.dataset.mode;G.pendingEv=b.dataset.mode;gDraw();gOffer();}));
+function gOffer(){const o=$('#gOffer'),m=G.s.mode;if(m==='h'){o.hidden=true;return;}
+  o.hidden=false;o.innerHTML='<span>You chose <strong>'+(m==='t1'?'Type 1':'Type 2')+' diabetes</strong>. Do you want to see what goes wrong inside the body?</span><button class="btn tone" id="gWatch"><svg class="ii" aria-hidden="true"><use href="#i-play"/></svg> Watch the animation</button>';
+  $('#gWatch').addEventListener('click',()=>{K.setMode(m);const kp=$('#kPanel');try{kp.scrollIntoView({behavior:REDUCE?'auto':'smooth',block:'start'});}catch(e){kp.scrollIntoView();}});}
+$('#gPause').addEventListener('click',e=>{G.paused=!G.paused;e.currentTarget.textContent=G.paused?'Play':'Pause';if(G.paused){clearInterval(G.timer);G.timer=null;}else G.start();});
+$('#gRestart').addEventListener('click',()=>{G.restart(false);gDraw();});
+
+/* insulin key animation */
+const K={mode:'h',t0:0,raf:0,ref:{},
+  setMode(m){this.mode=m;this.t0=performance.now();$$('#kMode button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===m?'true':'false'));
+    const cap={h:'<strong>Healthy.</strong> The pancreas releases insulin. Insulin works like a key: it fits the locks on the body cell and opens the doors, and glucose moves out of the blood into the cell. The cell uses it for respiration, and the sugar level in the blood comes back down.',
+      t1:'<strong>Type 1.</strong> The pancreas makes no insulin, so no keys are sent. The doors stay locked. Glucose cannot get into the cell, so it piles up in the blood, even though the cell is short of fuel. An insulin injection gives the body the keys it cannot make for itself.',
+      t2:'<strong>Type 2.</strong> The pancreas still sends keys, but the locks have become stiff. The key fits badly and the door opens only a crack, so glucose gets in very slowly and builds up in the blood. Exercise and losing weight help the cells respond to insulin again.'};
+    $('#kCap').innerHTML=cap[m];this.paint(REDUCE?7000:0);},
+  start(){if(!this.raf&&!REDUCE){const f=t=>{this.paint((t-this.t0)%11000);this.raf=requestAnimationFrame(f);};this.raf=requestAnimationFrame(f);}},
+  stop(){cancelAnimationFrame(this.raf);this.raf=0;},
+  build(){const g=$('#kSvg');g.innerHTML='';const R=this.ref;
+    sv('rect',{x:0,y:0,width:300,height:250,rx:16,fill:'var(--blood-soft)'},g);
+    const t=(x,y,str,cls,anchor,fill)=>{const e=sv('text',{x:x,y:y,'class':cls||'lbl','text-anchor':anchor||'start'},g);if(fill)e.setAttribute('style','fill:'+fill);e.textContent=str;return e;};
+    t(14,240,'BLOOD','lbl-s');
+    R.panc=sv('path',{d:'M14 40 C 18 18, 70 12, 100 22 C 124 30, 134 28, 138 38 C 140 52, 120 58, 92 56 C 62 54, 26 64, 16 54 Z',fill:'var(--warn-soft)',stroke:'var(--warn)','stroke-width':2},g);
+    t(40,44,'pancreas');
+    R.noIns=sv('g',{opacity:0},g);
+    const nt=sv('text',{x:20,y:80,'class':'lbl',style:'fill:var(--bad)'},R.noIns);nt.textContent='makes no insulin';
+    sv('path',{d:'M108 30 l18 18 M126 30 l-18 18',stroke:'var(--bad)','stroke-width':3,'stroke-linecap':'round'},R.noIns);
+    sv('rect',{x:304,y:16,width:228,height:218,rx:26,fill:'var(--surface-2)',stroke:'var(--ink)','stroke-width':2.5},g);
+    t(418,40,'BODY CELL','lbl','middle');
+    // membrane wall with two door gaps
+    R.doors=[];[[70,110],[150,190]].forEach(([y1,y2],i)=>{
+      const d=sv('rect',{x:298,y:y1,width:12,height:y2-y1,rx:2,fill:'var(--warn)'},g);
+      const lock=sv('circle',{cx:304,cy:(y1+y2)/2,r:4,fill:'var(--surface)',stroke:'var(--ink)','stroke-width':1.5},g);
+      R.doors.push({d:d,lock:lock,y1:y1,h:y2-y1,cy:(y1+y2)/2});});
+    t(304,62,'door','lbl-s','middle');t(304,142,'door','lbl-s','middle');
+    // keys
+    R.keys=[0,1].map(()=>{const kg=sv('g',{opacity:0},g);kg.setAttribute('data-k','1');sv('circle',{cx:0,cy:0,r:7,fill:'none',stroke:'var(--good)','stroke-width':3.5},kg);
+      sv('path',{d:'M7 0 H 24 M 18 0 v6 M 23 0 v5',stroke:'var(--good)','stroke-width':3.5,'stroke-linecap':'round',fill:'none'},kg);return kg;});
+    R.keyLbl=t(150,30,'insulin (key)','lbl','start','var(--good)');
+    // glucose
+    const out=[];for(let i=0;i<20;i++){const row=Math.floor(i/5),col=i%5;out.push([44+col*42+(row%2)*16,96+row*36]);}
+    const inn=[];for(let i=0;i<12;i++){inn.push([346+(i%4)*40,78+Math.floor(i/4)*44]);}
+    R.out=out;R.inn=inn;
+    R.dots=[];for(let i=0;i<20;i++)R.dots.push(sv('circle',{r:8,fill:'var(--sugar)',stroke:'var(--ink)','stroke-width':1},g));
+    t(150,240,'gold dots = glucose','lbl-s');
+  },
+  paint(t){const R=this.ref,m=this.mode;if(!R.dots)return;
+    const lerp=(a,b,k)=>a+(b-a)*k;const ease=k=>k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;const seg=(t,a,b)=>clamp((t-a)/(b-a),0,1);
+    const fade=seg(t,10300,10900);const fin=seg(t,0,400);const vis=(1-fade)*fin+(t<400?0:0);
+    R.noIns.setAttribute('opacity',m==='t1'?1:0);R.panc.setAttribute('opacity',m==='t1'?0.45:1);
+    R.keyLbl.setAttribute('opacity',m==='t1'?0:1);
+    // keys
+    const doorY=[90,170];
+    R.keys.forEach((k,i)=>{if(m==='t1'){k.setAttribute('opacity',0);return;}
+      const mv=ease(seg(t,600+i*300,3000+i*300));const x=lerp(100,268,mv),y=lerp(48,doorY[i],mv);
+      let rot=0;if(m==='h')rot=90*ease(seg(t,3300,3900));else rot=t>3300&&t<6500?24*Math.sin((t-3300)/160):0;
+      k.setAttribute('transform','translate('+x.toFixed(1)+' '+y.toFixed(1)+') rotate('+rot.toFixed(1)+') scale(1.3)');k.setAttribute('opacity',(seg(t,500,800)*(1-fade)).toFixed(2));});
+    // doors
+    let open=0;if(m==='h')open=ease(seg(t,3900,4600));else if(m==='t2')open=0.22*ease(seg(t,4300,5200));
+    R.doors.forEach(d=>{d.d.setAttribute('height',(d.h*(1-open)).toFixed(1));d.lock.setAttribute('opacity',open>0.5?0:1);});
+    // glucose
+    const enter=m==='h'?[0,1,2,3,4,5,6,7,8,9]:m==='t2'?[2,9]:[];
+    const extra=m==='t1'?6:m==='t2'?3:0;
+    R.dots.forEach((el,i)=>{
+      let x,y,o=1;const base=R.out[i%20];
+      if(i>=14){const j=i-14;if(j>=extra){el.setAttribute('opacity',0);return;}
+        const k=ease(seg(t,900+j*1400,2300+j*1400));x=lerp(-10,base[0],k);y=base[1];o=seg(t,900+j*1400,1200+j*1400);}
+      else{x=base[0];y=base[1];const ei=enter.indexOf(i);
+        if(ei>-1){const slow=m==='t2'?1.7:1;const st=m==='t2'?5200+ei*2300:4700+ei*480;const dy=doorY[i%2];
+          const k1=ease(seg(t,st,st+700*slow)),k2=ease(seg(t,st+700*slow,st+1400*slow));
+          const tgt=R.inn[ei%12];
+          if(k2>0){x=lerp(300,tgt[0],k2);y=lerp(dy,tgt[1],k2);}else{x=lerp(base[0],292,k1);y=lerp(base[1],dy,k1);}}
+        else if(m==='t1'&&(i===3||i===10)){const dy=doorY[i===3?0:1];const k=Math.sin(Math.PI*seg(t,2400+(i===10?1600:0),4400+(i===10?1600:0)));x=lerp(base[0],286,k);y=lerp(base[1],dy,k);}}
+      el.setAttribute('cx',x.toFixed(1));el.setAttribute('cy',y.toFixed(1));el.setAttribute('opacity',(o*(1-fade)+fade*0).toFixed(2));});
+  }
+};
+K.build();
+$$('#kMode button').forEach(b=>b.addEventListener('click',()=>{K.setMode(b.dataset.k);}));
+K.setMode('h');
+
+/* years of high sugar */
+const Y={years:0,ctl:false};
+const ORG=[
+ {at:0.25,n:'Feet',d:'Nerves in the feet lose their blood supply. First tingling, then numbness. A cut or a blister is no longer felt.'},
+ {at:0.4,n:'Eyes',d:'Tiny vessels at the back of the eye (the retina) leak and bleed. Sight becomes blurred, and this can end in blindness.'},
+ {at:0.5,n:'Kidneys',d:'Each glomerulus is a knot of tiny capillaries. Once damaged, they leak protein into the urine and filter less blood.'},
+ {at:0.7,n:'Heart and brain',d:'Narrow, stiff arteries make the heart pump harder (high blood pressure). A blocked artery causes a heart attack or a stroke.'},
+ {at:0.9,n:'Kidney failure and amputation',d:'The kidneys stop filtering and the person needs dialysis. A foot wound with poor blood supply does not heal, infection spreads, and the foot may have to be removed.'}
+];
+function yDraw(){
+  const dmg=Y.ctl?Y.years*0.012:Y.years/20;
+  $('#yOut').textContent=Y.years+(Y.years===1?' year':' years');$('#yYears').value=Y.years;
+  $$('#yCtl button').forEach(b=>b.setAttribute('aria-pressed',(b.dataset.ctl==='1')===Y.ctl?'true':'false'));
+  const g=$('#ySvg');g.innerHTML='';const cx=130,cy=128;
+  sv('circle',{cx:cx,cy:cy,r:112,fill:'var(--blood-soft)',stroke:'var(--muscle)','stroke-width':3},g);
+  sv('circle',{cx:cx,cy:cy,r:80,fill:'var(--warn-soft)'},g);
+  const lr=80-dmg*38;
+  sv('circle',{cx:cx,cy:cy,r:lr,fill:'var(--blood)',opacity:.9},g);
+  const nS=Math.round(dmg*44);
+  for(let i=0;i<nS;i++){const a=i/nS*Math.PI*2+0.3;sv('circle',{cx:(cx+(lr+5)*Math.cos(a)).toFixed(1),cy:(cy+(lr+5)*Math.sin(a)).toFixed(1),r:3.4,fill:'var(--sugar)'},g);}
+  const nC=Math.max(1,Math.round(8*(lr/80)*(lr/80)));
+  for(let i=0;i<nC;i++){const a=i/nC*Math.PI*2;const rr=nC>1?lr*0.5:0;sv('ellipse',{cx:(cx+rr*Math.cos(a)).toFixed(1),cy:(cy+rr*Math.sin(a)).toFixed(1),rx:9,ry:6,fill:'var(--blood-soft)',opacity:.85},g);}
+  const t1=sv('text',{x:cx,y:cy-lr-8>32?cy-lr-8:30,'text-anchor':'middle','class':'lbl-s'},g);t1.textContent=nS?'sugar stuck to the wall':'smooth lining';
+  const t2=sv('text',{x:cx,y:252,'text-anchor':'middle','class':'lbl-s'},g);t2.textContent='vessel wall';
+  const pct=Math.round(lr*lr/6400*100);
+  $('#ySpace').innerHTML='Space inside the vessel: <strong>'+pct+'% of normal</strong>.'+(pct<60?' The heart must push harder to drive blood through.':'');
+  $('#yOrgans').innerHTML=ORG.map(o=>{const hit=dmg>=o.at;return '<li class="'+(hit?'hit':'')+'"><span class="st pill '+(hit?'bad':'good')+'">'+(hit?'Damaged':'OK')+'</span><b>'+o.n+'</b><span class="desc">'+(hit?o.d:'Not affected yet.')+'</span></li>';}).join('');
+  if(Y.years>=15){if(Y.ctl)S.f.yLo=true;else S.f.yHi=true;save();}
+  if(S.f.yLo&&S.f.yHi)complete('mg4');
+}
+$('#yYears').addEventListener('input',e=>{Y.years=+e.target.value;yDraw();});
+$$('#yCtl button').forEach(b=>b.addEventListener('click',()=>{Y.ctl=b.dataset.ctl==='1';yDraw();}));
+
+/* =====================================================
+   NEPHRON EXPLORER
+   ===================================================== */
+const TUB='M180 225 C 205 195, 225 255, 250 225 S 295 195, 320 225 L 320 375 C 320 405, 370 405, 370 375 L 370 255 C 385 230, 410 275, 435 250 S 480 230, 540 252 L 540 430';
+const NST='<g>'+
+ '<path d="M20 110 L 112 196" stroke="var(--blood)" stroke-width="18" stroke-linecap="round" fill="none"/>'+
+ '<path id="nEff" d="M148 196 L 200 150 L 610 150" stroke="var(--blood)" stroke-width="8" fill="none" stroke-linejoin="round"/>'+
+ '<path d="M580 150 L 580 420" stroke="var(--blood)" stroke-width="7" fill="none"/>'+
+ '<circle cx="130" cy="225" r="54" fill="var(--filtrate)"/>'+
+ '<path d="M161 180.8 A54 54 0 0 1 182.8 213.8" stroke="var(--tubule)" stroke-width="7" fill="none" stroke-linecap="round"/>'+
+ '<path d="M182.8 236.2 A54 54 0 1 1 99 180.8" stroke="var(--tubule)" stroke-width="7" fill="none" stroke-linecap="round"/>'+
+ '<g stroke="var(--blood)" stroke-width="4" fill="var(--blood-soft)"><circle cx="120" cy="217" r="11"/><circle cx="140" cy="215" r="11"/><circle cx="116" cy="233" r="11"/><circle cx="136" cy="235" r="11"/><circle cx="146" cy="229" r="10"/><circle cx="130" cy="223" r="9"/></g>'+
+ '<path d="M540 120 L 540 252" stroke="var(--tubule)" stroke-width="26" fill="none" stroke-linecap="round"/>'+
+ '<path id="nTubWall" d="'+TUB+'" stroke="var(--tubule)" stroke-width="26" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'+
+ '<path d="M540 120 L 540 252" stroke="var(--filtrate)" stroke-width="17" fill="none" stroke-linecap="round"/>'+
+ '<path id="nTub" d="'+TUB+'" stroke="var(--filtrate)" stroke-width="17" fill="none" stroke-linecap="round" stroke-linejoin="round"/>'+
+ '<rect x="470" y="440" width="150" height="34" rx="8" fill="var(--sugar-soft)" stroke="var(--sugar)" stroke-width="2"/>'+
+ '<text x="462" y="461" text-anchor="end" class="lbl">urine → to the bladder</text>'+
+ '<text x="16" y="92" class="lbl">wide arteriole: blood in</text>'+
+ '<text x="206" y="140" class="lbl">narrower arteriole: blood out</text>'+
+ '<text x="412" y="140" class="lbl-s">capillary: back to the blood →</text>'+
+ '<text x="588" y="300" class="lbl-s" transform="rotate(90 588 300)">capillary</text>'+
+ '<text x="20" y="306" class="lbl">Bowman\'s capsule</text><path d="M86 296 L 98 270" class="lead"/>'+
+ '<text x="20" y="336" class="lbl">glomerulus</text><path d="M70 326 L 116 240" class="lead"/>'+
+ '<text x="250" y="284" text-anchor="middle" class="lbl">proximal tubule</text>'+
+ '<text x="345" y="428" text-anchor="middle" class="lbl">loop of Henle</text>'+
+ '<text x="455" y="218" text-anchor="middle" class="lbl">distal tubule</text>'+
+ '<text x="526" y="340" text-anchor="end" class="lbl">collecting duct</text>'+
+ '<text x="526" y="114" text-anchor="end" class="lbl-s">from other nephrons</text>'+
+ '</g>';
+const NC={cell:['var(--blood)',10],protein:['var(--protein)',7.5],glucose:['var(--sugar)',5.8],salt:['var(--salt)',5],urea:['var(--urea)',5],water:['var(--water)',4.6]};
+const NNAME={cell:'Red blood cells',protein:'Proteins',glucose:'Glucose',salt:'Salt',urea:'Urea',water:'Water'};
+function nTally(){
+  const tb=$('#nTally');if(!tb)return;const ph=N.phase;const types=['cell','protein','glucose','salt','urea','water'];
+  const ps=N.parts;const cnt=f=>t=>ps.filter(p=>p.type===t&&f(p)).length;
+  const arrived=ps.length?cnt(()=>true):()=>null;
+  const cols=[
+    ['Arrived in the blood',ps.length?arrived:null,1],
+    ['Stayed in the blood (too big)',ph>=1?cnt(p=>p.big):null,1],
+    ['Filtered into the capsule',ph>=1?cnt(p=>!p.big):null,1],
+    ['Taken back into the blood',ph>=2?cnt(p=>p.re||(ph>=3&&p.re3)):null,ph>=3?3:2],
+    ['In the urine',ph>=3?cnt(p=>p.urine):null,3]];
+  let h='<thead><tr><th>Substance</th>'+cols.map(c=>'<th>'+c[0]+'</th>').join('')+'</tr></thead><tbody>';
+  types.forEach(t=>{h+='<tr><td><i class="sw" style="width:'+(NC[t][1]*2)+'px;height:'+(NC[t][1]*2)+'px;background:'+NC[t][0]+'"></i>'+NNAME[t]+'</td>';
+    cols.forEach(c=>{const v=c[1]?c[1](t):null;const isNew=v!=null&&c[2]===ph&&ph>0;h+='<td class="'+(v==null?'z':'')+(isNew?' new':'')+'">'+(v==null?'–':v)+'</td>';});h+='</tr>';});
+  tb.innerHTML=h+'</tbody>';
+}
+const N={phase:0,busy:false,high:false,adh:true,parts:[],raf:0};
+function nearestLen(path,x,y){const L=path.getTotalLength();let best=0,bd=1e9;for(let l=0;l<=L;l+=2){const p=path.getPointAtLength(l);const d=(p.x-x)*(p.x-x)+(p.y-y)*(p.y-y);if(d<bd){bd=d;best=l;}}return best;}
+function nBuild(){
+  const svg=$('#nSvg');svg.innerHTML=NST;N.layer=sv('g',{},svg);
+  N.tub=$('#nTub');N.eff=$('#nEff');
+  try{N.tubLen=N.tub.getTotalLength();N.effLen=N.eff.getTotalLength();N.proxEnd=nearestLen(N.tub,320,225);N.ductStart=nearestLen(N.tub,540,252);N.ok=true;}catch(e){N.ok=false;}
+}
+function nReset(){
+  cancelAnimationFrame(N.raf);N.busy=false;N.phase=0;N.parts=[];if(N.layer)N.layer.innerHTML='';
+  $('#nResult').innerHTML='';nUI();nTally();
+}
+function nUI(){
+  const b=$('#nStep');
+  const labels=['Run step 1: Filter','Run step 2: Take back','Run step 3: Collecting duct','Run it again'];
+  b.textContent=N.busy?['Filtering…','Taking back…','Collecting duct…'][N.phase]||'Running…':labels[N.phase];b.disabled=N.busy;
+  $$('#nSteps li').forEach(li=>{const s=+li.dataset.s;li.classList.toggle('done',s<=N.phase);li.classList.toggle('cur',s===N.phase+1&&N.phase<3);});
+  $$('#nGlu button').forEach(x=>x.setAttribute('aria-pressed',(x.dataset.g==='1')===N.high?'true':'false'));
+  $$('#nAdh button').forEach(x=>x.setAttribute('aria-pressed',(x.dataset.a==='1')===N.adh?'true':'false'));
+}
+function place(p){p.el.setAttribute('cx',p.x.toFixed(1));p.el.setAttribute('cy',p.y.toFixed(1));}
+function runLegs(list,done){
+  const SP=REDUCE?0.04:1.8;const t0=performance.now();
+  list.forEach(p=>{p.li=0;p.ls=t0+(p.delay||0)*SP;p.sx=p.x;p.sy=p.y;});
+  N.busy=true;nUI();
+  const frame=now=>{
+    let active=0;
+    for(const p of list){
+      if(p.li>=p.legs.length)continue;active++;
+      const leg=p.legs[p.li];
+      let k=(now-p.ls)/Math.max(1,leg.dur*SP);if(k<0)continue;if(k>1)k=1;
+      const e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
+      if(leg.up!=null&&!leg.to)leg.to=[p.x,leg.up];
+      if(leg.lazyX!=null&&!leg.to)leg.to=[leg.lazyX,p.y];
+      if(leg.to){p.x=p.sx+(leg.to[0]-p.sx)*e;p.y=p.sy+(leg.to[1]-p.sy)*e;}
+      else if(leg.path){const L=leg.from+(leg.toL-leg.from)*e;const pt=leg.path.getPointAtLength(L);p.x=pt.x+(p.jx||0);p.y=pt.y+(p.jy||0);p.len=L;}
+      if(leg.fade)p.el.setAttribute('opacity',(1-e).toFixed(2));
+      place(p);
+      if(k>=1){p.li++;p.ls=now;p.sx=p.x;p.sy=p.y;if(leg.fade)p.gone=true;}
+    }
+    if(active)N.raf=requestAnimationFrame(frame);else{N.busy=false;done&&done();nUI();}
+  };
+  N.raf=requestAnimationFrame(frame);
+}
+function nPhase1(){
+  N.layer.innerHTML='';N.parts=[];
+  const add=(t,n)=>{for(let i=0;i<n;i++)N.parts.push({type:t});};
+  add('cell',3);add('protein',3);add('glucose',N.high?8:3);add('salt',4);add('urea',4);add('water',10);
+  for(let i=N.parts.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));const t=N.parts[i];N.parts[i]=N.parts[j];N.parts[j]=t;}
+  N.parts.forEach((p,i)=>{
+    p.big=(p.type==='cell'||p.type==='protein');
+    p.x=20+rnd(-4,4);p.y=110+rnd(-4,4);
+    p.el=sv('circle',{r:NC[p.type][1],fill:NC[p.type][0],stroke:'var(--surface)','stroke-width':1},N.layer);place(p);
+    p.delay=i*85;
+    const knot=[130+rnd(-16,16),225+rnd(-14,14)];
+    p.legs=[{to:[112+rnd(-5,5),194+rnd(-4,4)],dur:800},{to:knot,dur:500}];
+    if(p.big){p.legs.push({to:knot,dur:500},{to:[150,195],dur:500},{path:N.eff,from:0,toL:N.effLen,dur:2300},{to:[628,150],dur:300,fade:true});}
+    else{const a=rnd(-10,200)*Math.PI/180,r=rnd(38,47);p.legs.push({to:[130+r*Math.cos(a),225+r*Math.sin(a)],dur:700});}
+  });
+  nTally();
+  runLegs(N.parts,()=>{N.phase=1;nTally();
+    $('#nResult').innerHTML='<strong>Step 1 done.</strong> Look inside the Bowman\'s capsule: water, glucose, salt and urea were pushed in. Together they make the <strong>filtrate</strong>. The red blood cells and proteins were too big for the holes, so they stayed in the blood and left through the narrower arteriole. Check the table below.';});
+}
+function nPhase2(){
+  const sm=N.parts.filter(p=>!p.big&&!p.gone);
+  const byType=t=>sm.filter(p=>p.type===t);
+  const gl=byType('glucose'),wa=byType('water'),sa=byType('salt'),ur=byType('urea');
+  const gBack=N.high?4:gl.length;const gLeft=gl.length-gBack;
+  gl.forEach((p,i)=>p.re=i<gBack);
+  const wBack=N.high?4:6;wa.forEach((p,i)=>{p.re=i<wBack;p.held=!p.re&&(i-wBack)<gLeft;});
+  sa.forEach((p,i)=>p.re=i<3);ur.forEach((p,i)=>p.re=i<1);
+  let q=0;
+  sm.forEach((p,i)=>{
+    p.jx=rnd(-3,3);p.jy=rnd(-3,3);p.delay=i*110;
+    const st=N.tub.getPointAtLength(0);
+    if(p.re){const L=rnd(25,N.proxEnd-8);p.legs=[{to:[st.x+p.jx,st.y+p.jy],dur:500},{path:N.tub,from:0,toL:L,dur:400+L*7},{up:150,dur:550},{to:[600,150],dur:1500},{to:[626,150],dur:300,fade:true}];}
+    else{const L=N.ductStart-q*6;q++;p.legs=[{to:[st.x+p.jx,st.y+p.jy],dur:500},{path:N.tub,from:0,toL:L,dur:600+L*5}];}
+  });
+  runLegs(sm,()=>{N.phase=2;nTally();
+    if(N.high&&!S.m.mw2)complete('mw2');
+    $('#nResult').innerHTML=N.high?'<strong>Step 2 done.</strong> The carriers could take back only 4 of the 8 glucose. The other 4 are left in the tubule, and because sugar pulls water, they keep water in the tubule with them. Less water was taken back than normal.':'<strong>Step 2 done.</strong> Taken back into the blood: all the glucose, most of the salt, most of the water and a little urea. Still in the tubule: mostly urea, with some salt and water. Now choose how much ADH there is, and run step 3.';});
+}
+function nPhase3(){
+  const rest=N.parts.filter(p=>!p.big&&!p.gone);
+  const freeW=rest.filter(p=>p.type==='water'&&!p.held);
+  const wRe=N.adh?Math.max(0,freeW.length-1):0;
+  freeW.forEach((p,i)=>p.re3=i<wRe);
+  let slot=0;
+  rest.forEach((p,i)=>{
+    p.delay=i*120;
+    const from=p.len||N.ductStart;
+    if(p.re3){const L=rnd(N.ductStart+30,N.tubLen-60);p.legs=[{path:N.tub,from:from,toL:L,dur:500+(L-from)*6},{lazyX:580,dur:450},{up:150,dur:900},{to:[600,150],dur:300},{to:[626,150],dur:300,fade:true}];}
+    else{const k=slot++;const tx=482+(k%13)*10,ty=451+Math.floor(k/13)*12;p.legs=[{path:N.tub,from:from,toL:N.tubLen,dur:700+(N.tubLen-from)*6},{to:[tx,ty],dur:500}];p.urine=true;}
+  });
+  runLegs(rest,()=>{N.phase=3;nTally();
+    const u=rest.filter(p=>p.urine);const c=t=>u.filter(p=>p.type===t).length;
+    let msg='<strong>In the urine:</strong> '+c('urea')+' urea, '+c('salt')+' salt, '+c('water')+' water'+(c('glucose')?', <strong>'+c('glucose')+' glucose</strong>':'')+'. ';
+    if(N.high)msg+=N.adh?'Even with lots of ADH, the water held by the glucose could not be taken back. The urine contains sugar and extra water. This is why uncontrolled diabetes causes so much urination and thirst.':'Little ADH, plus water held by the glucose: a large amount of sweet, dilute urine. The body is losing water fast.';
+    else msg+=N.adh?'With lots of ADH, the duct walls let almost all the remaining water back into the blood. A small amount of concentrated urine: the body saved its water.':'With little ADH, the duct walls stayed watertight. The water flowed on, making a larger amount of dilute, pale urine.';
+    $('#nResult').innerHTML=msg;complete('mw1');if(N.high)complete('mw2');});
+}
+$('#nStep').addEventListener('click',()=>{
+  if(N.busy)return;
+  if(!N.ok){$('#nResult').textContent='This animation needs a newer browser. Read the three steps beside it instead.';return;}
+  if(N.phase===3){nReset();}
+  if(N.phase===0)nPhase1();else if(N.phase===1)nPhase2();else if(N.phase===2)nPhase3();
+});
+$('#nReplay').addEventListener('click',nReset);
+$$('#nGlu button').forEach(b=>b.addEventListener('click',()=>{N.high=b.dataset.g==='1';nReset();}));
+$$('#nAdh button').forEach(b=>b.addEventListener('click',()=>{N.adh=b.dataset.a==='1';if(N.phase>=3||N.busy&&N.phase===2)nReset();else nUI();}));
+
+/* =====================================================
+   BODY WATER (ADH)
+   ===================================================== */
+const W={c:100,adh:0.6,drink:0,salt:0,sweat:0,sugar:false,uh:[14,14,14,14,14,14],timer:null,raf:0,paused:false,ph:0,ref:{},
+  tick(){
+    if(this.drink>0){const d=Math.min(this.drink,1.8);this.c-=d;this.drink-=d;}
+    if(this.salt>0){const d=Math.min(this.salt,1.4);this.c+=d;this.salt-=d;}
+    if(this.sweat>0){this.c+=0.8;this.sweat--;}
+    const tgt=clamp((this.c-90)/17,0,1);this.adh+=(tgt-this.adh)*0.35;
+    const urine=4+140*Math.pow(1-this.adh,3)+(this.sugar?28:0);this.urine=urine;
+    this.c+=urine*0.008+0.03;this.c=clamp(this.c,84,121);
+    this.uh.push(urine);if(this.uh.length>6)this.uh.shift();
+  },
+  start(){if(!this.timer&&!this.paused)this.timer=setInterval(()=>{this.tick();wDraw();},850);if(!this.raf&&!REDUCE)this.raf=requestAnimationFrame(wAnim);},
+  stop(){clearInterval(this.timer);this.timer=null;cancelAnimationFrame(this.raf);this.raf=0;}
+};
+function lerpHex(a,b,t){const pa=[1,3,5].map(i=>parseInt(a.substr(i,2),16)),pb=[1,3,5].map(i=>parseInt(b.substr(i,2),16));return 'rgb('+pa.map((v,i)=>Math.round(v+(pb[i]-v)*t)).join(',')+')';}
+function wBuild(){
+  const g=$('#wSvg');g.innerHTML='';const R=W.ref;
+  const txt=(x,y,t,cls,anchor,fill)=>{const e=sv('text',{x:x,y:y,'class':cls||'lbl','text-anchor':anchor||'start'},g);if(fill)e.setAttribute('style','fill:'+fill);e.textContent=t;return e;};
+  sv('path',{d:'M30 70 C 20 30, 70 10, 105 18 C 140 8, 185 30, 178 62 C 182 84, 150 96, 120 90 C 100 96, 70 98, 52 90 C 36 88, 30 80, 30 70 Z',fill:'var(--surface-2)',stroke:'var(--ink)','stroke-width':1.8},g);
+  txt(70,46,'brain','lbl-s');
+  sv('circle',{cx:108,cy:72,r:6,fill:'var(--accent)'},g);
+  sv('circle',{cx:112,cy:96,r:7,fill:'var(--water)'},g);
+  txt(122,76,'hypothalamus','lbl-s');
+  txt(124,104,'pituitary','lbl-s');
+  txt(10,130,'ADH travels in','lbl-s');txt(10,145,'the blood →','lbl-s');
+  R.thirst=sv('g',{opacity:0},g);
+  sv('rect',{x:10,y:170,width:74,height:26,rx:13,fill:'var(--warn-soft)',stroke:'var(--warn)','stroke-width':1.5},R.thirst);
+  const tt=sv('text',{x:47,y:188,'text-anchor':'middle','class':'lbl',style:'fill:var(--warn)'},R.thirst);tt.textContent='Thirsty!';
+  R.route=sv('path',{d:'M112 103 C 130 190, 240 20, 330 40',fill:'none',stroke:'var(--blood)','stroke-width':3,opacity:.45,'stroke-dasharray':'4 4'},g);
+  R.adhDots=[];for(let i=0;i<7;i++)R.adhDots.push(sv('circle',{r:4.5,fill:'var(--water)',stroke:'var(--surface)','stroke-width':1.5,opacity:0},g));
+  // duct
+  sv('rect',{x:270,y:36,width:30,height:172,fill:'var(--filtrate)'},g);
+  sv('line',{x1:270,y1:36,x2:270,y2:208,stroke:'var(--tubule)','stroke-width':6},g);
+  sv('line',{x1:300,y1:36,x2:300,y2:208,stroke:'var(--tubule)','stroke-width':6},g);
+  txt(264,30,'duct','lbl-s','end');
+  sv('line',{x1:340,y1:36,x2:340,y2:200,stroke:'var(--blood)','stroke-width':8,'stroke-linecap':'round'},g);
+  txt(346,32,'blood','lbl-s');
+  R.doors=[];R.flows=[];
+  [56,86,116,146,176].forEach(y=>{R.doors.push(sv('rect',{x:296,y:y-6,width:8,height:12,rx:2,fill:'var(--line)'},g));
+    R.flows.push(sv('path',{d:'M306 '+y+' H 330 m-6 -5 l6 5 -6 5',stroke:'var(--water)','stroke-width':2.5,fill:'none','stroke-linecap':'round',opacity:0},g));});
+
+  R.pipe=sv('path',{d:'M285 208 V 248 H 372',fill:'none',stroke:'#E4D27A','stroke-width':6,'stroke-linejoin':'round'},g);
+  sv('rect',{x:372,y:140,width:56,height:112,rx:8,fill:'var(--surface)',stroke:'var(--ink)','stroke-width':1.8},g);
+  R.jar=sv('rect',{x:375,y:250,width:50,height:0,rx:5,fill:'#E4D27A'},g);
+  txt(400,134,'urine','lbl-s','middle');
+}
+function wAnim(t){
+  const R=W.ref;if(!R.route){W.raf=0;return;}
+  W.ph=(t/2600)%1;const L=R.route.getTotalLength?R.route.getTotalLength():0;
+  const vis=Math.round(W.adh*7);
+  R.adhDots.forEach((d,i)=>{if(!L||i>=vis){d.setAttribute('opacity',0);return;}const f=(i/7+W.ph)%1;const p=R.route.getPointAtLength(f*L);d.setAttribute('cx',p.x.toFixed(1));d.setAttribute('cy',p.y.toFixed(1));d.setAttribute('opacity',(f<0.08?f/0.08:f>0.92?(1-f)/0.08:1).toFixed(2));});
+  W.raf=requestAnimationFrame(wAnim);
+}
+function wDraw(){
+  const R=W.ref,c=W.c,adh=W.adh;
+  const thirst=c>104;
+  $('#wMark').style.left=clamp((c-85)/35*100,0,100)+'%';
+  let pill,cls,word;
+  if(c<95){pill='Too dilute';cls='cold';word='too dilute';}else if(c<=104){pill='Just right';cls='good';word='just right';}else if(c<=110){pill='Dehydrated: thirsty';cls='warn';word='too concentrated';}else{pill='Badly dehydrated';cls='bad';word='far too concentrated';}
+  const st=$('#wStatus');st.textContent=pill;st.className='pill '+cls;$('#wConcV').textContent=word;
+  $('#wAdhB').style.width=(adh*100)+'%';$('#wAdhV').textContent=adh>0.7?'high':adh>0.35?'medium':'low';
+  const uh=W.uh.reduce((a,b)=>a+b,0);
+  $('#wUrB').style.width=clamp(uh/10,0,100)+'%';$('#wUrV').textContent=Math.round(uh)+' mL';
+  let tcol=clamp((adh-0.15)/0.8,0,1);if(W.sugar)tcol*=0.55;
+  const col=lerpHex('#F3EEBC','#B8730F',tcol);
+  R.jar.setAttribute('fill',col);const jh=clamp(uh/900,0.02,1)*104;R.jar.setAttribute('y',(250-jh).toFixed(1));R.jar.setAttribute('height',jh.toFixed(1));
+  R.pipe.setAttribute('stroke',col);R.pipe.setAttribute('stroke-width',(2+clamp(W.urine/150,0,1)*10).toFixed(1));
+  const open=Math.round(adh*5);
+  R.doors.forEach((d,i)=>d.setAttribute('fill',i<open?'var(--water)':'var(--line)'));
+  R.flows.forEach((f,i)=>{f.setAttribute('opacity',i<open?1:0);f.classList.toggle('flowing',i<open&&!REDUCE);});
+  R.thirst.setAttribute('opacity',thirst?1:0);
+  if(REDUCE){const vis=Math.round(adh*7);const L=R.route.getTotalLength();R.adhDots.forEach((d,i)=>{const p=R.route.getPointAtLength((i+0.5)/7*L);d.setAttribute('cx',p.x);d.setAttribute('cy',p.y);d.setAttribute('opacity',i<vis?1:0);});}
+  const cword=tcol>0.65?'Dark and concentrated':tcol>0.3?'Straw coloured':'Pale and dilute';
+  const rows=[
+    ['Thirst',thirst?'Yes':'No',thirst?'The hypothalamus has detected concentrated blood and makes you want to drink. The kidneys can save water, but only drinking replaces it.':'The blood is not too concentrated, so there is no urge to drink.',thirst],
+    ['Collecting duct walls',adh>0.7?'Letting a lot of water back':adh>0.35?'Letting some water back':'Mostly watertight',adh>0.7?'Lots of ADH: most of the water in the duct returns to the blood.':adh>0.35?'A moderate amount of ADH.':'Little ADH: the water flows on and leaves as urine.',adh>0.7],
+    ['Urine','<span style="display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-2px;margin-right:6px;background:'+col+';border:1px solid var(--line)"></span>'+cword,W.sugar?'It also contains sugar, which holds extra water in the urine no matter how much ADH there is.':'',W.sugar]
+  ];
+  $('#wReads').innerHTML=rows.map(x=>'<div class="read'+(x[3]?' on':'')+'"><span class="k">'+x[0]+'</span><span class="v">'+x[1]+'</span>'+(x[2]?'<span class="because">'+x[2]+'</span>':'')+'</div>').join('');
+  if(adh<0.12)complete('mw3');
+  if(thirst){S.f.thirsty=true;S.f.drankAfter=false;save();}
+  if(S.f.thirsty&&S.f.drankAfter&&c>=95&&c<=104)complete('mw4');
+}
+$$('#wPanel [data-wev]').forEach(b=>b.addEventListener('click',()=>{const ev=b.dataset.wev;
+  if(ev==='drink'){W.drink+=5;if(S.f.thirsty){S.f.drankAfter=true;save();}}
+  if(ev==='salt')W.salt+=4;if(ev==='ball')W.sweat+=6;flash(b);
+  if(W.paused){W.tick();wDraw();}}));
+$('#wSugar').addEventListener('change',e=>{W.sugar=e.target.checked;wDraw();});
+$('#wPause').addEventListener('click',e=>{W.paused=!W.paused;e.currentTarget.textContent=W.paused?'Play':'Pause';if(W.paused){clearInterval(W.timer);W.timer=null;}else W.start();});
+$('#wRestart').addEventListener('click',()=>{Object.assign(W,{c:100,adh:0.6,drink:0,salt:0,sweat:0,uh:[14,14,14,14,14,14]});W.sugar=false;$('#wSugar').checked=false;W.tick();wDraw();});
+
+/* =====================================================
+   CERTIFICATE + resets
+   ===================================================== */
+function hash(str){let h1=5381;for(let i=0;i<str.length;i++)h1=((h1<<5)+h1+str.charCodeAt(i))>>>0;return h1.toString(36).toUpperCase().slice(-4).padStart(4,'0');}
+const STAR='<svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z" fill="currentColor"/></svg>';
+const STAR0='<svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z" fill="none" stroke="var(--line)" stroke-width="1.8"/></svg>';
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function renderCert(){
+  const el=$('#cert');if(!el)return;
+  const p=total(),pct=Math.round(p/MAX*100),stars=pct>=85?3:pct>=60?2:pct>=30?1:0;
+  const nq=ALLQ.filter(q=>S.q[q.id]&&S.q[q.id].ok).length,nm=MISSIONS.filter(m=>S.m[m.id]).length;
+  const name=(S.name||'').trim();
+  const now=new Date();let when;try{when=now.toLocaleString('en-GB',{weekday:'short',day:'numeric',month:'short',hour:'numeric',minute:'2-digit'});}catch(e){when=now.toString().slice(0,21);}
+  const day=now.getFullYear()+'-'+(now.getMonth()+1)+'-'+now.getDate();
+  el.innerHTML='<span class="eyebrow">HSB extra lesson · Homeostasis</span>'+
+   '<div class="who">'+(name?esc(name):'<span class="muted">Type your name on the Start page</span>')+'</div>'+
+   '<div class="stars" aria-label="'+stars+' of 3 stars">'+STAR.repeat(stars)+STAR0.repeat(3-stars)+'</div>'+
+   '<div class="grid"><div class="cell"><div class="k">Points</div><div class="v">'+p+' / '+MAX+'</div></div>'+
+   '<div class="cell"><div class="k">Questions right</div><div class="v">'+nq+' / '+ALLQ.length+'</div></div>'+
+   '<div class="cell"><div class="k">Missions</div><div class="v">'+nm+' / '+MISSIONS.length+'</div></div></div>'+
+   '<div class="bdg">'+SECS.map(s=>'<span class="'+(secDone(s)?'on':'')+'">'+(secDone(s)?'✓ ':'')+SECNAME[s]+'</span>').join('')+'</div>'+
+   ((S.refl||'').trim()?'<div class="refl"><span class="k">In my own words</span>'+esc(S.refl.trim())+'</div>':'<div class="refl muted"><span class="k">In my own words</span>Write your paragraph in the box above.</div>')+
+   '<div class="small muted">'+esc(when)+' · check code '+hash((name.toLowerCase())+'|'+p+'|'+day)+'</div>';
+  updateSend(name,p,nq,nm,when,hash((name.toLowerCase())+'|'+p+'|'+day));
+}
+const TEACHER='a.legall@cuc.edu.tt';
+var SENDTXT='';
+function wc(t){return (t.trim().match(/\S+/g)||[]).length;}
+function updateSend(name,p,nq,nm,when,code){
+  const w=wc(S.refl||'');const rc=$('#reflCount');if(rc)rc.textContent=w+(w===1?' word':' words')+(w<25?' (write at least 25)':' ✓');
+  const need=[];if(!name)need.push('type your name on the Start page');if(w<25)need.push('write at least 25 words in the box above');
+  const done=SECS.filter(secDone).map(s=>SECNAME[s]);
+  SENDTXT='HSB extra lesson: Homeostasis (The Steady Body)\n'+
+    'Name: '+(name||'(no name)')+'\n'+
+    'Points: '+p+' / '+MAX+'\n'+
+    'Questions right: '+nq+' / '+ALLQ.length+'\n'+
+    'Missions: '+nm+' / '+MISSIONS.length+'\n'+
+    'Sections completed: '+(done.length?done.join(', '):'none yet')+'\n'+
+    'Date: '+when+'\nCheck code: '+code+'\n\n'+
+    'In my own words:\n'+((S.refl||'').trim()||'(not written)');
+  const subj='HSB Homeostasis: '+(name||'student')+' ('+p+' / '+MAX+')';
+  const a=$('#sendMail');if(!a)return;
+  a.href='mailto:'+TEACHER+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(SENDTXT);
+  const ok=need.length===0;a.setAttribute('aria-disabled',ok?'false':'true');
+  $('#sendNeed').innerHTML=ok?'Everything is ready. Check your card, then send it.':'Before you send: '+need.join(' and ')+'.';
+}
+$('#sendCopy').addEventListener('click',()=>{renderCert();
+  const done=()=>toast('Copied. Paste it into your email or message.');
+  try{navigator.clipboard.writeText(SENDTXT).then(done,()=>fallbackCopy());}catch(e){fallbackCopy();}
+  function fallbackCopy(){const ta=document.createElement('textarea');ta.value=SENDTXT;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();
+    let ok=false;try{ok=document.execCommand('copy');}catch(e){}ta.remove();toast(ok?'Copied. Paste it into your email or message.':'Could not copy. Take a screenshot of your card instead.');}});
+const reflIn=$('#reflIn');reflIn.value=S.refl||'';
+let reflT;reflIn.addEventListener('input',()=>{S.refl=reflIn.value;save();clearTimeout(reflT);reflT=setTimeout(renderCert,250);});
+function resetSim(sec){
+  if(sec==='start'){$('#acReset').click();}
+  if(sec==='temp'){Object.assign(TS,{env:26,act:'rest',humid:false,sweatOn:true});tRender();}
+  if(sec==='sugar'){G.s=gFresh('h');G.restart(true);gDraw();Y.years=0;Y.ctl=false;delete S.f.yLo;delete S.f.yHi;yDraw();}
+  if(sec==='water'){nReset();$('#wRestart').click();delete S.f.thirsty;delete S.f.drankAfter;}
+}
+function resetStation(sec){
+  QUIZ[sec].forEach(q=>delete S.q[q.id]);MISSIONS.filter(m=>m.sec===sec).forEach(m=>delete S.m[m.id]);
+  save();resetSim(sec);
+  QUIZ[sec].forEach(q=>delete S.q[q.id]);MISSIONS.filter(m=>m.sec===sec).forEach(m=>delete S.m[m.id]);
+  if(S.f.pred)for(const k in PREDSEC)if(PREDSEC[k]===sec)delete S.f.pred[k];save();
+  $$('.think[data-pred]').forEach(renderPred);
+  renderQuiz(sec);renderMissions(sec);updateScore();toast('Section reset. Start again whenever you are ready.');
+}
+$$('[data-reset]').forEach(b=>b.addEventListener('click',()=>armed(b,()=>resetStation(b.dataset.reset))));
+$('#startOver').addEventListener('click',e=>armed(e.currentTarget,()=>{
+  S.q={};S.m={};S.f={};S.refl='';$('#reflIn').value='';save();['start','temp','sugar','water'].forEach(resetSim);S.q={};S.m={};S.f={};save();$$('.think[data-pred]').forEach(renderPred);
+  SECS.forEach(s=>{renderQuiz(s);renderMissions(s);});prevDone=null;updateScore();show('start');toast('Everything cleared. Good luck!');}));
+
+/* ---------- init ---------- */
+$('#ptsMax').textContent=MAX;
+const ni=$('#nameIn');ni.value=S.name||'';ni.addEventListener('input',()=>{S.name=ni.value;save();renderCert();});
+SECS.forEach(s=>{renderQuiz(s);renderMissions(s);});
+AC.draw();
+tRender();
+G.restart(true);gBuildMap();gDraw();
+yDraw();
+nBuild();nUI();nTally();
+wBuild();W.tick();wDraw();
+updateScore();
+show(S.sec,false);
+})();
+</script>
+</body>
+</html>
